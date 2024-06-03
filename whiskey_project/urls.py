@@ -1,22 +1,20 @@
-"""
-URL configuration for whiskey_project project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 from django.contrib import admin
 from django.urls import path
 
+from hielander_whiskey_app.views.login import login_page
+from hielander_whiskey_app.views.dashboard import dashboard_page
+from hielander_whiskey_app.views.masterclass_reservering import masterclass_reservering_page
+from hielander_whiskey_app.views.masterclass_bevestiging import masterclass_bevestiging_page
+from hielander_whiskey_app.views.botteling_reservering import botteling_reservering_page
+from hielander_whiskey_app.views.botteling_bevestiging import botteling_bevestiging_page
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("login/", login_page),
+    path("dashboard/", dashboard_page),
+    path("masterclass_reservering/", masterclass_reservering_page),
+    path("masterclass_bevestiging/", masterclass_bevestiging_page),
+    path("botteling_reservering/", botteling_reservering_page),
+    path("botteling_bevestiging/", botteling_bevestiging_page),
+    
 ]
