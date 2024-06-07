@@ -1,10 +1,29 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Masterclass reservering{% endblock %}
 
 
 {% block content %}
-
-
+<form method="post" enctype="multipart/form-data">
+    <select name="sessies" id="sessies">
+        <option value="sessie 1">Sessie 1</option>
+        <option value="sessie 2">Sessie 2</option>
+        <option value="sessie 3">Sessie 3</option>
+    </select><br><br>
+    <input type="radio" name="masterclass" value="masterclassOptie1">Masterclass 1<br>
+    <input type="radio" name="masterclass" value="masterclassOptie2">Masterclass 2<br><br>
+    Aantal tickets:
+    <input type="number" max="2" value="1" ><br><br>
+    Voornaam:<br>
+    <input type="text" placeholder="Voornaam" name="voornaam" id="voornaam" required><br><br>
+    Tussenvoegsel:<br>
+    <input type="text"name="tussenvoegsel" id="tussenvoegsel"><br><br>
+    Achternaam:<br>
+    <input type="text" placeholder="Achternaam" name="achternaam" id="achternaam" required><br><br>
+    Email:<br>
+    <input type="email" placeholder="Email" name="email" id="email" required><br><br>
+    Opmerkingen:<br>
+    <textarea placeholder="..." name="opmerkingen" id="opmerkingen" maxlength="500" rows="5" cols="60"></textarea><br><br>
+    <button type="submit" value="reserveer">Reserveer</button>
+</form>
 {% endblock %}
