@@ -7,12 +7,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}base page{% endblock %}</title>
 
-    <link rel="icon" href="{% static 'img/temp_icon.png' %}" type="image/png">
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
 
     {% block headerJS %}{% endblock %}
 
 </head>
 <body class="">
+
+    <header class="header-background">
+        
+        <a href="http://www.hielanderwhiskyfestival.nl/" class="hwf_logo">
+            <img src="{% static 'img/hwf_logo.png' %}">
+        </a>
+
+    </header>
 
     <main>
         {% block content %}
@@ -23,6 +31,10 @@
     {% block extrascripts %}
     <!-- Extra scripts to be added -->
     {% endblock %}
+
+    <footer class="footer-background">
+
+    </footer>
 
 </body>
 </html>
