@@ -6,5 +6,56 @@
 
 {% block content %}
 
+<section class="botteling-info">
+
+    <h1>Festival botteling 2024</h1>
+
+    <p>Info over botteling</p>
+
+    <h2 class="flessen-status">Reserveer hier je fles!</h2>
+
+</section>
+
+
+
+<section class="botteling-form">
+
+    <form method="post">
+        {% csrf_token %}
+        
+        <label for="voornaam">Voornaam:</label>
+        <input type="text" id="voornaam" name="voornaam" required>
+
+        <label for="tussenvoegsel">Tussenvoegsel:</label>
+        <input type="text" id="tussenvoegsel" name="tussenvoegsel">
+
+        <label for="achternaam">Achternaam:</label>
+        <input type="text" id="achternaam" name="achternaam" required>
+
+        <label for="email">E-mailadres:</label>
+        <input type="email" id="e-mail" name="email" required>
+
+        <label for="opmerkingen">Opmerkingen:</label>
+        <textarea id="opmerkingen" name="opmerkingen"></textarea>
+
+        <section id="flessen-aantal">
+
+            <span id="naam-fles">[naam fles]</span>
+
+            <label for="flessen">Aantal flessen:</label>
+            <input type="number" id="flessen" name="flessen" required>
+
+            <label for="totaalprijs"></label>
+            <span id="totaalprijs">€50</span>
+
+        </section>
+
+        <button type="submit">Reserveer</button>
+
+    </form>
+
+</section>
+
+
 
 {% endblock %}
