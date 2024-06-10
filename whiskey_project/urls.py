@@ -16,5 +16,5 @@ urlpatterns = [
     path("masterclass_bevestiging/", masterclass_bevestiging_page),
     path("botteling_reservering/", botteling_reservering_page),
     path("botteling_bevestiging/", botteling_bevestiging_page),
-    
+
 ]
