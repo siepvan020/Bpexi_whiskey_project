@@ -15,8 +15,13 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
         form = BottelingReserveringenForm(request.POST)
 
         if form.is_valid():
-            form.save(commit=False)
-            print(form.cleaned_data)
+            reservering = form.save(commit=False)
+            reservering.totaalprijs = reservering.aantal_flessen * 50
+            reservering.save()
+            print(f'Reservering "{reservering}" opgeslagen')
+            
+        else:
+            print('Reservering niet correct/form ongeldig')
             print(form.errors)
 
 
