@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-<script src="{% static 'js/masterclass_reservering.js' %}"></script>
 {% block title %}Masterclass reservering{% endblock %}
 
 
@@ -51,4 +50,8 @@
         <button type="submit" value="reserveer">Reserveer</button>
     </form>
 </section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/masterclass_reservering.js' %}"></script>
 {% endblock %}
