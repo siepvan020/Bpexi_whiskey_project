@@ -50,6 +50,12 @@
 
         </section>
 
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
         <button type="submit">Reserveer</button>
 
     </form>
