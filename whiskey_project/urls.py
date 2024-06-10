@@ -11,7 +11,7 @@ from hielander_whiskey_app.views.botteling_bevestiging import botteling_bevestig
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("login/", login_page),
-    path("dashboard/", dashboard_page),
+    path("dashboard/", dashboard_page, name='dashboard'),
     path("masterclass_reservering/", masterclass_reservering_page),
     path("masterclass_bevestiging/", masterclass_bevestiging_page),
     path("botteling_reservering/", botteling_reservering_page),

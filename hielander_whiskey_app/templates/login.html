@@ -6,5 +6,20 @@
 
 {% block content %}
 
+<section class="login-form">
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label for="gebruikersnaam">Gebruikersnaam:</label>
+        <input type="text" id="gebruikersnaam" name="gebruikersnaam" required>
+
+        <label for="wachtwoord">Wachtwoord:</label>
+        <input id="wachtwoord" name="wachtwoord" type="password">
+
+        <button type="submit">Log in</button>
+    </form>
+
+</section>
 
 {% endblock %}
