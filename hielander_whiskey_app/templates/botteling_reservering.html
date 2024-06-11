@@ -33,22 +33,28 @@
         <input type="text" id="achternaam" name="achternaam" required>
 
         <label for="email">E-mailadres:</label>
-        <input type="email" id="e-mail" name="email" required>
+        <input type="text" id="e-mail" name="e_mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
-        <textarea id="opmerkingen" name="opmerkingen"></textarea>
+        <textarea id="opmerkingen" name="opmerking"></textarea>
 
         <section id="flessen-aantal">
 
             <span id="naam-fles">[naam fles]</span>
 
             <label for="flessen">Aantal flessen:</label>
-            <input type="number" id="flessen" name="flessen" required>
+            <input type="number" id="flessen" name="aantal_flessen" required min="1" max={{ flessen_over }}>
 
-            <label for="totaalprijs"></label>
+            <label for="totaalprijs">Totaalprijs:</label>
             <span id="totaalprijs">€50</span>
 
         </section>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
 
         <button type="submit">Reserveer</button>
 
