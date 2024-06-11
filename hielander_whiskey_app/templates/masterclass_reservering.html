@@ -1,10 +1,57 @@
 {% extends "base.html" %}
 {% load static %}
-
 {% block title %}Masterclass reservering{% endblock %}
 
 
 {% block content %}
 
+<section class="masterclass-info">
+    <h1>Masterclasses 2024</h1>
+    <h2>Reserveer hier je masterclass</h2>
+</section>
 
+<section class="masterclass_form">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div>
+
+            <select name="sessies" id="sessies">
+                <option value="sessie 1">Sessie 1</option>
+                <option value="sessie 2">Sessie 2</option>
+                <option value="sessie 3">Sessie 3</option>
+            </select><br><br>
+
+            <input type="radio" name="masterclass" value="masterclassOptie1">Masterclass 1<br>
+
+            <input type="radio" name="masterclass" value="masterclassOptie2">Masterclass 2<br><br>
+
+            Aantal tickets:
+            <input type="number" max="2" value="1" ><br><br>
+
+        </div>
+        <div>
+
+            Voornaam:<br>
+            <input type="text" placeholder="Voornaam" name="voornaam" id="voornaam" required><br><br>
+
+            Tussenvoegsel:<br>
+            <input type="text" name="tussenvoegsel" id="tussenvoegsel"><br><br>
+
+            Achternaam:<br>
+            <input type="text" placeholder="Achternaam" name="achternaam" id="achternaam" required><br><br>
+
+            Email:<br>
+            <input type="email" placeholder="Email" name="email" id="email" required><br><br>
+
+            Opmerkingen:<br>
+            <textarea name="opmerkingen" id="opmerkingen" maxlength="500" rows="5" cols="60"></textarea><br><br>
+        </div>
+
+        <button type="submit" value="reserveer">Reserveer</button>
+    </form>
+</section>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/masterclass_reservering.js' %}"></script>
 {% endblock %}

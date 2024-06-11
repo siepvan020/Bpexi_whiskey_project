@@ -11,5 +11,4 @@ class BottelingReserveringenForm(forms.ModelForm):
             'e_mailadres', 
             'opmerking', 
             'aantal_flessen',
-            'totaalprijs',
         ]
