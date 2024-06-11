@@ -16,15 +16,26 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
     totaal_flessen = BottelingReserveringen.objects.aggregate(
                 totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
 
+    context = {}
+
+    # Het maximaal aantal te reserveren flessen wordt hier bepaald.
+    # Als er geen flessen meer over zijn, kan de gebruiker op de
+    # reservelijst maximaal 10 flessen selecteren.
+    if totaal_flessen and 150 - totaal_flessen > 0: # Flessen over
+        context['flessen_over'] = 150 - totaal_flessen
+    elif totaal_flessen is None:    # Nog geen reserveringen
+        context['flessen_over'] = 150
+    elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
+        context['flessen_over'] = 10
+
 
     if request.method == 'POST':
-
         # Form valideren
         form = BottelingReserveringenForm(request.POST)
 
         if form.is_valid():
             reservering = form.save(commit=False)
-            # Berekening van aantal flessen * prijs per fles
+            # Berekening totaalprijs: aantal flessen * prijs per fles 
             reservering.totaalprijs = reservering.aantal_flessen * 50
             
             if totaal_flessen:
@@ -46,4 +57,4 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
             else:
                 messages.error(request, 'Reservering niet correct')
 
-    return render(request, 'botteling_reservering.html')
+    return render(request, 'botteling_reservering.html', context)
