@@ -37,7 +37,9 @@ class BottelingReserveringen(models.Model):
 
 
     def __str__(self):
-        return f"{self.voornaam} {self.tussenvoegsel} {self.achternaam} - {self.aantal_flessen} flessen"
+        if self.tussenvoegsel:
+            return f"{self.voornaam} {self.tussenvoegsel} {self.achternaam} - {self.aantal_flessen} flessen"
+        return f"{self.voornaam} {self.achternaam} - {self.aantal_flessen} flessen"
 
 
     class Meta:
