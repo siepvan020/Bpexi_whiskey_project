@@ -12,7 +12,10 @@
 
     <p>Info over botteling</p>
 
-    <h2 class="flessen-status">Reserveer hier je fles!</h2>
+    <div id="hidden-flessen-count" data-flessen-count="{{ flessen_over }}"></div>
+    <h2 class="flessen-status" id="fles-voldoende" hidden>Reserveer hier je fles!</h2>
+    <h2 class="flessen-status" id="fles-bijna" hidden>Nog {{ flessen_over }} flessen beschikbaar!</h2>
+    <h2 class="flessen-status" id="fles-op" hidden>Geen flessen meer beschikbaar! Je wordt op de reservelijst gezet.</h2>
 
 </section>
 
@@ -62,6 +65,9 @@
 
 </section>
 
+{% endblock %}
 
 
+{% block extrascripts %}
+<script src="{% static 'js/botteling_reservering.js' %}"></script>
 {% endblock %}
