@@ -26,8 +26,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
     elif totaal_flessen is None:    # Nog geen reserveringen
         context['flessen_over'] = 150
     elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
-        context['flessen_over'] = 10
-
+        context['flessen_over'] = None
 
     if request.method == 'POST':
         # Form valideren
@@ -36,7 +35,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
         if form.is_valid():
             reservering = form.save(commit=False)
             # Berekening totaalprijs: aantal flessen * prijs per fles 
-            reservering.totaalprijs = reservering.aantal_flessen * 50
+            reservering.totaalprijs = reservering.aantal_flessen * 75
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering
