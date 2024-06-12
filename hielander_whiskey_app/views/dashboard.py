@@ -13,17 +13,26 @@ from hielander_whiskey_app.models import MasterclassReserveringen
 
 @login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
-    # bottel_piechart()
-    # masterclass_barplot()
-
     Aant_botteling = BottelingReserveringen.objects.all().count
     # counts = MasterclassReserveringen.objects.values('sessie_nummer', 'masterclass').annotate(count=Count('id????'))
     # print(counts)
 
+    toont1 = True
+    # bottel_piechart()
+    # masterclass_barplot()
 
-    Botteling = BottelingReserveringen.objects.all()
-    Masterclass = MasterclassReserveringen.objects.all()
-    return render(request, 'dashboard.html')
+
+
+    toont2 = True
+    botteling = BottelingReserveringen.objects.all()
+    masterclass = MasterclassReserveringen.objects.all()
+    return render(request, 'dashboard.html', {
+        'aantallen': Aant_botteling,
+        'toont1': toont1,
+        'toont2': toont2,
+        'botteling': botteling,
+        'masterclass': masterclass,
+    })
 
 
 def bottel_piechart():

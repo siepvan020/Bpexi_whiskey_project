@@ -6,5 +6,93 @@
 
 {% block content %}
 
+<section class="body">
+    <section class="links">
+        <section class="aantallen">
+            <table class="text1" id="dataTable">
+                <tbody>
+                    {% aantallen %}
+                </tbody>
+            </table>
+        </section>
+        <section class="grafieken">
+            {% load static %}
+            {% if toont2 %}
+                <img src="{% static 'images/reserveringen.png' %}">
+            {% elif not toont2 %}
+                <img src="{% static 'images/reserveringen.png' %}">
+            {% endif %}
+        </section>
+    </section>
+    <section class="rechts">
+        <section class="tabel">
+            {% if toont2 %}
+            <table class="text1" >
+                <thead>
+                <tr>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>E-mailadres</th>
+                    <th>Aantal</th>
+                    <th>Totaal prijs</th>
+                    <th>Reserve</th>
+                    <th>Datum</th>
+                    <th>Tijd</th>
+                    <th>Opmerking</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in botteling %}
+                <tr>
+                    <td>{{ row.voornaam }}</td>
+                    <td>{{ row.achternaam }}</td>
+                    <td>{{ row.e_mailadres }}</td>
+                    <td>{{ row.aantal_flessen }}</td>
+                    <td>{{ row.totaalprijs }}</td>
+                    <td>{{ row.reserve }}</td>
+                    <td>{{ row.datum }}</td>
+                    <td>{{ row.opmerking }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% elif not toont2 %}
+            <table class="text1" >
+                <thead>
+                <tr>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>E-mailadres</th>
+                    <th>Sessie</th>
+                    <th>Masterclass</th>
+                    <th>Aantal</th>
+                    <th>Totaal prijs</th>
+                    <th>Reserve</th>
+                    <th>Datum</th>
+                    <th>Tijd</th>
+                    <th>Opmerking</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in masterclass %}
+                <tr>
+                    <td>{{ row.voornaam }}</td>
+                    <td>{{ row.achternaam }}</td>
+                    <td>{{ row.e_mailadres }}</td>
+                    <td>{{ row.sessie_nummer }}</td>
+                    <td>{{ row.masterclass }}</td>
+                    <td>{{ row.aantal_kaarten }}</td>
+                    <td>{{ row.totaalprijs }}</td>
+                    <td>{{ row.reserve }}</td>
+                    <td>{{ row.datum }}</td>
+                    <td>{{ row.opmerking }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {% endif %}
+        </section>
+    </section>
+</section>
 
 {% endblock %}
