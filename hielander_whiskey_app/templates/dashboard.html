@@ -23,13 +23,17 @@
         </section>
         <section class="grafieken">
             {% load static %}
-                <img src="{% static 'templates/grafieken/bottel_piechart.html' %}">
-                <img src="{% static 'templates/grafieken/masterclass_barplot.html' %}">
+            <button onclick="grafiek_botteling()">Botteling</button>
+            <button onclick="grafiek_masterclass()">Masterclasses</button>
+            <img src="{% static 'templates/grafieken/bottel_piechart.html' %}" id="grafiek_botteling" style="display: block;">
+            <img src="{% static 'templates/grafieken/masterclass_barplot.html' %}" id="grafiek_masterclass" style="display: none;">
         </section>
     </section>
     <section class="rechts">
         <section class="tabel">
-            <table class="text1" >
+            <button onclick="tabel_botteling()">Botteling</button>
+            <button onclick="tabel_masterclass()">Masterclasses</button>
+            <table id="tabel_botteling" style="display: block;">
                 <thead>
                 <tr>
                     <th>Voornaam</th>
@@ -59,7 +63,7 @@
                 {% endfor %}
                 </tbody>
             </table>
-            <table class="text1" >
+            <table id="tabel_masterclass" style="display: none;">
                 <thead>
                 <tr>
                     <th>Voornaam</th>
@@ -97,4 +101,8 @@
     </section>
 </section>
 
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
