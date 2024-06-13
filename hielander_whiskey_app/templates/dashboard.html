@@ -11,22 +11,24 @@
         <section class="aantallen">
             <table class="text1" id="dataTable">
                 <tbody>
-                    {% aantallen %}
+                    {% for i in aantallen %}
+                    <tr>
+                        <td>
+                            {{ i }}
+                        </td>
+                    </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </section>
         <section class="grafieken">
             {% load static %}
-            {% if toont2 %}
-                <img src="{% static 'images/reserveringen.png' %}">
-            {% elif not toont2 %}
-                <img src="{% static 'images/reserveringen.png' %}">
-            {% endif %}
+                <img src="{% static 'templates/grafieken/bottel_piechart.html' %}">
+                <img src="{% static 'templates/grafieken/masterclass_barplot.html' %}">
         </section>
     </section>
     <section class="rechts">
         <section class="tabel">
-            {% if toont2 %}
             <table class="text1" >
                 <thead>
                 <tr>
@@ -51,12 +53,12 @@
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
                     <td>{{ row.datum }}</td>
+                    <td>{{ row.tijd }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% elif not toont2 %}
             <table class="text1" >
                 <thead>
                 <tr>
@@ -85,12 +87,12 @@
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
                     <td>{{ row.datum }}</td>
+                    <td>{{ row.tijd }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
         </section>
     </section>
 </section>
