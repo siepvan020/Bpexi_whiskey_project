@@ -5,9 +5,13 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
+# Local imports
+from hielander_whiskey_app.models import FestivalData
+
 
 def stuur_botteling_email(volledige_naam, ontvanger_email, datum, aantal_flessen, totaalprijs):
     betaal_datum = datum + timedelta(days=14)
+    naam_fles = FestivalData.objects.get(pk=1).naam
 
     context = {
         'volledige_naam': volledige_naam,
@@ -15,6 +19,7 @@ def stuur_botteling_email(volledige_naam, ontvanger_email, datum, aantal_flessen
         'betaal_datum': betaal_datum,
         'aantal_flessen': aantal_flessen,
         'totaalprijs': totaalprijs,
+        'naam_fles': naam_fles,
     }
 
     html_content = render_to_string('email_templates/botteling_email.html', context)

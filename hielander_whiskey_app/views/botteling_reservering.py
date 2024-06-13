@@ -10,7 +10,7 @@ from datetime import date
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.forms import BottelingReserveringenForm
-
+from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.utils.send_emails import stuur_botteling_email
 
 
@@ -37,8 +37,12 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
 
         if form.is_valid():
             reservering = form.save(commit=False)
+
+            fles_prijs = FestivalData.objects.get(pk=1).prijs
+
             # Berekening totaalprijs: aantal flessen * prijs per fles 
-            reservering.totaalprijs = reservering.aantal_flessen * 75
+            reservering.totaalprijs = reservering.aantal_flessen * fles_prijs
+            
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering
@@ -47,8 +51,9 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
                 if na_reserv < 0:
                     reservering.reserve = True
 
+            tussenvoegsel = reservering.tussenvoegsel if reservering.tussenvoegsel else ''
             stuur_botteling_email(f'{reservering.voornaam} \
-                                  {reservering.tussenvoegsel} \
+                                  {tussenvoegsel} \
                                   {reservering.achternaam}', 
                                   reservering.e_mailadres, 
                                   date.today(), 
