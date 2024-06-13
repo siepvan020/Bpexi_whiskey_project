@@ -6,6 +6,8 @@
 
 {% block content %}
 
+
+
 <section class="body">
     <section class="links">
         <section class="aantallen">
@@ -25,8 +27,11 @@
             {% load static %}
             <button onclick="grafiek_botteling()">Botteling</button>
             <button onclick="grafiek_masterclass()">Masterclasses</button>
-            <img src="{% static 'templates/grafieken/bottel_piechart.html' %}" id="grafiek_botteling" style="display: block;">
-            <img src="{% static 'templates/grafieken/masterclass_barplot.html' %}" id="grafiek_masterclass" style="display: none;">
+            <section id="grafiek_botteling" style="display: block;">
+                {% include "bottel_piechart.html" %}
+            </section>
+            <section id="grafiek_masterclass" style="display: none;">
+            </section>
         </section>
     </section>
     <section class="rechts">

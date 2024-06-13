@@ -2,9 +2,14 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import render
-from bokeh.plotting import figure, output_file, show
 from django.db.models import Count, Sum
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
+import plotly.graph_objs as go
+import plotly.io as pio
+
+import os
 
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.models import MasterclassReserveringen
@@ -26,7 +31,7 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
     # counts = MasterclassReserveringen.objects.values('sessie_nummer', 'masterclass').annotate(count=Count('id'))
 
 
-    # bottel_piechart()
+    bottel_piechart(totaal_flessen, max_flessen)
     # masterclass_barplot()
 
 
@@ -41,20 +46,16 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
     })
 
 
-def bottel_piechart():
-    output_file("templates/grafieken/bottel_piechart.html")
-    graph = figure(title="Bottel Piechart")
+def bottel_piechart(aantal_reserv: int, max_flessen: int):
+    labels = ['Gereserveerd', 'Beschikbaar']
+    values = [aantal_reserv, (max_flessen-aantal_reserv)]
 
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
 
-    graph.wedge()
-    pass
+    templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates')
+    save_path = os.path.join(templates_dir, 'bottel_piechart.html')
+    pio.write_html(fig, file=save_path, auto_open=False)
 
 
 def masterclass_barplot():
-    output_file("templates/grafieken/masterclass_barplot.html")
-    graph = figure(title="Masterclass Barplot")
-
-
-    graph.vbar()
     pass
-
