@@ -12,7 +12,10 @@
 
     <p>Info over botteling</p>
 
-    <h2 class="flessen-status">Reserveer hier je fles!</h2>
+    <div id="hidden-flessen-count" data-flessen-count="{{ flessen_over }}"></div>
+    <h2 class="flessen-status" id="fles-voldoende" hidden>Reserveer hier je fles!</h2>
+    <h2 class="flessen-status" id="fles-bijna" hidden>Nog {{ flessen_over }} flessen beschikbaar!</h2>
+    <h2 class="flessen-status" id="fles-op" hidden>Geen flessen meer beschikbaar! Je wordt op de reservelijst gezet.</h2>
 
 </section>
 
@@ -33,7 +36,7 @@
         <input type="text" id="achternaam" name="achternaam" required>
 
         <label for="email">E-mailadres:</label>
-        <input type="email" id="e-mail" name="e_mailadres" required>
+        <input type="text" id="e-mail" name="e_mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
         <textarea id="opmerkingen" name="opmerking"></textarea>
@@ -43,7 +46,7 @@
             <span id="naam-fles">[naam fles]</span>
 
             <label for="flessen">Aantal flessen:</label>
-            <input type="number" id="flessen" name="aantal_flessen" required>
+            <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
 
             <label for="totaalprijs">Totaalprijs:</label>
             <span id="totaalprijs">€50</span>
@@ -62,6 +65,9 @@
 
 </section>
 
+{% endblock %}
 
 
+{% block extrascripts %}
+<script src="{% static 'js/botteling_reservering.js' %}"></script>
 {% endblock %}

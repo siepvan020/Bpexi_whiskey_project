@@ -51,3 +51,4 @@ def masterclass_barplot():
 
     graph.vbar()
     pass
+

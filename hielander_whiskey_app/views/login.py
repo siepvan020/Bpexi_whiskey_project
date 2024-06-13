@@ -11,18 +11,18 @@ from django.urls import reverse
 
 
 def try_log_in(request, gebruikersnaam, wachtwoord):
-    """
-    Probeert een gebruiker aan te melden. Deze functie probeert een gebruiker aan te melden met de opgegeven
+    """Probeert een gebruiker aan te melden. Deze functie probeert een gebruiker aan te melden met de opgegeven
     gebruikersnaam en wachtwoord. Als de aanmelding succesvol is, meldt het de gebruiker aan en wordt
     doorgestuurd naar de admin dashboard. Anders retourneert het None.
 
-    Args:
-        request: Een HttpRequest-object.
-        gebruikersnaam: De gebruikersnaam van de gebruiker.
-        wachtwoord: Het wachtwoord van de gebruiker.
-
-    Returns:
-        Een HttpResponseRedirect-object dat doorverwijst naar de admin dashboard als de aanmelding succesvol is, anders None.
+    :param request: Een HttpRequest-object.
+    :type request: HttpRequest
+    :param gebruikersnaam: De gebruikersnaam van de gebruiker.
+    :type gebruikersnaam: str
+    :param wachtwoord: Het wachtwoord van de gebruiker.
+    :type wachtwoord: str
+    :return: Een HttpResponseRedirect-object dat doorverwijst naar de admin dashboard als de aanmelding succesvol is, anders None.
+    :rtype: HttpResponseRedirect, None
     """
     user = authenticate(request, username=gebruikersnaam, password=wachtwoord)
     if user is not None:
@@ -32,6 +32,13 @@ def try_log_in(request, gebruikersnaam, wachtwoord):
 
 
 def login_page(request: WSGIRequest) -> HttpResponse:
+    """Haalt de ingevulde waardes van de Login pagina op en roept de try_log_in functie aan.
+
+    :param request: Een HttpRequest-object.
+    :type request: HttpRequest
+    :return: De try_log_in functie, anders De login pagina met een error melding.
+    :rtype: HttpResponseRedirect, HttpResponse.
+    """
     if request.method == "POST":
         form = request.POST
         if form:
