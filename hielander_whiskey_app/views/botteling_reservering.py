@@ -5,10 +5,13 @@ from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import messages
 from django.db.models import Sum
+from datetime import date
 
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.forms import BottelingReserveringenForm
+
+from hielander_whiskey_app.utils.send_emails import stuur_botteling_email
 
 
 def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
@@ -44,7 +47,15 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
                 if na_reserv < 0:
                     reservering.reserve = True
 
-            reservering.save()
+            stuur_botteling_email(f'{reservering.voornaam} \
+                                  {reservering.tussenvoegsel} \
+                                  {reservering.achternaam}', 
+                                  reservering.e_mailadres, 
+                                  date.today(), 
+                                  reservering.aantal_flessen, 
+                                  reservering.totaalprijs)
+
+            #reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
 
             return HttpResponseRedirect(reverse('botteling_bevestiging'))
@@ -55,5 +66,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
                 messages.error(request, 'E-mailadres is niet correct')
             else:
                 messages.error(request, 'Reservering niet correct')
-
+    
+    
+    
     return render(request, 'botteling_reservering.html', context)
