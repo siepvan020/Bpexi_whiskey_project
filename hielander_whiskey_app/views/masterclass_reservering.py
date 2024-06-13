@@ -15,9 +15,9 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
         form = MasterclassReserveringenForm(request.POST)
         if form.is_valid():
             reservering = form.save(commit=False)
+            reservering.totaalprijs = reservering.aantal_kaarten * 15
             reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
-
             return HttpResponseRedirect(reverse('masterclass_bevestiging'))
         else:
             print('Reservering niet correct/form ongeldig')
