@@ -33,3 +33,9 @@ body, html {
     width: 900px;
     height: auto;
 }
+
+/* Required input fields krijgen een rode asterisk */
+.required_ast::after {
+    content: "*";
+    color: red;
+}

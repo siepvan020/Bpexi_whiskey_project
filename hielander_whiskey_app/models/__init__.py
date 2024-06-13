@@ -1,2 +1,3 @@
 from .BottelingReserveringen import BottelingReserveringen
 from .MasterclassReserveringen import MasterclassReserveringen
+from .FestivalData import FestivalData

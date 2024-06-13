@@ -17,5 +17,4 @@ urlpatterns = [
     path("botteling_reservering/", botteling_reservering_page),
     path("botteling_bevestiging/", botteling_bevestiging_page, 
          name="botteling_bevestiging"),
-    
 ]
