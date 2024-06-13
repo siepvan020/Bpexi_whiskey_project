@@ -28,11 +28,11 @@
         <table>
             <tr>
                 <td>Klant:</td>
-                <td>[naam klant]</td>
+                <td>{{ volledige_naam }}</td>
             </tr>
             <tr>
                 <td>Factuurdatum:</td>
-                <td>[datum bestelling]</td>
+                <td>{{ factuur_datum|date:"d-m-Y" }}</td>
             </tr>
             <tr>
                 <td><br></td>
@@ -40,7 +40,7 @@
             </tr>
             <tr>
                 <td>Uiterste betaaldatum:</td>
-                <td>7 februari 2024</td>
+                <td>07-02-2024</td>
             </tr>
         </table>
     </div>
@@ -62,8 +62,8 @@
                 <th>Totaal</th>
             </tr>
             <tr>
-                <td>[aantal kaarten]</td>
-                <td>[MC naam] - [sessie nummer] - [tijd]</td>
+                <td>{{ aantal_tickets }}</td>
+                <td>{{ mc_naam }} - Sessie {{ sessie }} - {{ mc_tijd }}</td>
                 <td>[prijs masterclass]</td>
                 <td>[totaalprijs]</td>
             </tr>
