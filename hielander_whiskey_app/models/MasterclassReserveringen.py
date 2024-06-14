@@ -41,10 +41,8 @@ class MasterclassReserveringen(models.Model):
         auto_now_add=True
     )
 
-
     def __str__(self):
         return f"{self.voornaam} {self.tussenvoegsel} {self.achternaam} - {self.masterclass} "
-
 
     class Meta:
         verbose_name_plural = "Masterclass Reserveringen"
