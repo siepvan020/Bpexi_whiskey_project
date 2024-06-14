@@ -1,5 +1,5 @@
 # Third party imports
-from datetime import timedelta
+from datetime import datetime
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -9,8 +9,14 @@ from django.utils.html import strip_tags
 from hielander_whiskey_app.models import FestivalData
 
 
-def stuur_botteling_email(volledige_naam, ontvanger_email, datum, aantal_flessen, totaalprijs):
-    betaal_datum = datum + timedelta(days=14)
+def stuur_botteling_email(volledige_naam: str, 
+                          ontvanger_email: str, 
+                          datum: datetime.date, 
+                          aantal_flessen: int, 
+                          totaalprijs: str
+                          ):
+
+    betaal_datum = datum + datetime.timedelta(days=14)
     naam_fles = FestivalData.objects.get(pk=1).naam
 
     context = {
@@ -36,10 +42,20 @@ def stuur_botteling_email(volledige_naam, ontvanger_email, datum, aantal_flessen
     
 
 
-def stuur_masterclass_email(voornaam, tussenv, achternaam, ontvanger_email, datum, mc_naam, sessie, mc_tijd, mc_prijs, aantal_tickets, totaalprijs):
+def stuur_masterclass_email(volledige_naam: str, 
+                            ontvanger_email: str, 
+                            datum: datetime.date, 
+                            mc_naam: str, 
+                            sessie: int, 
+                            mc_tijd: datetime.time, 
+                            mc_prijs: float, 
+                            aantal_tickets: int, 
+                            totaalprijs: float
+                            ):
+
 
     context = {
-        'volledige_naam': f'{voornaam} {tussenv} {achternaam}',
+        'volledige_naam': volledige_naam,
         'factuur_datum': datum,
         'mc_naam': mc_naam,
         'sessie': sessie,

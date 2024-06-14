@@ -6,6 +6,7 @@ from django.urls import reverse
 from django.contrib import messages
 from django.db.models import Sum
 from datetime import date
+from typing import Union
 
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
@@ -14,7 +15,7 @@ from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.utils.send_emails import stuur_botteling_email
 
 
-def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
+def botteling_reservering_page(request: WSGIRequest) -> Union[HttpResponse, HttpResponseRedirect]:
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
                 totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
@@ -42,6 +43,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
 
             # Berekening totaalprijs: aantal flessen * prijs per fles 
             reservering.totaalprijs = reservering.aantal_flessen * fles_prijs
+            totprijs_email = f'{reservering.totaalprijs:.2f}'.replace('.', ',')
             
             
             if totaal_flessen:
@@ -51,14 +53,16 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
                 if na_reserv < 0:
                     reservering.reserve = True
 
-            tussenvoegsel = reservering.tussenvoegsel if reservering.tussenvoegsel else ''
+            tussenvoegsel = reservering.tussenvoegsel if\
+                  reservering.tussenvoegsel else ''
+            
             stuur_botteling_email(f'{reservering.voornaam} \
                                   {tussenvoegsel} \
                                   {reservering.achternaam}', 
                                   reservering.e_mailadres, 
                                   date.today(), 
                                   reservering.aantal_flessen, 
-                                  reservering.totaalprijs)
+                                  totprijs_email)
 
             #reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
