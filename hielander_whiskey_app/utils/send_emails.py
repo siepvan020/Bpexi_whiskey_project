@@ -1,5 +1,5 @@
 # Third party imports
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
@@ -16,7 +16,7 @@ def stuur_botteling_email(volledige_naam: str,
                           totaalprijs: str
                           ):
 
-    betaal_datum = datum + datetime.timedelta(days=14)
+    betaal_datum = datum + timedelta(days=14)
     naam_fles = FestivalData.objects.get(pk=1).naam
 
     context = {
@@ -31,7 +31,6 @@ def stuur_botteling_email(volledige_naam: str,
     html_content = render_to_string('email_templates/botteling_email.html', context)
     
     plain_message = strip_tags(html_content)
-    
     send_mail(
         subject='HWF - Festival Botteling Factuur',
         message=plain_message,

@@ -7,6 +7,15 @@
             flex-direction: column;
             margin: 0;
             padding: 20px;
+            font-family: Cambria, sans-serif;
+        }
+        h2 {
+            color: #4f6228;
+        }
+        img {
+            height: 60px;
+            width: auto;
+            
         }
         .container {
             display: flex;
@@ -28,7 +37,7 @@
         }
         #contact-info {
             /* flex: 1 1 300px; */
-            width: 20%;
+            width: 25%;
             height: 100%;
         }
         #factuur {
@@ -38,29 +47,49 @@
         }
         #betalingsvoorwaarden {
             /* flex: 0 0 300px; */
-            width: 28%;
+            width: 45%;
             height: auto;
         }
         #order-tabel {
             width: 80%;
             height: 100%;
+            margin: 0 auto;
         }
         table {
             width: 100%;
             border-collapse: collapse;
         }
-        th, td {
-            padding: 8px;
-            text-align: left;
-            border-bottom: 1px solid #ddd;
-        }
-        th {
-            background-color: #f4f4f4;
-        }
+            th, td {
+                padding: 8px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+            th {
+                color: #fff;
+            }
+            th:nth-child(even) {
+                background-color: #77933c;
+            }
+            th:nth-child(odd) {
+                background-color: #4f6228;
+            }
+            tr th:last-child{
+                border-top-right-radius: 10px;
+            }
+            tr th:first-child{
+                border-top-left-radius: 10px;
+            }
+            tr:nth-child(even) td {
+                background-color: #f4f4f4;
+            }
         .overlap {
             width: 3em;
             white-space: nowrap;
             overflow: visible;
+        }
+        .contact-div {
+            display: flex;
+            flex-direction: row;
         }
         @media (max-width: 768px) {
             .container {
@@ -75,8 +104,21 @@
         <div class="container-top">
             <div id="contact-info" class="item">
                 <h2>Hielander Whisky Festival</h2>
-                <p><a href="http://www.hielanderwhiskyfestival.nl">www.hielanderwhiskyfestival.nl</a></p>
-                <p>NL82 ABNA 0530 4639 54 <br>tnv Hielander Whisky <br>Alkmaar</p>
+                <div class="contact-div">
+                    <img src="{% static 'img/img_email/website.png' %}">
+                    <p><a href="http://www.hielanderwhiskyfestival.nl">www.hielanderwhiskyfestival.nl</a></p>
+                </div>
+                <div class="contact-div">
+                    <img src="{% static 'img/img_email/email.png' %}">
+                    <p>whiskyticket@gmail.com</p>
+                </div>
+                <div class="contact-div">
+                    <img src="{% static 'img/img_email/card.png' %}">
+                    <p>NL82 ABNA 0530 4639 54 <br>
+                        tnv Hielander Whisky <br>
+                        Alkmaar
+                    </p>
+                </div>
             </div>
 
             <div id="factuur" class="item">
@@ -96,7 +138,7 @@
                     </tr>
                     <tr>
                         <td>Uiterste betaaldatum:</td>
-                        <td>07-02-2024</td>
+                        <td>07-02-2024</td>  <!-- Uiterste betaaldatum hier handmatig aanpassen! -->
                     </tr>
                 </table>
             </div>
@@ -129,6 +171,9 @@
                 </tr>
                 <tr>
                     <td colspan="4"><div class="overlap">Vermeld "Masterclass HWF2024" en "uw naam" waaronder u gereserveerd heeft.</div></td>
+                    <td><br></td>
+                    <td><br></td>
+                    <td><br></td>
                 </tr>
             </table>
         </div>
