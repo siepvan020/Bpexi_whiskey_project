@@ -4,48 +4,113 @@
 
 <head>
     <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+            .container-top {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        .item {
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            border-radius: 5px;
+        }
+        #contact-info {
+            /* flex: 1 1 300px; */
+            width: 20%;
+            height: 100%;
+        }
+        #factuur {
+            /* flex: 1 1 300px; */
+            width: 30%;
+            height: 100%;
+        }
+        #betalingsvoorwaarden {
+            /* flex: 0 0 300px; */
+            width: 28%;
+            height: auto;
+        }
+        #order-tabel {
+            width: 80%;
+            height: 100%;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #f4f4f4;
+        }
         .overlap {
             width: 3em;
             white-space: nowrap;
             overflow: visible;
         }
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
     </style>
 </head>
 
 <body>
-    <div id="contact-info">
-        <h2>Hielander Whisky Festival</h2>
-        <p><a>www.hielanderwhiskyfestival.nl</a></p>
-        <p>NL82 ABNA 0530 4639 54 <br>
-            tnv Hielander Whisky <br>
-            Alkmaar
-        </p>
+    <div class="container">
+        <div class="container-top">
+            <div id="contact-info" class="item">
+                <h2>Hielander Whisky Festival</h2>
+                <p><a href="http://www.hielanderwhiskyfestival.nl">www.hielanderwhiskyfestival.nl</a></p>
+                <p>NL82 ABNA 0530 4639 54 <br>
+                    tnv Hielander Whisky <br>
+                    Alkmaar
+                </p>
 
+            </div>
+
+            <div id="factuur" class="item">
+                <h2>Factuur aan:</h2>
+                <table>
+                    <tr>
+                        <td>Klant:</td>
+                        <td>{{ volledige_naam }}</td>
+                    </tr>
+                    <tr>
+                        <td>Factuurdatum:</td>
+                        <td>{{ factuur_datum|date:"d-m-Y" }}</td>
+                    </tr>
+                    <tr>
+                        <td><br></td>
+                        <td><br></td>
+                    </tr>
+                    <tr>
+                        <td>Uiterste betaaldatum:</td>
+                        <td>{{ betaal_datum|date:"d-m-Y" }}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
     </div>
 
-    <div id="factuur">
-        <h2>Factuur aan:</h2>
-        <table>
-            <tr>
-                <td>Klant:</td>
-                <td>{{ volledige_naam }}</td>
-            </tr>
-            <tr>
-                <td>Factuurdatum:</td>
-                <td>{{ factuur_datum|date:"d-m-Y" }}</td>
-            </tr>
-            <tr>
-                <td><br></td>
-                <td><br></td>
-            </tr>
-            <tr>
-                <td>Uiterste betaaldatum:</td>
-                <td>{{ betaal_datum|date:"d-m-Y" }}</td>
-            </tr>
-        </table>
-    </div>
-
-    <div id="betalingsvoorwaarden">
+    <div id="betalingsvoorwaarden" class="item">
         <h2>Betalingsvoorwaarden:</h2>
         <p>
             Betaling binnen 14 dagen na factuurdatum voldoen. Daarna vervalt de reservering.<br>
@@ -55,7 +120,7 @@
         </p>
     </div>
 
-    <div id="order-tabel">
+    <div id="order-tabel" class="item">
         <table>
 
             <tr>
@@ -66,12 +131,14 @@
             </tr>
             <tr>
                 <td>{{ aantal_flessen }}</td>
-                <td>HWF2024 Festival Botteling - {{ naam_fles }}</td>
+                <td>HWF2024 Festival Botteling <br> {{ naam_fles }}</td>
                 <td>€102,50</td>
                 <td>€{{ totaalprijs }}</td>
             </tr>
             <tr>
-                <td></td>
+                <td><br></td>
+            </tr>
+            <tr>
                 <td><div class="overlap">Vermeld "Masterclass HWF2024" en "uw naam" waaronder u gereserveerd heeft.</div></td>
             </tr>
 
