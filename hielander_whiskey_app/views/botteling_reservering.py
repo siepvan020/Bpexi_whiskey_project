@@ -8,8 +8,8 @@ from django.db.models import Sum
 
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
+from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.forms import BottelingReserveringenForm
-
 
 def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
 
@@ -28,6 +28,8 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
     elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
         context['flessen_over'] = None
 
+    context['fles'] = FestivalData.objects.get(type='botteling')
+
     if request.method == 'POST':
         # Form valideren
         form = BottelingReserveringenForm(request.POST)
@@ -35,7 +37,8 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
         if form.is_valid():
             reservering = form.save(commit=False)
             # Berekening totaalprijs: aantal flessen * prijs per fles 
-            reservering.totaalprijs = reservering.aantal_flessen * 75
+            reservering.totaalprijs = reservering.aantal_flessen * \
+                FestivalData.objects.get(type='botteling').prijs
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering
