@@ -28,7 +28,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
     elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
         context['flessen_over'] = None
 
-    context['fles'] = FestivalData.objects.get(type='botteling').naam
+    context['fles'] = FestivalData.objects.get(type='botteling')
 
     if request.method == 'POST':
         # Form valideren
