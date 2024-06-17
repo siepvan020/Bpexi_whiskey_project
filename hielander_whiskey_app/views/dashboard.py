@@ -22,13 +22,17 @@ from hielander_whiskey_app.models import FestivalData
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
     aantallen = []
     totaal_flessen = BottelingReserveringen.objects.aggregate(totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
-    max_flessen = FestivalData.objects.get(naam="Ardmore (Ardlair) 2014 57.5%").aantal_beschikbaar # deze naam staat er momenteel hardcoded in omdat er geen andere manier is om dit te koppelen. Dit is een probleem in onze "erd". Dit geld voor flessen als masterclasses.
-    fles_naam = FestivalData.objects.get(naam="Ardmore (Ardlair) 2014 57.5%").naam # zelfde probleem als hierboven. Deze line is nu namelijk wel erg overbodig.
+    max_flessen = FestivalData.objects.get(type="botteling").aantal_beschikbaar
+    fles_naam = FestivalData.objects.get(type="botteling").naam
 
     fles_line = f"{totaal_flessen}/{max_flessen} van de {fles_naam} gereserveerd"
     aantallen.append(fles_line)
 
-    # counts = MasterclassReserveringen.objects.values('sessie_nummer', 'masterclass').annotate(count=Count('id'))
+    # counts = MasterclassReserveringen.objects.values('masterclass', 'sessie_nummer').annotate(totaal_kaarten=Sum('aantal_kaarten'))
+
+    # for row in counts:
+        # max_flessen = FestivalData.objects.get(type=f"botteling").aantal_beschikbaar
+        # print(f"{row['totaal_kaarten']}/{max_flessen} van de {row['masterclass']} sessie {row['sessie_nummer']}")
 
 
     bottel_piechart(totaal_flessen, max_flessen)
