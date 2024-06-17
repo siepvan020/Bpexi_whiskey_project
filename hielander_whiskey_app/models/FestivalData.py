@@ -3,6 +3,9 @@ from django.db import models
 
 
 class FestivalData(models.Model):
+    type = models.CharField(
+        max_length=255
+    )
     naam = models.CharField(
         max_length=255
     )
