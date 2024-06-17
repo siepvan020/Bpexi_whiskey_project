@@ -28,7 +28,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
     elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
         context['flessen_over'] = None
 
-    context['fles'] = FestivalData.objects.get(pk=1) # nog updaten! pk -> type
+    context['fles'] = FestivalData.objects.get(type='botteling').naam
 
     if request.method == 'POST':
         # Form valideren
@@ -38,7 +38,7 @@ def botteling_reservering_page(request: WSGIRequest) -> HttpResponse:
             reservering = form.save(commit=False)
             # Berekening totaalprijs: aantal flessen * prijs per fles 
             reservering.totaalprijs = reservering.aantal_flessen * \
-                FestivalData.objects.get(pk=1).prijs # nog updaten! pk -> type
+                FestivalData.objects.get(type='botteling').prijs
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering
