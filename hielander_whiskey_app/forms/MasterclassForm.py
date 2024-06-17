@@ -6,12 +6,11 @@ class MasterclassReserveringenForm(forms.ModelForm):
         model = MasterclassReserveringen
         fields = [
             'voornaam', 
-            'tussenvoegsel', 
+            'tussenvoegsel',
             'achternaam', 
             'e_mailadres', 
-            'opmerking', 
-            'sessie_nummer', 
-            'masterclass', 
-            'aantal_kaarten', 
-            'totaalprijs',
+            'opmerking',
+            'sessie_nummer',
+            'masterclass',
+            'aantal_kaarten',
         ]
