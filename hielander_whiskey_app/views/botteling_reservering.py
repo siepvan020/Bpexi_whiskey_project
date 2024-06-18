@@ -10,6 +10,7 @@ from typing import Union
 
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
+from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.forms import BottelingReserveringenForm
 from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.utils.send_emails import setup_botteling_email
@@ -17,6 +18,7 @@ from hielander_whiskey_app.utils.send_emails import setup_botteling_email
 
 def botteling_reservering_page(request: WSGIRequest)\
                             -> Union[HttpResponse, HttpResponseRedirect]:
+
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
                 totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
@@ -33,6 +35,8 @@ def botteling_reservering_page(request: WSGIRequest)\
     elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
         context['flessen_over'] = None
 
+    context['fles'] = FestivalData.objects.get(type='botteling')
+
     if request.method == 'POST':
         # Form valideren
         form = BottelingReserveringenForm(request.POST)
@@ -40,12 +44,11 @@ def botteling_reservering_page(request: WSGIRequest)\
         if form.is_valid():
             reservering = form.save(commit=False)
 
-            fles_prijs = FestivalData.objects.get(pk=1).prijs
+            fles_prijs = FestivalData.objects.get(type='botteling').prijs
 
             # Berekening totaalprijs: aantal flessen * prijs per fles 
             reservering.totaalprijs = reservering.aantal_flessen * fles_prijs
             totprijs_email = f'{reservering.totaalprijs:.2f}'.replace('.', ',')
-            
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering

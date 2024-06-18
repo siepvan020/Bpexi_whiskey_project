@@ -26,30 +26,30 @@
     <form method="post">
         {% csrf_token %}
         
-        <label for="voornaam">Voornaam:</label>
-        <input type="text" id="voornaam" name="voornaam" required>
+        <label for="voornaam" class="required_ast">Voornaam:</label>
+        <input type="text" id="voornaam" name="voornaam" placeholder="Voornaam" required>
 
         <label for="tussenvoegsel">Tussenvoegsel:</label>
-        <input type="text" id="tussenvoegsel" name="tussenvoegsel">
+        <input type="text" id="tussenvoegsel" name="tussenvoegsel" placeholder="Tussenvoegsel">
 
-        <label for="achternaam">Achternaam:</label>
-        <input type="text" id="achternaam" name="achternaam" required>
+        <label for="achternaam" class="required_ast">Achternaam:</label>
+        <input type="text" id="achternaam" name="achternaam" placeholder="Achternaam" required>
 
-        <label for="email">E-mailadres:</label>
-        <input type="text" id="e-mail" name="e_mailadres" required>
+        <label for="email" class="required_ast">E-mailadres:</label>
+        <input type="text" id="e-mail" name="e_mailadres" placeholder="E-mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
-        <textarea id="opmerkingen" name="opmerking"></textarea>
+        <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen"></textarea>
 
         <section id="flessen-aantal">
 
-            <span id="naam-fles">[naam fles]</span>
+            <span id="naam-fles">{{ fles.naam }}</span>
 
-            <label for="flessen">Aantal flessen:</label>
+            <label for="flessen" class="required_ast">Aantal flessen:</label>
             <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
 
             <label for="totaalprijs">Totaalprijs:</label>
-            <span id="totaalprijs">€50</span>
+            <span id="totaalprijs">€{{ fles.prijs }}</span>
 
         </section>
 
