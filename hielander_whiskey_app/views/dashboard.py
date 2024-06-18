@@ -24,22 +24,18 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
     totaal_flessen = BottelingReserveringen.objects.aggregate(totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
     max_flessen = FestivalData.objects.get(type="botteling").aantal_beschikbaar
     fles_naam = FestivalData.objects.get(type="botteling").naam
-
     fles_line = f"{totaal_flessen}/{max_flessen} van de {fles_naam} gereserveerd"
     aantallen.append(fles_line)
 
+    masterclass_dict = dict()
     counts = MasterclassReserveringen.objects.values('masterclass', 'sessie_nummer').annotate(totaal_kaarten=Sum('aantal_kaarten'))
-
     for row in counts:
         max_kaarten = FestivalData.objects.get(type=f"{row['masterclass']}").aantal_beschikbaar
         aantallen.append(f"{row['totaal_kaarten']}/{max_kaarten} van de {row['masterclass']}, sessie {row['sessie_nummer']} gereserveerd")
-
+        masterclass_dict[row['masterclass']] = row['totaal_kaarten']
 
     bottel_piechart(totaal_flessen, max_flessen)
-    # masterclass_barplot()
-
-
-
+    masterclass_barplot(masterclass_dict)
 
     botteling = BottelingReserveringen.objects.all()
     masterclass = MasterclassReserveringen.objects.all()
@@ -58,8 +54,14 @@ def bottel_piechart(aantal_reserv: int, max_flessen: int):
 
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates')
     save_path = os.path.join(templates_dir, 'bottel_piechart.html')
-    pio.write_html(fig, file=save_path, auto_open=False)
+    pio.write_html(fig, file=save_path, auto_open=False, config={'displayModeBar': False})
 
 
-def masterclass_barplot():
-    pass
+def masterclass_barplot(aantallen: dict):
+    x = list(aantallen.keys())
+    y = list(aantallen.values())
+    fig = go.Figure([go.Bar(x=x, y=y)])
+
+    templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates')
+    save_path = os.path.join(templates_dir, 'masterclass_barchart.html')
+    fig.write_html(file=save_path, auto_open=False, config={'displayModeBar': False})
