@@ -20,7 +20,8 @@ def setup_botteling_email(volledige_naam: str,
                           ):
 
     betaal_datum = datum + timedelta(days=14)
-    naam_fles = FestivalData.objects.get(pk=1).naam
+    naam_fles = FestivalData.objects.get(type='botteling').naam
+    print(naam_fles)
 
     context = {
         'volledige_naam': volledige_naam,
