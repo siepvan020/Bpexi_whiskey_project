@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load static %}
-<link rel="stylesheet" href="{% static 'login.css' %}">
 
 {% block title %}Admin login{% endblock %}
 
@@ -12,8 +11,10 @@
             {% csrf_token %}
             <label for="gebruikersnaam">Gebruikersnaam:</label>
             <input type="text" id="gebruikersnaam" name="gebruikersnaam" required>
+            <br>
             <label for="wachtwoord">Wachtwoord:</label>
             <input id="wachtwoord" name="wachtwoord" type="password">
+            <br>
             <button type="submit">Log in</button>
         </form>
     </section>
