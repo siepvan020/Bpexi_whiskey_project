@@ -28,3 +28,11 @@ function sessie_selectie() {
         label.innerHTML = 'Masterclass 6';
     };
 };
+
+function prijs_aanpassen() {
+    var aantal_kaarten = document.getElementById('aantal_kaarten').value;
+    var prijs = 15;
+    var totaalprijs = aantal_kaarten * prijs;
+    var nieuwe_prijs = new String("€" + totaalprijs);
+    document.getElementById('totaalprijs').innerHTML = nieuwe_prijs;
+}
