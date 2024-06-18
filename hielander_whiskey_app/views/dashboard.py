@@ -15,10 +15,9 @@ from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.models import FestivalData
 
-# Local imports
 
 
-# @login_required
+@login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
     aantallen = []
     totaal_flessen = BottelingReserveringen.objects.aggregate(totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
