@@ -32,7 +32,9 @@ def setup_botteling_email(volledige_naam: str,
         'naam_fles': naam_fles,
     }
 
-    html_content = render_to_string('email_templates/botteling_email.html', context)
+    html_content = render_to_string('email_templates/botteling_email.html', 
+                                    context)
+    
     plain_message = strip_tags(html_content)
     
     stuur_email(plain_message, html_content, ontvanger_email)
@@ -60,7 +62,9 @@ def setup_masterclass_email(volledige_naam: str,
         'totaalprijs': totaalprijs,
         }
 
-    html_content = render_to_string('email_templates/masterclass_email.html', context)
+    html_content = render_to_string('email_templates/masterclass_email.html', 
+                                    context)
+    
     plain_message = strip_tags(html_content)
 
     stuur_email(plain_message, html_content, ontvanger_email)
@@ -70,11 +74,11 @@ def stuur_email(plain_message: str,
                 html_content: SafeString, 
                 ontvanger_email: str):
 
-    # Creeër de email
+    # Hier verzender e-mailadres handmatig aanpassen
     msg = EmailMultiAlternatives(
         subject='HWF - Festival Botteling Factuur',
         body=plain_message,
-        from_email='hwf.djangotest@gmail.com',
+        from_email='hwf.djangotest@gmail.com', # !Hier!
         to=[ontvanger_email]
     )
 

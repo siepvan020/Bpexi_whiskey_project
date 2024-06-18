@@ -15,7 +15,8 @@ from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.utils.send_emails import setup_botteling_email
 
 
-def botteling_reservering_page(request: WSGIRequest) -> Union[HttpResponse, HttpResponseRedirect]:
+def botteling_reservering_page(request: WSGIRequest)\
+                            -> Union[HttpResponse, HttpResponseRedirect]:
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
                 totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
