@@ -12,7 +12,7 @@ from typing import Union
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.forms import BottelingReserveringenForm
 from hielander_whiskey_app.models import FestivalData
-from hielander_whiskey_app.utils.send_emails import stuur_botteling_email
+from hielander_whiskey_app.utils.send_emails import setup_botteling_email
 
 
 def botteling_reservering_page(request: WSGIRequest) -> Union[HttpResponse, HttpResponseRedirect]:
@@ -56,7 +56,7 @@ def botteling_reservering_page(request: WSGIRequest) -> Union[HttpResponse, Http
             tussenvoegsel = reservering.tussenvoegsel if\
                   reservering.tussenvoegsel else ''
             
-            stuur_botteling_email(f'{reservering.voornaam} \
+            setup_botteling_email(f'{reservering.voornaam} \
                                   {tussenvoegsel} \
                                   {reservering.achternaam}', 
                                   reservering.e_mailadres, 

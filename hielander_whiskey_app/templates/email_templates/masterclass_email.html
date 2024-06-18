@@ -3,8 +3,6 @@
 <head>
     <style>
         body {
-            display: flex;
-            flex-direction: column;
             margin: 0;
             padding: 20px;
             font-family: Cambria, sans-serif;
@@ -15,105 +13,43 @@
         img {
             height: 60px;
             width: auto;
-            
         }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-            .container-top {
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-            }
         .item {
-            margin: 10px;
+            margin: 10px 0;
             padding: 20px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             background-color: #fff;
             border-radius: 5px;
         }
-        #contact-info {
-            /* flex: 1 1 300px; */
-            width: 25%;
-            height: 100%;
+        .contact-div {
+            display: flex;
+            align-items: center;
         }
-        #factuur {
-            /* flex: 1 1 300px; */
-            width: 30%;
-            height: 100%;
+        .contact-div img {
+            margin-right: 10px;
         }
-        #betalingsvoorwaarden {
-            /* flex: 0 0 300px; */
-            width: 45%;
-            height: auto;
-        }
-        #order-tabel {
-            width: 80%;
-            height: 100%;
-            margin: 0 auto;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-            th, td {
-                padding: 8px;
-                text-align: left;
-                border-bottom: 1px solid #ddd;
-            }
-            th {
-                color: #fff;
-            }
-            th:nth-child(even) {
-                background-color: #77933c;
-            }
-            th:nth-child(odd) {
-                background-color: #4f6228;
-            }
-            tr th:last-child{
-                border-top-right-radius: 10px;
-            }
-            tr th:first-child{
-                border-top-left-radius: 10px;
-            }
-            tr:nth-child(even) td {
-                background-color: #f4f4f4;
-            }
         .overlap {
             width: 3em;
             white-space: nowrap;
             overflow: visible;
         }
-        .contact-div {
-            display: flex;
-            flex-direction: row;
-        }
-        @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-                align-items: stretch;
-            }
-        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="container-top">
-            <div id="contact-info" class="item">
+    <div style="width: 100%;">
+        <div style="display: flex; flex-wrap: wrap; flex-direction: column;">
+            <div id="contact-info" class="item" style="width: 100%; margin-bottom: 20px;">
                 <h2>Hielander Whisky Festival</h2>
                 <div class="contact-div">
-                    <img src="{% static 'img/img_email/website.png' %}">
+                    <img src="cid:website.png" alt="Website">
                     <p><a href="http://www.hielanderwhiskyfestival.nl">www.hielanderwhiskyfestival.nl</a></p>
                 </div>
                 <div class="contact-div">
-                    <img src="{% static 'img/img_email/email.png' %}">
+                    <img src="cid:email.png" alt="Email">
                     <p>whiskyticket@gmail.com</p>
                 </div>
                 <div class="contact-div">
-                    <img src="{% static 'img/img_email/card.png' %}">
+                    <img src="cid:card.png" alt="Card">
                     <p>NL82 ABNA 0530 4639 54 <br>
                         tnv Hielander Whisky <br>
                         Alkmaar
@@ -121,9 +57,9 @@
                 </div>
             </div>
 
-            <div id="factuur" class="item">
+            <div id="factuur" class="item" style="width: 100%; margin-bottom: 20px;">
                 <h2>Factuur aan:</h2>
-                <table>
+                <table style="width: 100%; border-collapse: collapse;">
                     <tr>
                         <td>Klant:</td>
                         <td>{{ volledige_naam }}</td>
@@ -143,40 +79,37 @@
                 </table>
             </div>
         </div>
+    </div>
 
-        <div id="betalingsvoorwaarden" class="item">
-            <h2>Betalingsvoorwaarden:</h2>
-            <p>Let op: uiterste betaaldatum is woensdag 7 februari 2024</p>
-        </div>
+    <div id="betalingsvoorwaarden" class="item" style="width: 100%; margin-bottom: 20px;">
+        <h2>Betalingsvoorwaarden:</h2>
+        <p>Let op: uiterste betaaldatum is woensdag 7 februari 2024</p>
+    </div>
 
-        <div id="order-tabel" class="item">
-            <table>
-                <tr>
-                    <th>Aantal</th>
-                    <th>Omschrijving</th>
-                    <th>Prijs per stuk</th>
-                    <th>Totaal</th>
-                </tr>
-                <tr>
-                    <td>{{ aantal_tickets }}</td>
-                    <td>{{ mc_naam }} - Sessie {{ sessie }} - {{ mc_tijd }}</td>
-                    <td>{{ mc_prijs }}</td>
-                    <td>{{ totaalprijs }}</td>
-                </tr>
-                <tr>
-                    <td><br></td>
-                    <td><br></td>
-                    <td><br></td>
-                    <td><br></td>
-                </tr>
-                <tr>
-                    <td colspan="4"><div class="overlap">Vermeld "Masterclass HWF2024" en "uw naam" waaronder u gereserveerd heeft.</div></td>
-                    <td><br></td>
-                    <td><br></td>
-                    <td><br></td>
-                </tr>
-            </table>
-        </div>
+    <div id="order-tabel" class="item" style="width: 80%; margin: 0 auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #4f6228; color: #fff; border-top-left-radius: 10px; width: 10%;">Aantal</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #77933c; color: #fff; width: 50%;">Omschrijving</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #4f6228; color: #fff; width: 20%;">Prijs per stuk</th>
+                <th style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #77933c; color: #fff; border-top-right-radius: 10px; width: 20%;">Totaal</th>
+            </tr>
+            <tr>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f4f4f4;">{{ aantal_tickets }}</td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f4f4f4;">{{ mc_naam }} - Sessie {{ sessie }} - {{ mc_tijd }}</td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f4f4f4;">{{ mc_prijs }}</td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f4f4f4;">{{ totaalprijs }}</td>
+            </tr>
+            <tr>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #ffffff;"><br></td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #ffffff;"><br></td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #ffffff;"><br></td>
+                <td style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #ffffff;"><br></td>
+            </tr>
+            <tr>
+                <td colspan="4" style="padding: 8px; text-align: left; border-bottom: 1px solid #ddd; background-color: #f4f4f4;"><div class="overlap">Vermeld "Masterclass HWF2024" en "uw naam" waaronder u gereserveerd heeft.</div></td>
+            </tr>
+        </table>
     </div>
 </body>
 </html>
