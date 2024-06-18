@@ -16,6 +16,13 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
         if form.is_valid():
             reservering = form.save(commit=False)
             reservering.totaalprijs = reservering.aantal_kaarten * 15
+            masterclass_reserveringen = MasterclassReserveringen.objects.all()
+            totaal_aantal_kaarten = 0
+            for res in masterclass_reserveringen:
+                if res.masterclass == reservering.masterclass:
+                    totaal_aantal_kaarten += res.aantal_kaarten
+            if totaal_aantal_kaarten> 30:
+                reservering.reserve = True
             reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
             return HttpResponseRedirect(reverse('masterclass_bevestiging'))

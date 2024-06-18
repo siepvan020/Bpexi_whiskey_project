@@ -15,17 +15,17 @@
         {% csrf_token %}
         <div>
             <label for="sessie_nummer">Sessie:</label>
-            <select name="sessie_nummer" id="sessie_nummer">
+            <select name="sessie_nummer" id="sessie_nummer" onclick="sessie_selectie()">
                 <option value="1">Sessie 1</option>
                 <option value="2">Sessie 2</option>
                 <option value="3">Sessie 3</option>
             </select><br><br>
 
-            <input type="radio" name="masterclass" value="masterclass 1" id="masterclass1"><label for="masterclass1">Masterclass 1</label><br>
-            <input type="radio" name="masterclass" value="masterclass 2" id="masterclass2"><label for="masterclass2">Masterclass 2</label><br><br>
+            <input type="radio" name="masterclass" value="masterclass 1" id="masterclass1" required><label for="masterclass1">Masterclass 1</label><br>
+            <input type="radio" name="masterclass" value="masterclass 2" id="masterclass2" required><label for="masterclass2">Masterclass 2</label><br><br>
 
             <label for="aantal_kaarten">Aantal kaarten:</label>
-            <input type="number" max="30" value="1" id="aantal_kaarten" name="aantal_kaarten"><br><br>
+            <input type="number" max="30" min="1" value="1" id="aantal_kaarten" name="aantal_kaarten" onclick="prijs_aanpassen()"><br><br>
             <label for="totaalprijs">Totaalprijs:</label><br>
             <span id="totaalprijs">€15</span><br><br>
 
