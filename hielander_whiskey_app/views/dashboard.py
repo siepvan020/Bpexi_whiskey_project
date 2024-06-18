@@ -28,11 +28,11 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
     fles_line = f"{totaal_flessen}/{max_flessen} van de {fles_naam} gereserveerd"
     aantallen.append(fles_line)
 
-    # counts = MasterclassReserveringen.objects.values('masterclass', 'sessie_nummer').annotate(totaal_kaarten=Sum('aantal_kaarten'))
+    counts = MasterclassReserveringen.objects.values('masterclass', 'sessie_nummer').annotate(totaal_kaarten=Sum('aantal_kaarten'))
 
-    # for row in counts:
-        # max_flessen = FestivalData.objects.get(type=f"botteling").aantal_beschikbaar
-        # print(f"{row['totaal_kaarten']}/{max_flessen} van de {row['masterclass']} sessie {row['sessie_nummer']}")
+    for row in counts:
+        max_kaarten = FestivalData.objects.get(type=f"{row['masterclass']}").aantal_beschikbaar
+        aantallen.append(f"{row['totaal_kaarten']}/{max_kaarten} van de {row['masterclass']}, sessie {row['sessie_nummer']} gereserveerd")
 
 
     bottel_piechart(totaal_flessen, max_flessen)
