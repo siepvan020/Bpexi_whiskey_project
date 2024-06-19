@@ -37,6 +37,12 @@ input[type="text"], input[type="number"], textarea, select {
     border: 1px solid #ccc;
     border-radius: 5px;
     box-sizing: border-box;
+    resize: none;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+
+.radio-container *:hover, #sessie_nummer:hover {
+    cursor: pointer;
 }
 
 button {
@@ -66,6 +72,7 @@ button:hover {
 
 .masterclass_form {
     padding: 20px;
+    margin-bottom: 30px;
 }
 
 .masterclass_form label {
@@ -73,7 +80,13 @@ button:hover {
     margin-bottom: 5px;
 }
 
-.masterclass_form input[type="radio"] {
+.radio-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.radio-container input[type="radio"] {
     margin-right: 10px;
 }
 
@@ -93,6 +106,7 @@ button:hover {
 
 .botteling-form {
     padding: 20px;
+    margin-bottom: 30px;
 }
 
 .botteling-form label {
@@ -104,9 +118,18 @@ button:hover {
     margin-top: 20px;
 }
 
-#flessen-aantal label, #flessen-aantal span {
-    display: inline-block;
+#flessen-aantal #naam-fles {
+    display: flex;
+    justify-content: space-around;
     margin-bottom: 10px;
+}
+
+#fles-bijna {
+    color: orange;
+}
+
+#fles-op {
+    color: red;
 }
 
 .error-message {
