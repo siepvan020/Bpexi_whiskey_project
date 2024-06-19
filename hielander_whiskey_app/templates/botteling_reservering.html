@@ -3,6 +3,9 @@
 
 {% block title %}Botteling reservering{% endblock %}
 
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reserveringen.css' %}">
+{% endblock %}
 
 {% block content %}
 
@@ -45,8 +48,10 @@
 
             <span id="naam-fles">{{ fles.naam }}</span>
 
-            <label for="flessen" class="required_ast">Aantal flessen:</label>
-            <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
+            <div id="aantal-flessen-div">
+                <label for="flessen" class="required_ast">Aantal flessen:</label>
+                <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
+            </div>
 
             <label for="totaalprijs">Totaalprijs:</label>
             <span id="totaalprijs">€{{ fles.prijs }}</span>
