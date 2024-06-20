@@ -12,13 +12,22 @@
     <section class="links">
         <section class="aantallen">
             <table class="text1" id="dataTable">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Sessie</th>
+                    <th>Gereserveerd</th>
+                    <th>Totaal beschikbaar</th>
+                </tr>
+                </thead>
                 <tbody>
                     {% for i in aantallen %}
-                    <tr>
-                        <td>
-                            {{ i }}
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ i.0 }}</td>
+                            <td>{{ i.1 }}</td>
+                            <td>{{ i.2 }}</td>
+                            <td>{{ i.3 }}</td>
+                         </tr>
                     {% endfor %}
                 </tbody>
             </table>
@@ -28,10 +37,10 @@
             <button onclick="grafiek_botteling()">Botteling</button>
             <button onclick="grafiek_masterclass()">Masterclasses</button>
             <section id="grafiek_botteling" style="display: block;">
-                {% include "bottel_piechart.html" %}
+                {% include "plots/bottel_piechart.html" %}
             </section>
             <section id="grafiek_masterclass" style="display: none;">
-                {% include "masterclass_barchart.html" %}
+                {% include "plots/masterclass_barchart.html" %}
             </section>
         </section>
     </section>
