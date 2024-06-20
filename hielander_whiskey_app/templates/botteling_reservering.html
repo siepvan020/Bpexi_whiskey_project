@@ -3,25 +3,41 @@
 
 {% block title %}Botteling reservering{% endblock %}
 
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/reserveringen.css' %}">
+{% endblock %}
 
 {% block content %}
 
 <section class="botteling-info">
 
-    <h1>Festival botteling 2024</h1>
+    <h1>Festival botteling 2024</h1>  <!-- Hier handmatig botteling titel/jaar aanpassen! -->
 
-    <p>Info over botteling</p>
+    <p>Info over botteling</p>  <!-- Hier handmatig botteling info aanpassen! -->
 
     <div id="hidden-flessen-count" data-flessen-count="{{ flessen_over }}"></div>
-    <h2 class="flessen-status" id="fles-voldoende" hidden>Reserveer hier je fles!</h2>
+    <h2 class="flessen-status" id="fles-voldoende" hidden>Reserveer hier uw fles!</h2>
     <h2 class="flessen-status" id="fles-bijna" hidden>Nog {{ flessen_over }} flessen beschikbaar!</h2>
-    <h2 class="flessen-status" id="fles-op" hidden>Geen flessen meer beschikbaar! Je wordt op de reservelijst gezet.</h2>
+    <h2 class="flessen-status" id="fles-op" hidden>Geen flessen meer beschikbaar! U wordt op de reservelijst geplaatst.</h2>
 
 </section>
 
 
 
 <section class="botteling-form">
+    <section id="flessen-aantal">
+
+        <span id="naam-fles">{{ fles.naam }}</span>
+
+        <div id="aantal-flessen-div">
+            <label for="flessen" class="required_ast">Aantal flessen:</label>
+            <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
+        </div>
+
+        <label for="totaalprijs">Totaalprijs:</label>
+        <span id="totaalprijs">€{{ fles.prijs }}</span>
+
+    </section>
 
     <form method="post">
         {% csrf_token %}
@@ -39,19 +55,8 @@
         <input type="text" id="e-mail" name="e_mailadres" placeholder="E-mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
-        <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen"></textarea>
 
-        <section id="flessen-aantal">
-
-            <span id="naam-fles">{{ fles.naam }}</span>
-
-            <label for="flessen" class="required_ast">Aantal flessen:</label>
-            <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
-
-            <label for="totaalprijs">Totaalprijs:</label>
-            <span id="totaalprijs" data-fles-prijs="{{ fles.prijs }}"></span>
-
-        </section>
+        <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen" rows="5" cols="50"></textarea>
 
         {% if messages %}
             {% for message in messages %}
