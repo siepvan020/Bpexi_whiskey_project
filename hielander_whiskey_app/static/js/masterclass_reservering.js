@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Script geladen!!");
 
+  // Event listener voor de sessie_nummer dropdown
   document
     .getElementById("sessie_nummer")
     .addEventListener("input", function () {
@@ -32,20 +33,31 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+  // Event listener voor het aantal_kaarten inputveld
   document
     .getElementById("aantal_kaarten")
-    .addEventListener("input", function () {
-      let prijs_dict = JSON.parse(
-        document.getElementById("hidden-data-prijzen").textContent
-      );
-      let masterclass_selected = document.querySelector(
-        "input[name=masterclass]:checked"
-      ).value;
+    .addEventListener("input", update_prijs);
 
-      var aantal_kaarten = document.getElementById("aantal_kaarten").value;
-      var prijs = prijs_dict[masterclass_selected];
-      var totaalprijs = aantal_kaarten * prijs;
-      var nieuwe_prijs = new String("€" + totaalprijs);
-      document.getElementById("totaalprijs").innerHTML = nieuwe_prijs;
+  // Event listener voor de masterclass radio buttons
+  document
+    .querySelectorAll("input[name=masterclass]")
+    .forEach(function (input) {
+      input.addEventListener("change", update_prijs);
     });
+
+  // Functie om de prijs te updaten voor zowel het aantal kaarten als het masterclass nummer
+  function update_prijs() {
+    let prijs_dict = JSON.parse(
+      document.getElementById("hidden-data-prijzen").textContent
+    );
+    let masterclass_selected = document.querySelector(
+      "input[name=masterclass]:checked"
+    ).value;
+
+    var aantal_kaarten = document.getElementById("aantal_kaarten").value;
+    var prijs = prijs_dict[masterclass_selected];
+    var totaalprijs = aantal_kaarten * prijs;
+    var nieuwe_prijs = new String("€" + totaalprijs);
+    document.getElementById("totaalprijs").innerHTML = nieuwe_prijs;
+  }
 });
