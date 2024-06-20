@@ -49,7 +49,7 @@
             <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
 
             <label for="totaalprijs">Totaalprijs:</label>
-            <span id="totaalprijs">€{{ fles.prijs }}</span>
+            <span id="totaalprijs" data-fles-prijs="{{ fles.prijs }}"></span>
 
         </section>
 
