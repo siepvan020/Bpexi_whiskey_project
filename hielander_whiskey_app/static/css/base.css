@@ -4,6 +4,13 @@ body, html {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+
+h1, h2 {
+    font-family: 'Terminal Dosis',Tahoma, Geneva, sans-serif;
+	font-weight: 700;
+	text-decoration: none;
 }
 
 .header-background, .footer-background {
@@ -38,4 +45,42 @@ body, html {
 .required_ast::after {
     content: "*";
     color: red;
+}
+
+.masterclass_res_keuze {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 15px;
+    border-width: 4px;
+    padding: 1rem;
+    border-color: black;
+    border: 2px solid;
+    background-color: lightgrey;
+    width: 25%;
+}
+
+.masterclass_res_pers {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    border-radius: 15px;
+    border-width: 4px;
+    padding: 1rem;
+    border-color: black;
+    border: 2px solid;
+    background-color: lightgrey;
+    width: 25%;
+}
+
+.submitbutton {
+    align-items: center;
+    background-color: #008C8C;
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    height: 10%;
+    width: 10%;
+    font-size: 15px;
+    border-radius: 15px;
+    padding: 1rem;
 }

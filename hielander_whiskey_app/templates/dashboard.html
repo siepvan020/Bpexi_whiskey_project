@@ -6,37 +6,58 @@
 
 {% block content %}
 
+
+
 <section class="body">
     <section class="links">
         <section class="aantallen">
             <table class="text1" id="dataTable">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Sessie</th>
+                    <th>Gereserveerd</th>
+                    <th>Totaal beschikbaar</th>
+                </tr>
+                </thead>
                 <tbody>
-                    {% aantallen %}
+                    {% for i in aantallen %}
+                        <tr>
+                            <td>{{ i.0 }}</td>
+                            <td>{{ i.1 }}</td>
+                            <td>{{ i.2 }}</td>
+                            <td>{{ i.3 }}</td>
+                         </tr>
+                    {% endfor %}
                 </tbody>
             </table>
         </section>
         <section class="grafieken">
             {% load static %}
-            {% if toont2 %}
-                <img src="{% static 'images/reserveringen.png' %}">
-            {% elif not toont2 %}
-                <img src="{% static 'images/reserveringen.png' %}">
-            {% endif %}
+            <button onclick="grafiek_botteling()">Botteling</button>
+            <button onclick="grafiek_masterclass()">Masterclasses</button>
+            <section id="grafiek_botteling" style="display: block;">
+                {% include "plots/bottel_piechart.html" %}
+            </section>
+            <section id="grafiek_masterclass" style="display: none;">
+                {% include "plots/masterclass_barchart.html" %}
+            </section>
         </section>
     </section>
     <section class="rechts">
         <section class="tabel">
-            {% if toont2 %}
-            <table class="text1" >
+            <button onclick="tabel_botteling()">Botteling</button>
+            <button onclick="tabel_masterclass()">Masterclasses</button>
+            <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
                 <thead>
                 <tr>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
+                    <th data-tablesaw-sortable-col>Voornaam</th>
+                    <th data-tablesaw-sortable-col>Achternaam</th>
                     <th>E-mailadres</th>
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th>Datum</th>
+                    <th data-tablesaw-sortable-col>Datum</th>
                     <th>Tijd</th>
                     <th>Opmerking</th>
                 </tr>
@@ -51,24 +72,24 @@
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
                     <td>{{ row.datum }}</td>
+                    <td>{{ row.tijd }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% elif not toont2 %}
-            <table class="text1" >
+            <table id="tabel_masterclass" class="tablesaw" data-tablesaw-sortable style="display: none;">
                 <thead>
                 <tr>
-                    <th>Voornaam</th>
-                    <th>Achternaam</th>
+                    <th data-tablesaw-sortable-col>Voornaam</th>
+                    <th data-tablesaw-sortable-col>Achternaam</th>
                     <th>E-mailadres</th>
                     <th>Sessie</th>
                     <th>Masterclass</th>
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th>Datum</th>
+                    <th data-tablesaw-sortable-col>Datum</th>
                     <th>Tijd</th>
                     <th>Opmerking</th>
                 </tr>
@@ -85,14 +106,28 @@
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
                     <td>{{ row.datum }}</td>
+                    <td>{{ row.tijd }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
-            {% endif %}
         </section>
     </section>
 </section>
 
 {% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        $(document).trigger("enhance.tablesaw");
+    });
+</script>
+{% endblock %}
+
+
+
+

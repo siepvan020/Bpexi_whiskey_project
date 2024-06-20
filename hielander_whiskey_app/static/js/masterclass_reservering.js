@@ -4,7 +4,7 @@ function sessie_selectie() {
     waarde = document.getElementById('sessie_nummer').value;
     if (waarde == '1') {
         console.log('sessie 1');
-        document.getElementById('masterclass1').value = 'masterclass; 1';
+        document.getElementById('masterclass1').value = 'masterclass 1';
         var label = document.querySelector('label[for=masterclass1]')
         label.innerHTML = 'Masterclass 1';
         document.getElementById('masterclass2').value = 'masterclass 2';
@@ -12,7 +12,7 @@ function sessie_selectie() {
         label.innerHTML = 'Masterclass 2';
     } else if (waarde == '2') {
         console.log('sessie 2');
-        document.getElementById('masterclass1').value = 'masterclass; 3';
+        document.getElementById('masterclass1').value = 'masterclass 3';
         var label = document.querySelector('label[for=masterclass1]')
         label.innerHTML = 'Masterclass 3';
         document.getElementById('masterclass2').value = 'masterclass 4';
@@ -20,7 +20,7 @@ function sessie_selectie() {
         label.innerHTML = 'Masterclass 4';
     } else {
         console.log('sessie 3');
-        document.getElementById('masterclass1').value = 'masterclass; 5';
+        document.getElementById('masterclass1').value = 'masterclass 5';
         var label = document.querySelector('label[for=masterclass1]')
         label.innerHTML = 'Masterclass 5';
         document.getElementById('masterclass2').value = 'masterclass 6';

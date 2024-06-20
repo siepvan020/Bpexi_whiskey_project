@@ -47,8 +47,8 @@ def botteling_reservering_page(request: WSGIRequest)\
             fles_prijs = FestivalData.objects.get(type='botteling').prijs
 
             # Berekening totaalprijs: aantal flessen * prijs per fles 
-            reservering.totaalprijs = reservering.aantal_flessen * fles_prijs
-            totprijs_email = f'{reservering.totaalprijs:.2f}'.replace('.', ',')
+            totaalprijs = reservering.aantal_flessen * fles_prijs
+            reservering.totaalprijs = f'{totaalprijs:.2f}'.replace('.', ',')
             
             if totaal_flessen:
                 # Aantal flessen over na de reservering
@@ -66,7 +66,7 @@ def botteling_reservering_page(request: WSGIRequest)\
                                   reservering.e_mailadres, 
                                   date.today(), 
                                   reservering.aantal_flessen, 
-                                  totprijs_email)
+                                  reservering.totaalprijs,)
 
             #reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
