@@ -2,53 +2,65 @@
 from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import render
-from bokeh.plotting import figure, output_file, show
-from django.db.models import Count
+from django.db.models import Count, Sum
 from django.contrib.auth.decorators import login_required
+from django.conf import settings
+
+import plotly.graph_objs as go
+import plotly.io as pio
+
+import os
 
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.models import MasterclassReserveringen
+from hielander_whiskey_app.models import FestivalData
 
-# Local imports
+
 
 @login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
-    Aant_botteling = BottelingReserveringen.objects.all().count
-    # counts = MasterclassReserveringen.objects.values('sessie_nummer', 'masterclass').annotate(count=Count('id????'))
-    # print(counts)
+    aantallen = []
+    totaal_flessen = BottelingReserveringen.objects.aggregate(totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
+    max_flessen = FestivalData.objects.get(type="botteling").aantal_beschikbaar
+    fles_naam = FestivalData.objects.get(type="botteling").naam
+    fles_line = f"{totaal_flessen}/{max_flessen} van de {fles_naam} gereserveerd"
+    aantallen.append(fles_line)
 
-    toont1 = True
-    # bottel_piechart()
-    # masterclass_barplot()
+    masterclass_dict = dict()
+    counts = MasterclassReserveringen.objects.values('masterclass', 'sessie_nummer').annotate(totaal_kaarten=Sum('aantal_kaarten'))
+    for row in counts:
+        max_kaarten = FestivalData.objects.get(type=f"{row['masterclass']}").aantal_beschikbaar
+        aantallen.append(f"{row['totaal_kaarten']}/{max_kaarten} van de {row['masterclass']}, sessie {row['sessie_nummer']} gereserveerd")
+        masterclass_dict[row['masterclass']] = row['totaal_kaarten']
 
+    bottel_piechart(totaal_flessen, max_flessen)
+    masterclass_barplot(masterclass_dict)
 
-
-    toont2 = True
     botteling = BottelingReserveringen.objects.all()
     masterclass = MasterclassReserveringen.objects.all()
     return render(request, 'dashboard.html', {
-        'aantallen': Aant_botteling,
-        'toont1': toont1,
-        'toont2': toont2,
+        'aantallen': aantallen,
         'botteling': botteling,
         'masterclass': masterclass,
     })
 
 
-def bottel_piechart():
-    output_file("templates/bottel_piechart.html")
-    graph = figure(title="Bottel Piechart")
+def bottel_piechart(aantal_reserv: int, max_flessen: int):
+    labels = ['Gereserveerd', 'Beschikbaar']
+    values = [aantal_reserv, (max_flessen-aantal_reserv)]
+
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values)])
+
+    templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates')
+    save_path = os.path.join(templates_dir, 'bottel_piechart.html')
+    pio.write_html(fig, file=save_path, auto_open=False, config={'displayModeBar': False})
 
 
-    graph.wedge()
-    pass
+def masterclass_barplot(aantallen: dict):
+    x = list(aantallen.keys())
+    y = list(aantallen.values())
+    fig = go.Figure([go.Bar(x=x, y=y)])
 
-
-def masterclass_barplot():
-    output_file("templates/masterclass_barplot.html")
-    graph = figure(title="Masterclass Barplot")
-
-
-    graph.vbar()
-    pass
-
+    templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates')
+    save_path = os.path.join(templates_dir, 'masterclass_barchart.html')
+    fig.write_html(file=save_path, auto_open=False, config={'displayModeBar': False})

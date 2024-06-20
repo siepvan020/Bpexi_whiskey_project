@@ -4,6 +4,13 @@ body, html {
     padding: 0;
     height: 100%;
     width: 100%;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+
+h1, h2 {
+    font-family: 'Terminal Dosis',Tahoma, Geneva, sans-serif;
+	font-weight: 700;
+	text-decoration: none;
 }
 
 .header-background, .footer-background {

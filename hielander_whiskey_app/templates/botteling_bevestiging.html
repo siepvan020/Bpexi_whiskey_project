@@ -3,8 +3,23 @@
 
 {% block title %}Botteling bevestiging{% endblock %}
 
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/bevestiging.css' %}">
+{% endblock %}
+
 
 {% block content %}
+<section class="bevestiging-info">
+    
+    <h1>Festival Botteling 2024</h1>
+    <h2>Bedankt voor uw reservering!</h2>
+    <p>
+        U hebt een bevestigingsmail ontvangen op het e-mailadres dat u zojuist heeft ingevuld.
+        Deze mail is ook gelijk de factuur voor uw reservering. Het zou kunnen dat deze e-mail in de spam 
+        terecht is gekomen, controleer daarom ook uw spambox als u geen e-mail heeft ontvangen.
+    </p>
+    <button type="button"><a href="http://www.hielanderwhiskyfestival.nl/festivalbotteling2024">Ga terug</a></button>
 
+</section>
 
 {% endblock %}
