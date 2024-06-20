@@ -14,7 +14,7 @@ from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.models import FestivalData
 
 
-@login_required
+# @login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
     templijst = list(FestivalData.objects.values_list('type', 'sessie', 'aantal_beschikbaar'))
     templijst.pop(0)
@@ -58,8 +58,9 @@ def bottel_piechart(aantal_reserv: int, max_flessen: int):
     values = [aantal_reserv, (max_flessen-aantal_reserv)]
 
     layout = go.Layout(autosize=False, width=625, height=500)
+    kleurtjes = ['#9c7731', '#242363']
 
-    fig = go.Figure(data=[go.Pie(labels=labels, values=values)], layout=layout)
+    fig = go.Figure(data=[go.Pie(labels=labels, values=values, marker=dict(colors=kleurtjes))], layout=layout)
 
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates', 'plots')
     save_path = os.path.join(templates_dir, 'bottel_piechart.html')
@@ -76,7 +77,8 @@ def masterclass_barplot(aantallen: list):
         y.append(aantallen_m[counter][2])
         counter += 1
     layout = go.Layout(autosize=False, width=625, height=500)
-    fig = go.Figure([go.Bar(x=x, y=y)], layout=layout)
+    kleurtjes = ['#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363']
+    fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color=kleurtjes))], layout=layout)
 
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates', 'plots')
     save_path = os.path.join(templates_dir, 'masterclass_barchart.html')
