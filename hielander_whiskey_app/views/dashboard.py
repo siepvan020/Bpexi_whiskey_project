@@ -46,10 +46,15 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
 
     botteling = BottelingReserveringen.objects.all()
     masterclass = MasterclassReserveringen.objects.all()
+    festivaldata = FestivalData.objects.values('naam', 'tijd', 
+                                               'sessie', 'datum', 
+                                               'aantal_beschikbaar', 'prijs')
+    
     return render(request, 'dashboard.html', {
         'aantallen': aantallen,
         'botteling': botteling,
         'masterclass': masterclass,
+        'festivaldata': festivaldata
     })
 
 

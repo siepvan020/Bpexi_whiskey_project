@@ -71,8 +71,8 @@
                     <td>{{ row.aantal_flessen }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum }}</td>
-                    <td>{{ row.tijd }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }}</td>
+                    <td>{{ row.tijd|date:'H:i' }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
@@ -105,14 +105,45 @@
                     <td>{{ row.aantal_kaarten }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum }}</td>
-                    <td>{{ row.tijd }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }}</td>
+                    <td>{{ row.tijd|date:'H:i' }}</td>
                     <td>{{ row.opmerking }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
             </table>
         </section>
+
+        <section class="data-aanpassen">
+            <table class="input-table">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Naam</th>
+                        <th>Tijd</th>
+                        <th>Sessie</th>
+                        <th>Datum</th>
+                        <th>Aantal beschikbaar</th>
+                        <th>Prijs</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tbody>
+                        {% for item in festivaldata %}
+                            <tr>
+                                <td></td>
+                                <td><input placeholder="{{ item.naam }}"></td>
+                                <td><input placeholder="{{ item.tijd|date:'H:i' }}"></td>
+                                <td><input placeholder="{{ item.sessie }}"></td>
+                                <td><input placeholder="{{ item.datum|date:'d-m-Y' }}"></td>
+                                <td><input placeholder="{{ item.aantal_beschikbaar }}"></td>
+                                <td><input placeholder="€{{ item.prijs }}"></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+
+        </section>
+
     </section>
 </section>
 
