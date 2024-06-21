@@ -19,7 +19,7 @@
         {% csrf_token %}
         <section>
             <label for="sessie_nummer">Sessie:</label>
-            <select name="sessie_nummer" id="sessie_nummer" onclick="sessie_selectie()">
+            <select name="sessie_nummer" id="sessie_nummer">
                 <option value="1">Sessie 1</option>
                 <option value="2">Sessie 2</option>
                 <option value="3">Sessie 3</option>
@@ -35,9 +35,9 @@
             </div>
             
             <label for="aantal_kaarten">Aantal kaarten:</label>
-            <input type="number" max="30" min="1" value="1" id="aantal_kaarten" name="aantal_kaarten" onclick="prijs_aanpassen()">
-            <label for="totaalprijs">Totaalprijs:</label>
-            <span id="totaalprijs">€15</span>
+            <input type="number" max="30" min="1" value="1" id="aantal_kaarten" name="aantal_kaarten"><br><br>
+            <label for="totaalprijs">Totaalprijs:</label><br>
+            <span id="totaalprijs"></span><br><br>
 
         </section>
         <div>
@@ -66,6 +66,9 @@
 
         <button type="submit" class="submitbutton">Reserveer</button><br><br>
     </form>
+
+    <div id="hidden-data-prijzen" hidden>{{ masterclass_prijzen|json_script:"masterclass-prijzen" }}</div>
+
 </section>
 {% endblock %}
 

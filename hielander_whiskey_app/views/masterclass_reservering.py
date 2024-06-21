@@ -8,9 +8,14 @@ from django.contrib import messages
 # Local imports
 from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.forms import MasterclassReserveringenForm
+from hielander_whiskey_app.models import FestivalData
 
 
 def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
+    context = {}
+    templijst = dict(FestivalData.objects.values_list('type', 'prijs')[1:])
+    context['masterclass_prijzen'] = templijst
+
     if request.method == 'POST':
         form = MasterclassReserveringenForm(request.POST)
         if form.is_valid():
@@ -33,4 +38,4 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
             else:
                 messages.error(request, 'Reservering niet correct')
 
-    return render(request, 'masterclass_reservering.html')
+    return render(request, 'masterclass_reservering.html', context)

@@ -35,7 +35,7 @@
         </div>
 
         <label for="totaalprijs">Totaalprijs:</label>
-        <span id="totaalprijs">€{{ fles.prijs }}</span>
+        <span id="totaalprijs" data-fles-prijs="{{ fles.prijs }}"></span>
 
     </section>
 
@@ -55,6 +55,7 @@
         <input type="text" id="e-mail" name="e_mailadres" placeholder="E-mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
+
         <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen" rows="5" cols="50"></textarea>
 
         {% if messages %}
