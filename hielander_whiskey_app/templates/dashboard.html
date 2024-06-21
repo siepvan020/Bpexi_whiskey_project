@@ -115,32 +115,42 @@
         </section>
 
         <section class="data-aanpassen">
-            <table class="input-table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Naam</th>
-                        <th>Tijd</th>
-                        <th>Sessie</th>
-                        <th>Datum</th>
-                        <th>Aantal beschikbaar</th>
-                        <th>Prijs</th>
-                    </tr>
-                </thead>
-                <tbody>
+            <form method="post">
+                {% csrf_token %}
+                <table class="input-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Naam</th>
+                            <th>Tijd</th>
+                            <th>Sessie</th>
+                            <th>Datum</th>
+                            <th>Aantal beschikbaar</th>
+                            <th>Prijs</th>
+                        </tr>
+                    </thead>
                     <tbody>
                         {% for item in festivaldata %}
                             <tr>
-                                <td></td>
-                                <td><input placeholder="{{ item.naam }}"></td>
-                                <td><input placeholder="{{ item.tijd|date:'H:i' }}"></td>
-                                <td><input placeholder="{{ item.sessie }}"></td>
-                                <td><input placeholder="{{ item.datum|date:'d-m-Y' }}"></td>
-                                <td><input placeholder="{{ item.aantal_beschikbaar }}"></td>
-                                <td><input placeholder="€{{ item.prijs }}"></td>
+                                <td>{{ item.type }}</td>
+                                <td><input type="text" name="naam_{{item.id}}" placeholder="{{ item.naam }}"></td>
+                                {% if item.type == 'Botteling' %}
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                {% else %}
+                                <td><input type="time" name="tijd_{{item.id}}" value="{{ item.tijd|date:'H:i' }}"></td>
+                                <td>{{ item.sessie }}</td>
+                                <td><input type="text" name="datum_{{item.id}}" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="{{ item.datum|date:'d-m-Y' }}"></td>
+                                {% endif %}
+                                <td><input type="number" name="aantal_beschikbaar_{{item.id}}" placeholder="{{ item.aantal_beschikbaar }}" min="0"></td>
+                                <td><input type="number" name="prijs_{{item.id}}" placeholder="{{ item.prijs }}" min="0" step=".01"></td>
                             </tr>
                         {% endfor %}
                     </tbody>
+                </table>
+                <button type="submit">Update</button>
+            </form>
 
         </section>
 

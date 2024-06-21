@@ -23,4 +23,4 @@ class FestivalData(models.Model):
     )
     aantal_beschikbaar = models.PositiveSmallIntegerField()
 
-    prijs = models.PositiveSmallIntegerField()
+    prijs = models.FloatField()
