@@ -38,8 +38,8 @@
         <section class="grafieken">
             {% load static %}
             <section class="buttons">
-                <button onclick="grafiek_botteling()">Botteling</button>
-                <button onclick="grafiek_masterclass()">Masterclasses</button>
+                <button class="norm_buttons" onclick="grafiek_botteling()">Botteling</button>
+                <button class="norm_buttons" onclick="grafiek_masterclass()">Masterclasses</button>
             </section>
             <section id="grafiek_botteling" style="display: block;">
                 {% include "plots/bottel_piechart.html" %}
@@ -52,8 +52,8 @@
     <section class="rechts">
         <section class="tabel">
             <section class="buttons">
-                <button onclick="tabel_botteling()">Botteling</button>
-                <button onclick="tabel_masterclass()">Masterclasses</button>
+                <button class="norm_buttons" onclick="tabel_botteling()">Botteling</button>
+                <button class="norm_buttons" onclick="tabel_masterclass()">Masterclasses</button>
             </section>
             <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
                 <thead>
