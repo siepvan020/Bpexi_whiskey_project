@@ -47,7 +47,7 @@ function getVisibleTable() {
 function exportTableToCSV() {
     var table = getVisibleTable();
     if (!table) {
-        alert("No table is currently visible.");
+        alert("Er is momenteel geen tabel zichtbaar.");
         return;
     }
 
@@ -60,7 +60,7 @@ function exportTableToCSV() {
         cells.forEach(function(cell) {
             rowData.push(cell.innerText);
         });
-        csvContent += rowData.join(',') + '\n';
+        csvContent += rowData.join(';') + '\n';
     });
 
     var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
