@@ -108,7 +108,7 @@ table, th, td {
     box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
 }
 
-norm_button:hover {
+.norm_buttons:hover {
     background-color: #004A99;
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
