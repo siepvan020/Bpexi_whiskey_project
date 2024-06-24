@@ -49,9 +49,11 @@
             <button id="tabel-botteling">Botteling</button>
             <button id="tabel-masterclass">Masterclasses</button>
             <button id="tabel-export">Export naar CSV</button>
+            <button id="deleteSelectedRowIds">Verwijder geselecteerd</button>
             <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
                 <thead>
                 <tr>
+                    <th>Selecteer</th>
                     <th data-tablesaw-sortable-col>Voornaam</th>
                     <th data-tablesaw-sortable-col>Achternaam</th>
                     <th>E-mailadres</th>
@@ -65,7 +67,8 @@
                 </thead>
                 <tbody>
                 {% for row in botteling %}
-                <tr>
+                <tr data-id="{{ row.id }}">
+                    <td><input type="checkbox" class="row-checkbox" data-id="{{ row.id }}"></td>
                     <td>{{ row.voornaam }}</td>
                     <td>{{ row.achternaam }}</td>
                     <td>{{ row.e_mailadres }}</td>
@@ -82,6 +85,7 @@
             <table id="tabel_masterclass" class="tablesaw" data-tablesaw-sortable style="display: none;">
                 <thead>
                 <tr>
+                    <th>Selecteer</th>
                     <th data-tablesaw-sortable-col>Voornaam</th>
                     <th data-tablesaw-sortable-col>Achternaam</th>
                     <th>E-mailadres</th>
@@ -97,7 +101,8 @@
                 </thead>
                 <tbody>
                 {% for row in masterclass %}
-                <tr>
+                <tr data-id="{{ row.id }}">
+                    <td><input type="checkbox" class="row-checkbox" data-id="{{ row.id }}"></td>
                     <td>{{ row.voornaam }}</td>
                     <td>{{ row.achternaam }}</td>
                     <td>{{ row.e_mailadres }}</td>

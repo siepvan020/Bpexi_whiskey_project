@@ -44,9 +44,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var tabelMasterclass = document.getElementById("tabel_masterclass");
 
     if (tabelBotteling.style.display === "block") {
-      return tabelBotteling;
+      return { table: tabelBotteling, type: "botteling" };
     } else if (tabelMasterclass.style.display === "block") {
-      return tabelMasterclass;
+      return { table: tabelMasterclass, type: "masterclass" };
     } else {
       return null;
     }
@@ -82,4 +82,78 @@ document.addEventListener("DOMContentLoaded", function () {
       link.click();
       document.body.removeChild(link);
     });
+
+
+  function getSelectedRowIds() {
+    var visibleTable = getVisibleTable();
+    if (!visibleTable) {
+        alert("Geen tabel gekozen.");
+        return { ids: [], type: null };
+    }
+
+    var checkboxes = visibleTable.table.querySelectorAll('input[type="checkbox"]:checked');
+    var ids = [];
+    checkboxes.forEach(function(checkbox) {
+        ids.push(checkbox.dataset.id);
+    });
+
+    console.log('Geselecteerde IDs:', ids);
+    return { ids: ids, type: visibleTable.type };
+}
+
+   document
+    .getElementById("deleteSelectedRowIds")
+    .addEventListener("click", function () {
+    var selectedData = getSelectedRowIds();
+    console.log('Geselecteerde Data:', selectedData);
+    if (!selectedData.ids || selectedData.ids.length === 0) {
+        alert("Geen rijden geselecteerd.");
+        return;
+    }
+    if (!confirm("Weet je zeker dat je de geselecteerde rij(en) wilt verwijderen?")) {
+        return;
+    }
+
+    fetch('/delete-rij/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+        },
+        body: JSON.stringify({ ids: selectedData.ids, type: selectedData.type })
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Server Response:', data);
+        if (data.success) {
+            selectedData.ids.forEach(function(id) {
+                var row = document.querySelector(`tr[data-id="${id}"]`);
+                if (row) {
+                    row.remove();
+                }
+            });
+        } else {
+            alert("Error tijdens het verwijderen: " + (data.error || "Unknown error"));
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert("Er is een fout opgetreden.");
+    });
+});
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
 });

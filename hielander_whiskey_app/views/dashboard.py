@@ -7,6 +7,10 @@ from django.db.models.functions import Coalesce
 from django.contrib.auth.decorators import login_required
 from django.conf import settings
 from django.contrib import messages
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import get_object_or_404
+import json
 
 import plotly.graph_objs as go
 import plotly.io as pio
@@ -127,3 +131,24 @@ def masterclass_barplot(aantallen: list):
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates', 'plots')
     save_path = os.path.join(templates_dir, 'masterclass_barchart.html')
     fig.write_html(file=save_path, auto_open=False, config={'displayModeBar': False})
+
+
+@csrf_exempt
+def delete_rij(request):
+    if request.method == 'POST':
+        try:
+            data = json.loads(request.body)
+            ids = data.get('ids', [])
+            type = data.get('type')
+            if not ids:
+                return JsonResponse({'success': False, 'error': 'No IDs provided'})
+            if type == 'botteling':
+                BottelingReserveringen.objects.filter(id__in=ids).delete()
+            elif type == 'masterclass':
+                MasterclassReserveringen.objects.filter(id__in=ids).delete()
+            else:
+                return JsonResponse({'success': False, 'error': 'Invalid type'})
+            return JsonResponse({'success': True})
+        except Exception as e:
+            return JsonResponse({'success': False, 'error': str(e)})
+    return JsonResponse({'success': False, 'error': 'Invalid request method'})
