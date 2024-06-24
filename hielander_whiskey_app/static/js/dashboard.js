@@ -1,74 +1,85 @@
-function grafiek_botteling() {
-    var x = document.getElementById("grafiek_botteling");
-    var y = document.getElementById("grafiek_masterclass");
+document.addEventListener("DOMContentLoaded", function () {
+  document
+    .getElementById("grafiek-botteling")
+    .addEventListener("click", function () {
+      var x = document.getElementById("grafiek_botteling");
+      var y = document.getElementById("grafiek_masterclass");
 
-    x.style.display = "block";
-    y.style.display = "none";
-}
+      x.style.display = "block";
+      y.style.display = "none";
+    });
 
-function grafiek_masterclass() {
-    var y = document.getElementById("grafiek_botteling");
-    var x = document.getElementById("grafiek_masterclass");
+  document
+    .getElementById("grafiek-masterclass")
+    .addEventListener("click", function () {
+      var y = document.getElementById("grafiek_botteling");
+      var x = document.getElementById("grafiek_masterclass");
 
-    x.style.display = "block";
-    y.style.display = "none";
-}
+      x.style.display = "block";
+      y.style.display = "none";
+    });
 
+  document
+    .getElementById("tabel-botteling")
+    .addEventListener("click", function () {
+      var x = document.getElementById("tabel_botteling");
+      var y = document.getElementById("tabel_masterclass");
 
-function tabel_botteling() {
-    var x = document.getElementById("tabel_botteling");
-    var y = document.getElementById("tabel_masterclass");
+      x.style.display = "block";
+      y.style.display = "none";
+    });
 
-    x.style.display = "block";
-    y.style.display = "none";
-}
+  document
+    .getElementById("tabel-masterclass")
+    .addEventListener("click", function () {
+      var y = document.getElementById("tabel_botteling");
+      var x = document.getElementById("tabel_masterclass");
 
-function tabel_masterclass() {
-    var y = document.getElementById("tabel_botteling");
-    var x = document.getElementById("tabel_masterclass");
+      x.style.display = "block";
+      y.style.display = "none";
+    });
 
-    x.style.display = "block";
-    y.style.display = "none";
-}
-
-function getVisibleTable() {
+  function getVisibleTable() {
     var tabelBotteling = document.getElementById("tabel_botteling");
     var tabelMasterclass = document.getElementById("tabel_masterclass");
 
     if (tabelBotteling.style.display === "block") {
-        return tabelBotteling;
+      return tabelBotteling;
     } else if (tabelMasterclass.style.display === "block") {
-        return tabelMasterclass;
+      return tabelMasterclass;
     } else {
-        return null;
+      return null;
     }
-}
+  }
 
-function exportTableToCSV() {
-    var table = getVisibleTable();
-    if (!table) {
+  document
+    .getElementById("tabel-export")
+    .addEventListener("click", function () {
+      var table = getVisibleTable();
+      if (!table) {
         alert("Er is momenteel geen tabel zichtbaar.");
         return;
-    }
+      }
 
-    var rows = table.querySelectorAll('tr');
-    var csvContent = '';
+      var rows = table.querySelectorAll("tr");
+      var csvContent = "";
 
-    rows.forEach(function(row) {
-        var cells = row.querySelectorAll('th, td');
+      rows.forEach(function (row) {
+        var cells = row.querySelectorAll("th, td");
         var rowData = [];
-        cells.forEach(function(cell) {
-            rowData.push(cell.innerText);
+        cells.forEach(function (cell) {
+          rowData.push(cell.innerText);
         });
-        csvContent += rowData.join(';') + '\n';
-    });
+        csvContent += rowData.join(";") + "\n";
+      });
 
-    var blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-    var link = document.createElement('a');
-    link.href = URL.createObjectURL(blob);
-    link.download = 'table_data.csv';
-    link.style.display = 'none';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
+      var blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+      var link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = table.id + ".csv";
+      link.style.display = "none";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    });
+});
