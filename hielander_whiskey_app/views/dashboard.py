@@ -3,12 +3,17 @@ from django.core.handlers.wsgi import WSGIRequest
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.db.models import Sum, Value
-from django.contrib.auth.decorators import login_required
 from django.db.models.functions import Coalesce
+from django.contrib.auth.decorators import login_required
 from django.conf import settings
+from django.contrib import messages
+
 import plotly.graph_objs as go
 import plotly.io as pio
+
 import os
+
+# Local imports
 from hielander_whiskey_app.models import BottelingReserveringen
 from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.models import FestivalData
@@ -16,6 +21,42 @@ from hielander_whiskey_app.models import FestivalData
 
 @login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
+
+    if request.method == 'POST':
+        update_success = True
+
+        for item in FestivalData.objects.all():
+            item_id = item.id
+
+            # Stop POST data in variabelen
+            naam_value = request.POST.get(f'naam_{item_id}')
+            tijd_value = request.POST.get(f'tijd_{item_id}')
+            datum_value = request.POST.get(f'datum_{item_id}')
+            aantal_value = request.POST.get(f'aantal_beschikbaar_{item_id}')
+            prijs_value = request.POST.get(f'prijs_{item_id}')
+
+            try:
+                # Update item met nieuwe data
+                item.naam = naam_value if naam_value else item.naam
+                item.tijd = tijd_value if tijd_value else item.tijd
+                item.datum = datum_value if datum_value else item.datum
+                item.aantal_beschikbaar = aantal_value \
+                    if aantal_value else item.aantal_beschikbaar
+                item.prijs = prijs_value if prijs_value else item.prijs
+                
+                item.save()
+            except ValueError as e:
+                messages.error(request, 
+                               f"Value error voor {item.type}: {e}")
+                update_success = False
+            except Exception as e:
+                messages.error(request, 
+                               f"Error bij het updaten van {item.type}: {e}")
+                update_success = False
+        
+        if update_success:
+            messages.success(request, "Festival Data succesvol geüpdatet!")
+
     templijst = list(FestivalData.objects.values_list('type', 'sessie', 'aantal_beschikbaar'))
     templijst.pop(0)
     tempdict = dict()
@@ -46,10 +87,15 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
 
     botteling = BottelingReserveringen.objects.all()
     masterclass = MasterclassReserveringen.objects.all()
+    festivaldata = FestivalData.objects.all()
+    for data in festivaldata:
+        data.type = data.type.capitalize()
+    
     return render(request, 'dashboard.html', {
         'aantallen': aantallen,
         'botteling': botteling,
         'masterclass': masterclass,
+        'festivaldata': festivaldata
     })
 
 
