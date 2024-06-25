@@ -24,7 +24,9 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
                     templijst[masterclass] = 0
     context['kaarten_beschikbaar'] = templijst
     templijst = dict(FestivalData.objects.values_list('type', 'naam')[1:])
-    print(templijst)
+    context['masterclass_naam'] = templijst
+    templijst = dict(FestivalData.objects.values_list('type', 'tijd')[1:])
+    context['masterclass_tijd'] = templijst
 
     if request.method == 'POST':
         form = MasterclassReserveringenForm(request.POST)
