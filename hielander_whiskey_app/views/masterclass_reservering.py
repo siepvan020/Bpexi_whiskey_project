@@ -26,6 +26,9 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
     templijst = dict(FestivalData.objects.values_list('type', 'naam')[1:])
     context['masterclass_naam'] = templijst
     templijst = dict(FestivalData.objects.values_list('type', 'tijd')[1:])
+    for masterclass in templijst.keys():
+        templijst[masterclass] = str(templijst[masterclass])[:5]
+
     context['masterclass_tijd'] = templijst
 
     if request.method == 'POST':
