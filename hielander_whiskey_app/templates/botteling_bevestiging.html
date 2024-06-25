@@ -18,6 +18,17 @@
         Deze mail is ook gelijk de factuur voor uw reservering. Het zou kunnen dat deze e-mail in de spam 
         terecht is gekomen, controleer daarom ook uw spambox als u geen e-mail heeft ontvangen.
     </p>
+    <div>
+        <h2>Besteloverzicht</h2>
+        <p>
+            Naam: {{ reservering.voornaam }} {% if reservering.tussenvoegsel %}{{ reservering.tussenvoegsel }} {% endif %}{{ reservering.achternaam }}<br>
+            E-mail: {{ reservering.e_mailadres }}<br>
+            Bestelling: {{ fles.naam }}<br>
+            Prijs per fles: €{{ fles.prijs }}<br>
+            Aantal flessen: {{ reservering.aantal_flessen }}<br>
+            Totaalprijs: €{{ email_totaalprijs }}
+        </p>
+    </div>
     <button type="button"><a href="http://www.hielanderwhiskyfestival.nl/festivalbotteling2024">Ga terug</a></button>
 
 </section>
