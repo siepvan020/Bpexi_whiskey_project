@@ -103,6 +103,7 @@ table, th, td {
     background-color: white;
     border: 1px solid black;
     border-collapse: collapse;
+    padding: 8px;
 }
 
 .buttons {
@@ -141,4 +142,35 @@ table, th, td {
 .tablesaw-sortable-btn:hover {
     background-color: #d9dcde;
     border: 2px solid black;
+}
+
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    height: auto;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 0;
+    
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+  }
+  
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    border: 3px solid #005EB8;
+  }
+
+.footer-background {
+    position: static;
+    margin-bottom: 0;
 }
