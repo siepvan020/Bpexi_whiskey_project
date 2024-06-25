@@ -4,12 +4,13 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
 from django.contrib import messages
+from datetime import date
 
 # Local imports
 from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.forms import MasterclassReserveringenForm
 from hielander_whiskey_app.models import FestivalData
-
+from hielander_whiskey_app.utils.send_emails import setup_masterclass_email
 
 def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
     context = {}
@@ -28,7 +29,6 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
     templijst = dict(FestivalData.objects.values_list('type', 'tijd')[1:])
     for masterclass in templijst.keys():
         templijst[masterclass] = str(templijst[masterclass])[:5]
-
     context['masterclass_tijd'] = templijst
 
     if request.method == 'POST':
@@ -41,11 +41,39 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
             for res in masterclass_reserveringen:
                 if res.masterclass == reservering.masterclass:
                     totaal_aantal_kaarten += res.aantal_kaarten
-            if totaal_aantal_kaarten> 30:
+            if totaal_aantal_kaarten >= 30:
                 reservering.reserve = True
+            tussenvoegsel = reservering.tussenvoegsel if \
+                reservering.tussenvoegsel else ''
             reservering.save()
             print(f'Reservering "{reservering}" opgeslagen')
-            return HttpResponseRedirect(reverse('masterclass_bevestiging'))
+
+            templijst = FestivalData.objects.all()[1:]
+            masterclass_prijs = 0
+            for masterclass in templijst:
+                if masterclass.type == reservering.masterclass:
+                    masterclass_prijs = masterclass.prijs
+                    setup_masterclass_email(f'{reservering.voornaam} \
+                                                                                      {tussenvoegsel} \
+                                                                                      {reservering.achternaam}',
+                                            reservering.e_mailadres,
+                                            date.today(),
+                                            masterclass.naam,
+                                            masterclass.sessie,
+                                            masterclass.tijd,
+                                            masterclass.prijs,
+                                            reservering.aantal_kaarten,
+                                            reservering.totaalprijs, )
+                    print('email verstuurd!')
+
+            return render(request,'masterclass_bevestiging.html', {
+                'naam': f'{reservering.voornaam} {tussenvoegsel} {reservering.achternaam}',
+                'mail': reservering.e_mailadres,
+                'masterclass': masterclass.naam,
+                'prijs': masterclass_prijs,
+                'aantal_kaarten': reservering.aantal_kaarten,
+                'totaalprijs': reservering.totaalprijs
+            })
         else:
             print('Reservering niet correct/form ongeldig')
             if 'e_mailadres' in form.errors:
