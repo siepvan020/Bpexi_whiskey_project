@@ -20,6 +20,7 @@
         <section>
             <label for="sessie_nummer">Sessie:</label>
             <select name="sessie_nummer" id="sessie_nummer">
+                <option disabled selected value> -- Selecteer een sessie -- </option>
                 <option value="1">Sessie 1</option>
                 <option value="2">Sessie 2</option>
                 <option value="3">Sessie 3</option>
@@ -27,11 +28,11 @@
 
             <div class="radio-container">
                 <input type="radio" name="masterclass" value="masterclass 1" id="masterclass1" required>
-                <label for="masterclass1">Masterclass 1</label>
+                <label for="masterclass1"></label>
             </div>
             <div class="radio-container">
                 <input type="radio" name="masterclass" value="masterclass 2" id="masterclass2" required>
-                <label for="masterclass2">Masterclass 2</label>
+                <label for="masterclass2"></label>
             </div>
             
             <label for="aantal_kaarten">Aantal kaarten:</label>
@@ -53,21 +54,20 @@
             <label for="e_mailadres">E-mailadres:</label>
             <input type="text" placeholder="E-mailadres" name="e_mailadres" id="e_mailadres" required>
 
-            <label for="opmerking">Opmerkingen:</label>
-            <textarea name="opmerking" placeholder="Opmerkingen" id="opmerking" maxlength="500" rows="5" cols="60"></textarea>
         </div>
 
             <div>
                 <label for="opmerking">Opmerkingen:</label><br>
                 <textarea name="opmerking" id="opmerking" maxlength="500" rows="10" cols="30" style="resize:none;"></textarea><br><br>
-            </div><br><br>
-
-        </div><br><br>
+            </div>
 
         <button type="submit" class="submitbutton">Reserveer</button><br><br>
     </form>
 
     <div id="hidden-data-prijzen" hidden>{{ masterclass_prijzen|json_script:"masterclass-prijzen" }}</div>
+    <div id="hidden-data-kaarten" hidden>{{ kaarten_beschikbaar|json_script:"kaarten-beschikbaar" }}</div>
+    <div id="hidden-data-namen" hidden>{{ masterclass_naam|json_script:"masterclass-naam" }}</div>
+    <div id="hidden-data-tijden" hidden>{{ masterclass_tijd|json_script:"masterclass-tijd" }}</div>
 
 </section>
 {% endblock %}
