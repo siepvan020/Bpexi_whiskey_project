@@ -25,22 +25,22 @@
 
 
 <section class="botteling-form">
-    <section id="flessen-aantal">
-
-        <span id="naam-fles">{{ fles.naam }}</span>
-
-        <div id="aantal-flessen-div">
-            <label for="flessen" class="required_ast">Aantal flessen:</label>
-            <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
-        </div>
-
-        <label for="totaalprijs">Totaalprijs:</label>
-        <span id="totaalprijs">€{{ fles.prijs }}</span>
-
-    </section>
-
     <form method="post">
         {% csrf_token %}
+        <section id="flessen-aantal">
+
+            <span id="naam-fles">{{ fles.naam }}</span>
+
+            <div id="aantal-flessen-div">
+                <label for="flessen" class="required_ast">Aantal flessen:</label>
+                <input type="number" id="flessen" name="aantal_flessen" required min="1" max="2">
+            </div>
+
+            <label for="totaalprijs">Totaalprijs:</label>
+            <span id="totaalprijs" data-fles-prijs="{{ fles.prijs }}"></span>
+
+        </section>
+        
         
         <label for="voornaam" class="required_ast">Voornaam:</label>
         <input type="text" id="voornaam" name="voornaam" placeholder="Voornaam" required>
@@ -55,6 +55,7 @@
         <input type="text" id="e-mail" name="e_mailadres" placeholder="E-mailadres" required>
 
         <label for="opmerkingen">Opmerkingen:</label>
+
         <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen" rows="5" cols="50"></textarea>
 
         {% if messages %}
