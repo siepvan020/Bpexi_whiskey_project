@@ -25,6 +25,11 @@
 
 
 <section class="botteling-form">
+    {% if messages %}
+        {% for message in messages %}
+            <p class="error-message">{{ message }}</p>
+        {% endfor %}
+    {% endif %}
     <form method="post">
         {% csrf_token %}
         <section id="flessen-aantal">
@@ -56,13 +61,9 @@
 
         <label for="opmerkingen">Opmerkingen:</label>
 
-        <textarea id="opmerkingen" name="opmerkingen" placeholder="Opmerkingen" rows="5" cols="50"></textarea>
+        <textarea id="opmerking" name="opmerking" placeholder="Opmerkingen" rows="5" cols="50"></textarea>
 
-        {% if messages %}
-            {% for message in messages %}
-                <p class="error-message">{{ message }}</p>
-            {% endfor %}
-        {% endif %}
+        
 
         <button type="submit">Reserveer</button>
 
