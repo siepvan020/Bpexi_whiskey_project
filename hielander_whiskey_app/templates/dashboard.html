@@ -3,12 +3,15 @@
 
 {% block title %}Admin dashboard{% endblock %}
 
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
 
 
 
-<section class="body">
+<section class="bodydash">
     <section class="links">
         <section class="aantallen">
             <table class="text1" id="dataTable">
@@ -34,8 +37,11 @@
         </section>
         <section class="grafieken">
             {% load static %}
-            <button id="grafiek-botteling">Botteling</button>
-            <button id="grafiek-masterclass">Masterclasses</button>
+            <section class="buttons">
+              <button id="grafiek-botteling">Botteling</button>
+              <button id="grafiek-masterclass">Masterclasses</button>
+            </section>
+
             <section id="grafiek_botteling" style="display: block;">
                 {% include "plots/bottel_piechart.html" %}
             </section>
@@ -46,10 +52,13 @@
     </section>
     <section class="rechts">
         <section class="tabel">
+          <section class="buttons">
             <button id="tabel-botteling">Botteling</button>
             <button id="tabel-masterclass">Masterclasses</button>
             <button id="tabel-export">Export naar CSV</button>
             <button id="deleteSelectedRowIds">Verwijder geselecteerd</button>
+          </section>
+
             <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
                 <thead>
                 <tr>
