@@ -43,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function () {
     .querySelectorAll("input[name=masterclass]")
     .forEach(function (input) {
       input.addEventListener("change", update_prijs);
+      input.addEventListener("change", update_aantal_kaarten);
     });
 
   // Functie om de prijs te updaten voor zowel het aantal kaarten als het masterclass nummer
@@ -59,5 +60,18 @@ document.addEventListener("DOMContentLoaded", function () {
     var totaalprijs = aantal_kaarten * prijs;
     var nieuwe_prijs = new String("€" + totaalprijs);
     document.getElementById("totaalprijs").innerHTML = nieuwe_prijs;
+  }
+
+  function update_aantal_kaarten() {
+    let kaarten_dict = JSON.parse(
+      document.getElementById("hidden-data-kaarten").textContent
+    );
+    let masterclass_selected = document.querySelector(
+      "input[name=masterclass]:checked"
+    ).value;
+
+    var kaarten_beschikbaar = kaarten_dict[masterclass_selected];
+    var input = document.getElementById('aantal_kaarten');
+    input.setAttribute('max', kaarten_beschikbaar);
   }
 });

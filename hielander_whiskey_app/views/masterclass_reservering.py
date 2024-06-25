@@ -15,6 +15,16 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
     context = {}
     templijst = dict(FestivalData.objects.values_list('type', 'prijs')[1:])
     context['masterclass_prijzen'] = templijst
+    templijst = dict(FestivalData.objects.values_list('type', 'aantal_beschikbaar')[1:])
+    for masterclass in templijst.keys():
+        for reservering in MasterclassReserveringen.objects.all():
+            if reservering.masterclass == masterclass:
+                templijst[masterclass] -= reservering.aantal_kaarten
+                if templijst[masterclass] == 0:
+                    templijst[masterclass] = 0
+    context['kaarten_beschikbaar'] = templijst
+    templijst = dict(FestivalData.objects.values_list('type', 'naam')[1:])
+    print(templijst)
 
     if request.method == 'POST':
         form = MasterclassReserveringenForm(request.POST)

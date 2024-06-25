@@ -58,14 +58,13 @@
             <div>
                 <label for="opmerking">Opmerkingen:</label><br>
                 <textarea name="opmerking" id="opmerking" maxlength="500" rows="10" cols="30" style="resize:none;"></textarea><br><br>
-            </div><br><br>
-
-        </div><br><br>
+            </div>
 
         <button type="submit" class="submitbutton">Reserveer</button><br><br>
     </form>
 
     <div id="hidden-data-prijzen" hidden>{{ masterclass_prijzen|json_script:"masterclass-prijzen" }}</div>
+    <div id="hidden-data-kaarten" hidden>{{ kaarten_beschikbaar|json_script:"kaarten-beschikbaar" }}</div>
 
 </section>
 {% endblock %}
