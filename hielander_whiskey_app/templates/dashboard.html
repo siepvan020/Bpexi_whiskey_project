@@ -38,8 +38,8 @@
         <section class="grafieken">
             {% load static %}
             <section class="buttons">
-              <button id="grafiek-botteling">Botteling</button>
-              <button id="grafiek-masterclass">Masterclasses</button>
+              <button id="grafiek-botteling" class="norm_buttons">Botteling</button>
+              <button id="grafiek-masterclass" class="norm_buttons">Masterclasses</button>
             </section>
 
             <section id="grafiek_botteling" style="display: block;">
@@ -53,10 +53,10 @@
     <section class="rechts">
         <section class="tabel">
           <section class="buttons">
-            <button id="tabel-botteling">Botteling</button>
-            <button id="tabel-masterclass">Masterclasses</button>
-            <button id="tabel-export">Export naar CSV</button>
-            <button id="deleteSelectedRowIds">Verwijder geselecteerd</button>
+            <button id="tabel-botteling" class="norm_buttons">Botteling</button>
+            <button id="tabel-masterclass" class="norm_buttons">Masterclasses</button>
+            <button id="tabel-export" class="norm_buttons">Export naar CSV</button>
+            <button id="deleteSelectedRowIds" class="norm_buttons">Verwijder geselecteerd</button>
           </section>
 
             <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
@@ -171,7 +171,7 @@
                     {% endfor %}
                 {% endif %}
 
-                <button type="submit">Update</button>
+                <button type="submit" class="norm_buttons">Update</button>
             </form>
 
         </section>

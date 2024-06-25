@@ -24,6 +24,7 @@
     background-color: white;
     width: 50%;
     padding-top: 1rem;
+    gap: 50px;
     display: flex;
     justify-content: start;
     align-items: start;
@@ -62,6 +63,24 @@
 }
 
 .tabel{
+    height: 40%;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-height: 600px;
+    gap: 10px;
+    overflow: auto;
+}
+
+.data-aanpassen{
     height: 40%;
     width: 85%;
     display: flex;
