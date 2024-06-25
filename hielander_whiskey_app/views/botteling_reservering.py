@@ -82,16 +82,18 @@ def botteling_reservering_page(request: WSGIRequest)\
                 reservering.save()
 
                 setup_botteling_email(f'{reservering.voornaam} \
-                                      {tussenvoegsel} \
-                                      {reservering.achternaam}', 
-                                      reservering.e_mailadres, 
-                                      date.today(), 
-                                      reservering.aantal_flessen, 
-                                      email_totaalprijs,)
+                                    {tussenvoegsel} \
+                                    {reservering.achternaam}', 
+                                    reservering.e_mailadres, 
+                                    date.today(), 
+                                    reservering.aantal_flessen, 
+                                    email_totaalprijs,)
 
                 print(f'Reservering "{reservering}" opgeslagen')
+                context['reservering'] = reservering
+                context['email_totaalprijs'] = email_totaalprijs
 
-                return HttpResponseRedirect(reverse('botteling_bevestiging'))
+                return render(request, 'botteling_bevestiging.html', context)
             
         else:
             print('Reservering niet correct/form ongeldig')

@@ -2,8 +2,8 @@
     width: 670px;
     height: auto;
     text-align: center;
-    position: absolute;
-    top: 45%;
+    position: relative;
+    margin-top: 25%;
     left: 50%;
     transform: translate(-50%, -50%);
 }
@@ -11,14 +11,14 @@
 .bevestiging-info h1 {
     font-size: 3em;
     color: #005EB8;
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
     letter-spacing: 1px;
 }
 
 .bevestiging-info h2 {
     font-size: 2em;
     color: #333;
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
     font-weight: 300;
 }
 
@@ -26,7 +26,7 @@
     font-size: 1.1em;
     color: #555;
     line-height: 1.6;
-    margin-bottom: 7%;
+    /* margin-bottom: 7%; */
 }
 
 .bevestiging-info button {
@@ -50,9 +50,4 @@
     background-color: #004A99;
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
-}
-
-.footer-background {
-    position: absolute;
-    bottom: 0;
 }
