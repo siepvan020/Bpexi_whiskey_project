@@ -55,12 +55,13 @@ document.addEventListener("DOMContentLoaded", function () {
   document
     .getElementById("tabel-export")
     .addEventListener("click", function () {
-      var table = getVisibleTable();
-      if (!table) {
+      var visibleTable = getVisibleTable();
+      if (!visibleTable) {
         alert("Er is momenteel geen tabel zichtbaar.");
         return;
       }
 
+      var table = visibleTable.table;
       var rows = table.querySelectorAll("tr");
       var csvContent = "";
 
@@ -82,7 +83,6 @@ document.addEventListener("DOMContentLoaded", function () {
       link.click();
       document.body.removeChild(link);
     });
-
 
   function getSelectedRowIds() {
     var visibleTable = getVisibleTable();
@@ -107,7 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
     var selectedData = getSelectedRowIds();
     console.log('Geselecteerde Data:', selectedData);
     if (!selectedData.ids || selectedData.ids.length === 0) {
-        alert("Geen rijden geselecteerd.");
+        alert("Geen rijen geselecteerd.");
         return;
     }
     if (!confirm("Weet je zeker dat je de geselecteerde rij(en) wilt verwijderen?")) {

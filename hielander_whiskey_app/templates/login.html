@@ -11,6 +11,11 @@
 
 <section class="scherm">
     <section class="login-form">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
         <form method="post">
             {% csrf_token %}
             <label for="gebruikersnaam">Gebruikersnaam:</label>
