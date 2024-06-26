@@ -65,7 +65,7 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
     templijst.pop(0)
     tempdict = dict()
     for i in templijst:
-        tempdict[i[0]] = [i[0], f"sessie {i[1]}", 0, i[2]]
+        tempdict[i[0]] = [i[0], f"{i[1]}", 0, i[2]]
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
         totaal_flessen=Coalesce(Sum('aantal_flessen'), Value(0))
@@ -79,7 +79,7 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
 
     for row in counts:
         max_kaarten = FestivalData.objects.get(type=f"{row['masterclass']}").aantal_beschikbaar
-        tempdict[row['masterclass']] = [row['masterclass'], f"sessie {row['sessie_nummer']}", row['totaal_kaarten'], max_kaarten]
+        tempdict[row['masterclass']] = [row['masterclass'], f"{row['sessie_nummer']}", row['totaal_kaarten'], max_kaarten]
 
 
     aantallen = list(tempdict.values())

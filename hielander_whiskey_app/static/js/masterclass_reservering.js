@@ -6,6 +6,9 @@ document.addEventListener("DOMContentLoaded", function () {
     .getElementById("sessie_nummer")
     .addEventListener("input", function () {
       waarde = document.getElementById("sessie_nummer").value;
+      document.getElementsByName("masterclass").forEach((element) => {
+        element.checked = false;
+      });
       let namen_dict = JSON.parse(
         document.getElementById("hidden-data-namen").textContent
       );
@@ -16,26 +19,50 @@ document.addEventListener("DOMContentLoaded", function () {
         console.log("sessie 1");
         document.getElementById("masterclass1").value = "masterclass 1";
         var label = document.querySelector("label[for=masterclass1]");
-        label.innerHTML =  new String(namen_dict[document.getElementById("masterclass1").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass1").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass1").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass1").value]
+        );
         document.getElementById("masterclass2").value = "masterclass 2";
         label = document.querySelector("label[for=masterclass2]");
-        label.innerHTML = new String(namen_dict[document.getElementById("masterclass2").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass2").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass2").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass2").value]
+        );
       } else if (waarde == "2") {
         console.log("sessie 2");
         document.getElementById("masterclass1").value = "masterclass 3";
         var label = document.querySelector("label[for=masterclass1]");
-        label.innerHTML =  new String(namen_dict[document.getElementById("masterclass1").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass1").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass1").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass1").value]
+        );
         document.getElementById("masterclass2").value = "masterclass 4";
         label = document.querySelector("label[for=masterclass2]");
-        label.innerHTML =  new String(namen_dict[document.getElementById("masterclass2").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass2").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass2").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass2").value]
+        );
       } else {
         console.log("sessie 3");
         document.getElementById("masterclass1").value = "masterclass 5";
         var label = document.querySelector("label[for=masterclass1]");
-        label.innerHTML =  new String(namen_dict[document.getElementById("masterclass1").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass1").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass1").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass1").value]
+        );
         document.getElementById("masterclass2").value = "masterclass 6";
         label = document.querySelector("label[for=masterclass2]");
-        label.innerHTML =  new String(namen_dict[document.getElementById("masterclass2").value] + '&emsp;&emsp;Starttijd: ' + tijden_dict[document.getElementById("masterclass2").value]);
+        label.innerHTML = new String(
+          namen_dict[document.getElementById("masterclass2").value] +
+            "&emsp;&emsp;Starttijd: " +
+            tijden_dict[document.getElementById("masterclass2").value]
+        );
       }
     });
 
@@ -77,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
     ).value;
 
     var kaarten_beschikbaar = kaarten_dict[masterclass_selected];
-    var input = document.getElementById('aantal_kaarten');
-    input.setAttribute('max', kaarten_beschikbaar);
+    var input = document.getElementById("aantal_kaarten");
+    input.setAttribute("max", kaarten_beschikbaar);
   }
 });

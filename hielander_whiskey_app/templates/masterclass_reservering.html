@@ -18,7 +18,7 @@
     <form method="post">
         {% csrf_token %}
         <section>
-            <label for="sessie_nummer">Sessie:</label>
+            <label for="sessie_nummer" class="required_ast">Sessie:</label>
             <select name="sessie_nummer" id="sessie_nummer">
                 <option disabled selected value> -- Selecteer een sessie -- </option>
                 <option value="1">Sessie 1</option>
@@ -35,7 +35,7 @@
                 <label for="masterclass2"></label>
             </div>
             
-            <label for="aantal_kaarten">Aantal kaarten:</label>
+            <label for="aantal_kaarten" class="required_ast">Aantal kaarten:</label>
             <input type="number" max="30" min="1" value="1" id="aantal_kaarten" name="aantal_kaarten"><br><br>
             <label for="totaalprijs">Totaalprijs:</label><br>
             <span id="totaalprijs"></span><br><br>
@@ -43,15 +43,15 @@
         </section>
         <div>
 
-            <label for="voornaam">Voornaam:</label>
+            <label for="voornaam" class="required_ast">Voornaam:</label>
             <input type="text" placeholder="Voornaam" name="voornaam" id="voornaam" required>
 
             <label for="tussenvoegsel">Tussenvoegsel:</label>
             <input type="text" placeholder="Tussenvoegsel" name="tussenvoegsel" id="tussenvoegsel">
 
-            <label for="achternaam">Achternaam:</label>
+            <label for="achternaam" class="required_ast">Achternaam:</label>
             <input type="text" placeholder="Achternaam" name="achternaam" id="achternaam" required>
-            <label for="e_mailadres">E-mailadres:</label>
+            <label for="e_mailadres" class="required_ast">E-mailadres:</label>
             <input type="text" placeholder="E-mailadres" name="e_mailadres" id="e_mailadres" required>
 
         </div>
