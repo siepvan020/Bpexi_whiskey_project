@@ -69,8 +69,7 @@
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th data-tablesaw-sortable-col>Datum</th>
-                    <th>Tijd</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
                     <th>Opmerking</th>
                 </tr>
                 </thead>
@@ -84,8 +83,7 @@
                     <td>{{ row.aantal_flessen }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum|date:'d-m-Y' }}</td>
-                    <td>{{ row.tijd|date:'H:i' }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
                     <td>
                         {% if row.opmerking %}
                             <div class="tooltip">&#x1F6C8;
@@ -111,8 +109,7 @@
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th data-tablesaw-sortable-col>Datum</th>
-                    <th>Tijd</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
                     <th>Opmerking</th>
                 </tr>
                 </thead>
@@ -128,8 +125,7 @@
                     <td>{{ row.aantal_kaarten }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum|date:'d-m-Y' }}</td>
-                    <td>{{ row.tijd|date:'H:i' }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
                     <td>
                         {% if row.opmerking %}
                             <div class="tooltip">&#x1F6C8;
