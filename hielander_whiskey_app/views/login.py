@@ -5,6 +5,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import authenticate, login, logout
 from django.urls import reverse
+from django.contrib import messages
 
 
 # Local imports
@@ -44,10 +45,10 @@ def login_page(request: WSGIRequest) -> HttpResponse:
         if form:
             gebruikersnaam = request.POST.get('gebruikersnaam')
             wachtwoord = request.POST.get('wachtwoord')
-            return (try_log_in(request, gebruikersnaam, wachtwoord) or
-                    render(request, "login.html",
-                           {
-                               "errors": "De gegeven gebruikersnaam en/of wachtwoord is onjuist!"}))
-    else:
-        pass
+            response = try_log_in(request, gebruikersnaam, wachtwoord)
+            if response:
+                return response
+            else:
+                messages.error(request, "De gegeven gebruikersnaam en/of wachtwoord is onjuist!")
+                return render(request, "login.html")
     return render(request, 'login.html')

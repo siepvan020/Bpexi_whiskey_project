@@ -126,7 +126,7 @@ def masterclass_barplot(aantallen: list):
         x.append(aantallen_m[counter][0])
         y.append(aantallen_m[counter][2])
         counter += 1
-    layout = go.Layout(autosize=False, width=625, height=500)
+    layout = go.Layout(autosize=False, width=625, height=500, dragmode=False)
     kleurtjes = ['#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363']
     fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color=kleurtjes))], layout=layout)
 
