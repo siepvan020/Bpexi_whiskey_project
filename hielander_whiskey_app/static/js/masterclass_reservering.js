@@ -96,6 +96,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   function update_aantal_kaarten() {
+    document.getElementById("mc-op").style.display = "none";
     let kaarten_dict = JSON.parse(
       document.getElementById("hidden-data-kaarten").textContent
     );
@@ -106,5 +107,9 @@ document.addEventListener("DOMContentLoaded", function () {
     var kaarten_beschikbaar = kaarten_dict[masterclass_selected];
     var input = document.getElementById("aantal_kaarten");
     input.setAttribute("max", kaarten_beschikbaar);
+    if (kaarten_beschikbaar == 0) {
+      document.getElementById("mc-op").style.display = "block";
+      input.setAttribute("max", 0);
+    }
   }
 });
