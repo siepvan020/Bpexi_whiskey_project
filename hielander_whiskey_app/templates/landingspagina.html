@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Botteling reservering{% endblock %}
+{% block title %}Landingspagina{% endblock %}
 
 {% block headerCSS %}
     <style>
@@ -52,14 +52,14 @@
 
 <section class="landings-buttons">
 
-    <button>
-        <a href="{% url 'botteling_reservering' %}" class="landings-button">Botteling reservering</a>
+    <button class="landings-button" onclick="location.href = 'botteling_reservering'">
+        Botteling reservering
     </button>
-    <button>
-        <a href="{% url 'masterclass_reservering' %}" class="landings-button">Masterclass reservering</a>
+    <button class="landings-button" onclick="location.href = 'masterclass_reservering'">
+        Masterclass reservering
     </button>
-    <button>
-        <a href="{% url 'login' %}" class="landings-button">Login pagina</a>
+    <button class="landings-button" onclick="location.href = 'login'">
+        Login pagina
     </button>
 </section>
 
