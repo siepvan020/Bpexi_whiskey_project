@@ -1,4 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
+
+/**
+ * Deze functie luister naar de grafiek-botteling knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, dan verandert de display van de masterclass grafiek naar none,
+ * en de display van botteling grafiek naar block.
+ *
+ */
   document
     .getElementById("grafiek-botteling")
     .addEventListener("click", function () {
@@ -9,6 +16,12 @@ document.addEventListener("DOMContentLoaded", function () {
       y.style.display = "none";
     });
 
+/**
+ * Deze functie luister naar de grafiek-masterclass knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, dan verandert de display van de botteling grafiek naar none,
+ * en de display van masterclass grafiek naar block.
+ *
+ */
   document
     .getElementById("grafiek-masterclass")
     .addEventListener("click", function () {
@@ -19,6 +32,12 @@ document.addEventListener("DOMContentLoaded", function () {
       y.style.display = "none";
     });
 
+/**
+ * Deze functie luister naar de tabel-masterclass knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, dan verandert de display van de botteling tabel naar block,
+ * en de display van masterclass tabel naar none.
+ *
+ */
   document
     .getElementById("tabel-botteling")
     .addEventListener("click", function () {
@@ -29,6 +48,12 @@ document.addEventListener("DOMContentLoaded", function () {
       y.style.display = "none";
     });
 
+/**
+ * Deze functie luister naar de tabel-masterclass knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, dan verandert de display van de masterclass tabel naar block,
+ * en de display van botteling tabel naar none.
+ *
+ */
   document
     .getElementById("tabel-masterclass")
     .addEventListener("click", function () {
@@ -39,6 +64,11 @@ document.addEventListener("DOMContentLoaded", function () {
       y.style.display = "none";
     });
 
+/**
+ * Deze functie geeft aan welke tabel momenteel zichtbaar is.
+ *
+ * @returns {Object|null} Een object met de zichtbare tabel en het type, of `null` als geen tabel zichtbaar is.
+ */
   function getVisibleTable() {
     var tabelBotteling = document.getElementById("tabel_botteling");
     var tabelMasterclass = document.getElementById("tabel_masterclass");
@@ -52,6 +82,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+/**
+ * Deze functie luister naar de tabel-export knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, dan checkt de functie welke tabel momenteel zichtbaar is.
+ * en exporteert de inhoud als CSV bestand.
+ */
   document
     .getElementById("tabel-export")
     .addEventListener("click", function () {
@@ -84,6 +119,11 @@ document.addEventListener("DOMContentLoaded", function () {
       document.body.removeChild(link);
     });
 
+/**
+ * Verkrijgt de IDs van de geselecteerde rijen uit de momenteel zichtbare tabel.
+ *
+ * @returns {Object} Een object met daarin de IDs van de geselecteerde rijen en de zichtbare tabel.
+ */
   function getSelectedRowIds() {
     var visibleTable = getVisibleTable();
     if (!visibleTable) {
@@ -101,6 +141,11 @@ document.addEventListener("DOMContentLoaded", function () {
     return { ids: ids, type: visibleTable.type };
 }
 
+/**
+ * Deze functie luister naar de deleteSelectedRowIds knop uit de dashboard.html.
+ * Als op de knop gedrukt wordt, verwijdert deze functie de geselecteerde rijen uit de database
+ * en uit de tabel.
+ */
    document
     .getElementById("deleteSelectedRowIds")
     .addEventListener("click", function () {
@@ -142,6 +187,12 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+/**
+ * Verkrijgt de waarde van een specifieke cookie met behulp van de naam.
+ *
+ * @param {string} name - De naam van de specifieke cookie.
+ * @returns {string|null} De waarde van de cookie, of null als de cookie niet bestaat.
+ */
 function getCookie(name) {
     let cookieValue = null;
     if (document.cookie && document.cookie !== '') {

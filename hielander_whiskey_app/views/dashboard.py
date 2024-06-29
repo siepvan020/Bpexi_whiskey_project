@@ -23,8 +23,15 @@ from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.models import FestivalData
 
 
-# @login_required
+@login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
+    """
+
+    :param request: Een HttpRequest-object.
+    :type request: HttpRequest
+    :return: Een render-object dat de admin dashboard toont nadat succesvol ingelogd is.
+    :rtype: render
+    """
 
     if request.method == 'POST':
         update_success = True
@@ -104,6 +111,14 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
 
 
 def bottel_piechart(aantal_reserv: int, max_flessen: int):
+    """Gebruikt het aantal gereserveerde flessen en het maximaal aantal beschikbare flessen om eenpiechart
+    te genereren. Deze wordt vervolgens als html bestand opgeslagen in de plots folder in templates.
+
+    :param aantal_reserv: Het aantal gereserveerde flessen.
+    :type aantal_reserv: int
+    :param max_flessen: Het maximaal aantal flessen.
+    :type max_flessen: int
+    """
     labels = ['Gereserveerd', 'Beschikbaar']
     values = [aantal_reserv, (max_flessen-aantal_reserv)]
 
@@ -118,6 +133,12 @@ def bottel_piechart(aantal_reserv: int, max_flessen: int):
 
 
 def masterclass_barplot(aantallen: list):
+    """Gebruikt de lijst met aantallen van verkochte tickets van de masterclasses om een barplot te genereren.
+    Deze barplot wordt vervolgens als html bestand opgeslagen in de plots folder in templates.
+
+    :param aantallen: Een lijst met de aantallen tickets per masterclass.
+    :type aantallen: list
+    """
     aantallen_m = aantallen[:-1]
     counter = 0
     x = []
@@ -137,6 +158,14 @@ def masterclass_barplot(aantallen: list):
 
 @csrf_exempt
 def delete_rij(request):
+    """Verwijdert rijen uit de database met behulp van de bijbehorende functies in dashboard.js.
+
+
+    :param request: Een HttpRequest-object.
+    :type request: HttpRequest
+    :return: Een JsonResponse-object mey hierin: False en een error message als er iets fout gaat, anders True.
+    :rtype: JsonResponse
+    """
     if request.method == 'POST':
         try:
             data = json.loads(request.body)
