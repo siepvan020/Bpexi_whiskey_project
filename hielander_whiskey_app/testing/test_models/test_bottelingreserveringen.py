@@ -17,9 +17,10 @@ class test_BottelingReserveringen(TestCase):
     5. test_auto_timefield: Test het automatisch aanmaken van het tijd field.
     6. test_email_validatie1: Test e-mail validatie met een fout e-mail format.
     7. test_email_validatie2: Test e-mail validatie met een ander fout e-mail format.
-    8. test_positief_fields: Test de positieve constraints van aantal_flessen en totaalprijs.
-    9. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
-    10. test_ordering: Test de ordering van de meta class van het model.
+    8. test_aantal_flessen_positive_constraint: Test de positieve constraints van aantal_flessen.
+    9. test_totaalprijs_positive_constraint: Test de positieve constraints van totaalprijs.
+    10. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
+    11. test_ordering: Test de ordering van de meta class van het model.
     """
 
     def maak_instance(self, 
@@ -59,6 +60,14 @@ class test_BottelingReserveringen(TestCase):
             totaalprijs=totaalprijs,
             opmerking=opmerking,
         )
+
+    def test_instantie_maken(self):
+        """
+        Test of een instantie van BottelingReserveringen aangemaakt kan worden.
+
+        """
+        instance = self.maak_instance("Foo", "", "Bar", "foo@bar.com")
+        self.assertIsInstance(instance, BottelingReserveringen)
 
     def test_string_functie_met_tussenvoegsel(self):
         """

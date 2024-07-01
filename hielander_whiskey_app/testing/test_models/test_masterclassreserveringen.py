@@ -17,9 +17,11 @@ class test_MasterclassReserveringen(TestCase):
     5. test_auto_timefield: Test het automatisch aanmaken van het tijd field.
     6. test_email_validatie1: Test e-mail validatie met een fout e-mail format.
     7. test_email_validatie2: Test e-mail validatie met een ander fout e-mail format.
-    8. test_positief_fields: Test de type constraints van aantal_flessen en totaalprijs.
-    9. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
-    10. test_ordering: Test de ordering van de meta class van het model.
+    8. test_sessie_nummer_positive_constraint: Test de positieve constraint van sessie_nummer.
+    9. test_aantal_kaarten_positive_constraint: Test de positieve constraint van aantal_kaarten.
+    10. test_totaalprijs_positive_constraint: Test de positieve constraint van totaalprijs.
+    11. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
+    12. test_ordering: Test de ordering van de meta class van het model.
     """
 
     def maak_instance(self, 
@@ -68,6 +70,14 @@ class test_MasterclassReserveringen(TestCase):
             totaalprijs=totaalprijs,
             opmerking=opmerking,
         )
+
+    def test_instantie_maken(self):
+        """
+        Test of een instantie van MasterclassReserveringen aangemaakt kan worden.
+
+        """
+        instance = self.maak_instance("Foo", "", "Bar", "foo@bar.com")
+        self.assertIsInstance(instance, MasterclassReserveringen)
 
     def test_string_functie_met_tussenvoegsel(self):
         """
@@ -123,7 +133,7 @@ class test_MasterclassReserveringen(TestCase):
         Test e-mail validatie met een fout e-mail format.
 
         Deze test controleert of de e-mail validatie van MasterclassReserveringen een ValidationError
-        veroorzaakt wanneer er een ongeldig e-mailadres wordt opgegeven.
+        geeft wanneer er een ongeldig e-mailadres wordt opgegeven.
         """
         instance = self.maak_instance("Foo", "", "Bar", "foobar.com")
         self.assertRaises(ValidationError, instance.full_clean)
@@ -132,7 +142,7 @@ class test_MasterclassReserveringen(TestCase):
         Test e-mail validatie met een fout e-mail format.
 
         Deze test controleert of de e-mail validatie van MasterclassReserveringen een ValidationError
-        veroorzaakt wanneer er een ander ongeldig e-mailadres wordt opgegeven.
+        geeft wanneer er een ander ongeldig e-mailadres wordt opgegeven.
         """
         instance2 = self.maak_instance("Foo", "", "Bar", "foo@barcom")
         self.assertRaises(ValidationError, instance2.full_clean)
