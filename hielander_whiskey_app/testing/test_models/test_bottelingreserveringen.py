@@ -1,7 +1,6 @@
-from django.db import DataError, IntegrityError
+from django.db import IntegrityError
 from django.forms import ValidationError
 from django.test import TestCase
-from django.core.validators import validate_email
 from datetime import datetime
 from hielander_whiskey_app.models import BottelingReserveringen
 
@@ -9,9 +8,28 @@ class test_BottelingReserveringen(TestCase):
     """
     Test class voor het testen van het BottelingReserveringen model.
     Erft over van TestCase.
+
+    Overzicht van de testcases in deze klasse:
+    1. test_string_functie_met_tussenvoegsel: Test de __str__ functie van BottelingReserveringen met een tussenvoegsel.
+    2. test_string_functie_zonder_tussenvoegsel: Test de __str__ functie van BottelingReserveringen zonder tussenvoegsel.
+    3. test_default_waarde_reserve: Test de default waarde van het reserve field.
+    4. test_auto_datefield: Test het automatisch aanmaken van het datum field.
+    5. test_auto_timefield: Test het automatisch aanmaken van het tijd field.
+    6. test_email_validatie1: Test e-mail validatie met een fout e-mail format.
+    7. test_email_validatie2: Test e-mail validatie met een ander fout e-mail format.
+    8. test_positief_fields: Test de positieve constraints van aantal_flessen en totaalprijs.
+    9. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
+    10. test_ordering: Test de ordering van de meta class van het model.
     """
 
-    def maak_instance(self, voornaam, tussenvoegsel, achternaam, e_mailadres, aantal_flessen=2, totaalprijs=205, opmerking=None):
+    def maak_instance(self, 
+                      voornaam, 
+                      tussenvoegsel, 
+                      achternaam, 
+                      e_mailadres, 
+                      aantal_flessen=2, 
+                      totaalprijs=205, 
+                      opmerking=None):
         """
         Initialiseert een instantie van Bottelingreserveringen zodat deze niet bij elke test opnieuw hoeft te worden aangemaakt.
 

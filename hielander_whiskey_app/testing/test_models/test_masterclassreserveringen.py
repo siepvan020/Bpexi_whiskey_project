@@ -1,13 +1,12 @@
-from django.db import DataError, IntegrityError
+from django.db import IntegrityError
 from django.forms import ValidationError
 from django.test import TestCase
-from django.core.validators import validate_email
 from datetime import datetime
 from hielander_whiskey_app.models import MasterclassReserveringen
 
 class test_MasterclassReserveringen(TestCase):
     """
-    Testklasse voor het testen van het MasterclassReserveringen model.
+    Test class voor het testen van het MasterclassReserveringen model.
     Erft over van TestCase.
 
     Overzicht van de testcases in deze klasse:
@@ -17,8 +16,8 @@ class test_MasterclassReserveringen(TestCase):
     4. test_auto_datefield: Test het automatisch aanmaken van het datum field.
     5. test_auto_timefield: Test het automatisch aanmaken van het tijd field.
     6. test_email_validatie1: Test e-mail validatie met een fout e-mail format.
-    7. test_email_validatie2: Test e-mail validatie met een fout e-mail format.
-    8. test_positief_fields: Test de positieve constraints van aantal_flessen en totaalprijs.
+    7. test_email_validatie2: Test e-mail validatie met een ander fout e-mail format.
+    8. test_positief_fields: Test de type constraints van aantal_flessen en totaalprijs.
     9. test_max_length_namen: Test de maximale lengte van de voornaam en achternaam fields.
     10. test_ordering: Test de ordering van de meta class van het model.
     """
