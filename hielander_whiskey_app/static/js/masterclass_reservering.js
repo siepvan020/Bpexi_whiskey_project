@@ -1,7 +1,11 @@
 document.addEventListener("DOMContentLoaded", function () {
   console.log("Script geladen!!");
 
-  // Event listener voor de sessie_nummer dropdown
+  /*
+  * Event listener voor de sessie_nummer dropdown. Deze zorgt er voor
+  * dat de namen en tijden van de masterclasses die bij de
+  * geselecteerde sessie horen bij de radio buttons komen te staan.
+  */
   document
     .getElementById("sessie_nummer")
     .addEventListener("input", function () {
@@ -66,12 +70,22 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-  // Event listener voor het aantal_kaarten inputveld
+  /**
+  * Event listener voor het aantal_kaarten inputveld. Deze zorgt ervoor
+  * dat de functie 'update_prijs' aangeroepen wordt, wanneer het de
+  * gebruiker het aantal kaarten veranderd.
+  */
   document
     .getElementById("aantal_kaarten")
     .addEventListener("input", update_prijs);
 
-  // Event listener voor de masterclass radio buttons
+
+  /*
+  * Event listener voor de masterclass radio buttons. Deze zorgt ervoor
+  * dat de functies 'update_prijs' en
+  * 'update_aantal_kaarten aangeroepen' worden wanneer een masterclass
+  * wordt geselecteerd.
+  */
   document
     .querySelectorAll("input[name=masterclass]")
     .forEach(function (input) {
@@ -79,7 +93,10 @@ document.addEventListener("DOMContentLoaded", function () {
       input.addEventListener("change", update_aantal_kaarten);
     });
 
-  // Functie om de prijs te updaten voor zowel het aantal kaarten als het masterclass nummer
+  /**
+  * Deze functie om de prijs te updaten voor zowel het aantal kaarten
+  * als het masterclass nummer.
+  */
   function update_prijs() {
     let prijs_dict = JSON.parse(
       document.getElementById("hidden-data-prijzen").textContent
@@ -95,6 +112,13 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("totaalprijs").innerHTML = nieuwe_prijs;
   }
 
+  /**
+  * Deze functie past het aantal kaarten dat besteld kan worden voor de
+  * geselecteerde masterclass aan, naar het aantal kaarten dat nog
+  * beschikbaar is voor die masterclass. Wanneer het aantal kaarten
+  * beschikbaar op 0 staat, wordt de optie om de masterclass te kiezen
+  * geblokkeerd.
+  */
   function update_aantal_kaarten() {
     document.getElementById("mc-op").style.display = "none";
     let kaarten_dict = JSON.parse(
