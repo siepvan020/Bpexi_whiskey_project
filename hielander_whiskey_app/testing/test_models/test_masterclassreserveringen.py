@@ -137,17 +137,35 @@ class test_MasterclassReserveringen(TestCase):
         instance2 = self.maak_instance("Foo", "", "Bar", "foo@barcom")
         self.assertRaises(ValidationError, instance2.full_clean)
 
-    def test_positief_fields(self):
+    def test_sessie_nummer_positive_constraint(self):
         """
-        Test de positieve constraints van aantal_flessen en totaalprijs.
+        Test de positieve constraint van sessie_nummer.
 
-        Deze test controleert of MasterclassReserveringen de juiste constraints maakt op de fields
-        aantal_flessen en totaalprijs, door te controleren of het aanmaken van een instance met negatieve
-        waarden een IntegrityError geeft.
+        Deze test controleert of MasterclassReserveringen de juiste constraint maakt op het sessie_nummer field,
+        door te controleren of het aanmaken van een instance met een negatieve waarde een IntegrityError geeft.
         """
         with self.assertRaises(IntegrityError):
-            self.maak_instance("Foo", "", "Bar", "foo@bar.com", 
-            sessie_nummer=-1, aantal_kaarten=-2, totaalprijs=-30)
+            self.maak_instance("Foo", "", "Bar", "foo@bar.com", sessie_nummer=-1)
+
+    def test_aantal_kaarten_positive_constraint(self):
+        """
+        Test de positieve constraint van aantal_kaarten.
+
+        Deze test controleert of MasterclassReserveringen de juiste constraint maakt op het aantal_kaarten field,
+        door te controleren of het aanmaken van een instance met een negatieve waarde een IntegrityError geeft.
+        """
+        with self.assertRaises(IntegrityError):
+            self.maak_instance("Foo", "", "Bar", "foo@bar.com", aantal_kaarten=-2)
+
+    def test_totaalprijs_positive_constraint(self):
+        """
+        Test de positieve constraint van totaalprijs.
+
+        Deze test controleert of MasterclassReserveringen de juiste constraint maakt op het totaalprijs field,
+        door te controleren of het aanmaken van een instance met een negatieve waarde een IntegrityError geeft.
+        """
+        with self.assertRaises(IntegrityError):
+            self.maak_instance("Foo", "", "Bar", "foo@bar.com", totaalprijs=-30)
 
     def test_max_length_namen(self):
         """

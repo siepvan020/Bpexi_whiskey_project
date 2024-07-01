@@ -129,16 +129,27 @@ class test_BottelingReserveringen(TestCase):
         instance2 = self.maak_instance("Foo", "", "Bar", "foo@barcom")
         self.assertRaises(ValidationError, instance2.full_clean)
 
-    def test_positief_fields(self):
+    def test_aantal_flessen_positive_constraint(self):
         """
-        Test de positieve beperkingen van aantal_flessen en totaalprijs.
+        Test de positieve constraints van aantal_flessen.
 
-        Deze testcase controleert of BottelingReserveringen de juiste constraints heeft op de fields
-        aantal_flessen en totaalprijs, door te controleren of het aanmaken van een instantie met negatieve
-        waarden een IntegrityError geeft.
+        Deze testcase controleert of BottelingReserveringen de juiste constraints heeft op het field
+        aantal_flessen, door te controleren of het aanmaken van een instantie met een negatieve waarde
+        een IntegrityError geeft.
         """
         with self.assertRaises(IntegrityError):
-            self.maak_instance("Foo", "", "Bar", "foo@bar.com", -2, -205)
+            self.maak_instance("Foo", "", "Bar", "foo@bar.com", aantal_flessen=-2, totaalprijs=205)
+
+    def test_totaalprijs_positive_constraint(self):
+        """
+        Test de positieve constraints van totaalprijs.
+
+        Deze testcase controleert of BottelingReserveringen de juiste constraints heeft op het field
+        totaalprijs, door te controleren of het aanmaken van een instantie met een negatieve waarde
+        een IntegrityError geeft.
+        """
+        with self.assertRaises(IntegrityError):
+            self.maak_instance("Foo", "", "Bar", "foo@bar.com", aantal_flessen=2, totaalprijs=-205)
 
     def test_max_length_namen(self):
         """
