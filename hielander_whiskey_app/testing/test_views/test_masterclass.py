@@ -1,12 +1,12 @@
 # Third party imports
 import datetime
+from unittest.mock import patch
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
 
 # Local imports
 from hielander_whiskey_app.models import FestivalData, MasterclassReserveringen
-from hielander_whiskey_app.views.masterclass_reservering import masterclass_reservering_page
 
 
 class TestMasterclassReserveringPage(TestCase):
@@ -68,7 +68,7 @@ class TestMasterclassReserveringPage(TestCase):
         Controleert of de response:
         - Valid context heeft
         - Een statuscode van 200 heeft
-        - De juiste template gebruikt
+        - De goede template gebruikt
         - De juiste masterclass prijs bevat.
         """
         response = self.client.get(self.url)
@@ -79,29 +79,35 @@ class TestMasterclassReserveringPage(TestCase):
         self.assertEqual(response.context['masterclass_prijzen'], {'masterclass 1': 15.0})
 
 
-    def test_post_valid_form(self):
+    @patch('hielander_whiskey_app.views.masterclass_reservering.setup_masterclass_email')
+    def test_post_valid_form(self, mock_send_email):
         """
-        Testcase voor het submitten van een valid formulier via een POST request naar de reserveringspagina.
-        Controleert of de response:
-        - Een statuscode van 302 heeft
-        - De juiste redirect uitvoert
-        - Het aantal reserveringen is toegenomen
-        - De totaalprijs van de reservering correct is.
+        Test of het verzenden van een geldig formulier een succesvolle POST-request oplevert.
+
+        Deze functie simuleert het verzenden van een POST request naar de URL van de masterclass reservering view met valid data.
+        Het controleert of de response:
+        - Een status code van 200 heeft
+        - De juiste template gebruikt
+        - Een nieuwe reservering aanmaakt
+        Daarnaast wordt gecontroleerd of de totaalprijs van de reservering correct is en of de functie setup_masterclass_email wordt aangeroepen.
+
+        :param mock_send_email: Een mock object voor de functie setup_masterclass_email
         """
         response = self.client.post(self.url, self.data)
-        self.assertEqual(response.status_code, 302)
-        self.assertRedirects(response, reverse('masterclass_bevestiging'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'masterclass_bevestiging.html')
         self.assertEqual(MasterclassReserveringen.objects.count(), 1)
         reservation = MasterclassReserveringen.objects.first()
         self.assertEqual(reservation.totaalprijs, 30)
+        mock_send_email.assert_called_once()
     
 
     def test_post_lege_voornaam(self):
         """
-        Testcase voor het submitten van een invalid formulier met een lege voornaam via een POST request naar de reserveringspagina.
+        Testcase voor het submitten van invalid data met een lege voornaam via een POST request naar de reserveringspagina.
         Controleert of de response:
         - Een statuscode van 200 heeft
-        - Het juiste template gebruikt
+        - De goede template gebruikt
         - De juiste foutmelding weergeeft.
         """
         data = self.data.copy()
@@ -114,10 +120,10 @@ class TestMasterclassReserveringPage(TestCase):
 
     def test_post_lege_achternaam(self):
         """
-        Testcase voor het submitten van een formulier met een lege achternaam via een POST request naar de reserveringspagina.
+        Testcase voor het submitten van data met een lege achternaam via een POST request naar de reserveringspagina.
         Controleert of de response:
         - Een statuscode van 200 heeft
-        - Het juiste template gebruikt
+        - De goede template gebruikt
         - De juiste foutmelding weergeeft.
         """
         data = self.data.copy()
@@ -133,7 +139,7 @@ class TestMasterclassReserveringPage(TestCase):
         Testcase voor het submitten van een formulier met een ongeldig e-mailadres via een POST request naar de reserveringspagina.
         Controleert of de response:
         - Een statuscode van 200 heeft
-        - Het juiste template gebruikt
+        - De goede template gebruikt
         - De juiste foutmelding weergeeft.
         """
         data = self.data.copy()

@@ -52,10 +52,10 @@ def botteling_reservering_page(request: WSGIRequest)\
             
             totaal_flessen_op_email = sum(
                 res.aantal_flessen for res in bestaande_reserveringen)
-
+ 
             if totaal_flessen_op_email + reservering.aantal_flessen > 2:
-                messages.error(request, 'Kan niet meer dan\
-                                2 flessen per persoon reserveren')
+                messages.error(request, 
+                               'Kan niet meer dan 2 flessen per persoon reserveren')
                 
                 return HttpResponseRedirect(reverse('botteling_reservering'))
             
