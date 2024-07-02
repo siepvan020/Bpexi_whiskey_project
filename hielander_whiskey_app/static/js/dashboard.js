@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
 /**
- * Deze functie luister naar de grafiek-botteling knop uit de dashboard.html.
+ * Deze functie luisterd naar de grafiek-botteling knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, dan verandert de display van de masterclass grafiek naar none,
  * en de display van botteling grafiek naar block.
  *
@@ -17,7 +17,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 /**
- * Deze functie luister naar de grafiek-masterclass knop uit de dashboard.html.
+ * Deze functie luisterd naar de grafiek-masterclass knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, dan verandert de display van de botteling grafiek naar none,
  * en de display van masterclass grafiek naar block.
  *
@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 /**
- * Deze functie luister naar de tabel-masterclass knop uit de dashboard.html.
+ * Deze functie luisterd naar de tabel-masterclass knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, dan verandert de display van de botteling tabel naar block,
  * en de display van masterclass tabel naar none.
  *
@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 /**
- * Deze functie luister naar de tabel-masterclass knop uit de dashboard.html.
+ * Deze functie luisterd naar de tabel-masterclass knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, dan verandert de display van de masterclass tabel naar block,
  * en de display van botteling tabel naar none.
  *
@@ -83,7 +83,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 /**
- * Deze functie luister naar de tabel-export knop uit de dashboard.html.
+ * Deze functie luisterd naar de tabel-export knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, dan checkt de functie welke tabel momenteel zichtbaar is.
  * en exporteert de inhoud als CSV bestand.
  */
@@ -142,7 +142,7 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
 /**
- * Deze functie luister naar de deleteSelectedRowIds knop uit de dashboard.html.
+ * Deze functie luisterd naar de deleteSelectedRowIds knop uit de dashboard.html.
  * Als op de knop gedrukt wordt, verwijdert deze functie de geselecteerde rijen uit de database
  * en uit de tabel.
  */
