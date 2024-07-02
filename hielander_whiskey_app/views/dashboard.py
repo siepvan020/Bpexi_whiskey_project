@@ -25,7 +25,8 @@ from hielander_whiskey_app.models import FestivalData
 
 @login_required
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
-    """
+    """Deze functie haalt alle benodigde variabelen en data op en roept bottel_piechart en masterclass_barchart
+    aan. Vervolgens rendert deze functie de dashboard pagina.
 
     :param request: Een HttpRequest-object.
     :type request: HttpRequest
@@ -68,12 +69,14 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
         if update_success:
             messages.success(request, "Festival Data succesvol geüpdatet!")
 
+    # Haalt alle waardes uit festivaldata op.
     templijst = list(FestivalData.objects.values_list('type', 'sessie', 'aantal_beschikbaar'))
     templijst.pop(0)
     tempdict = dict()
     for i in templijst:
         tempdict[i[0]] = [i[0], f"{i[1]}", 0, i[2]]
 
+    # Berekent het totaal aantal gereserveerde flessen.
     totaal_flessen = BottelingReserveringen.objects.aggregate(
         totaal_flessen=Coalesce(Sum('aantal_flessen'), Value(0))
     )['totaal_flessen']
@@ -91,11 +94,11 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
 
     aantallen = list(tempdict.values())
 
-
+    # Roept de plot functies aan.
     bottel_piechart(totaal_flessen, max_flessen)
     masterclass_barplot(aantallen)
 
-
+    # Haalt de volledige databases op voor gebruik in tabellen op de dashboard pagina.
     botteling = BottelingReserveringen.objects.all()
     masterclass = MasterclassReserveringen.objects.all()
     festivaldata = FestivalData.objects.all()
@@ -127,6 +130,7 @@ def bottel_piechart(aantal_reserv: int, max_flessen: int):
 
     fig = go.Figure(data=[go.Pie(labels=labels, values=values, marker=dict(colors=kleurtjes))], layout=layout)
 
+    # slaat de plot als html op in de plots folder in templates
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates', 'plots')
     save_path = os.path.join(templates_dir, 'bottel_piechart.html')
     pio.write_html(fig, file=save_path, auto_open=False, config={'displayModeBar': False})
@@ -151,6 +155,7 @@ def masterclass_barplot(aantallen: list):
     kleurtjes = ['#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363', '#9c7731', '#242363']
     fig = go.Figure([go.Bar(x=x, y=y, marker=dict(color=kleurtjes))], layout=layout)
 
+    # slaat de plot als html op in de plots folder in templates
     templates_dir = os.path.join(settings.BASE_DIR, 'hielander_whiskey_app', 'templates', 'plots')
     save_path = os.path.join(templates_dir, 'masterclass_barchart.html')
     fig.write_html(file=save_path, auto_open=False, config={'displayModeBar': False})
