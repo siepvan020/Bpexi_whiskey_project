@@ -36,8 +36,9 @@ def setup_botteling_email(volledige_naam: str,
                                     context)
     
     plain_message = strip_tags(html_content)
+    subject = 'HWF - Festival Botteling Factuur'
     
-    stuur_email(plain_message, html_content, ontvanger_email)
+    stuur_email(plain_message, html_content, ontvanger_email, subject)
 
 
 def setup_masterclass_email(volledige_naam: str, 
@@ -66,17 +67,19 @@ def setup_masterclass_email(volledige_naam: str,
                                     context)
     
     plain_message = strip_tags(html_content)
+    subject = 'HWF - Festival Masterclass Factuur'
 
-    stuur_email(plain_message, html_content, ontvanger_email)
+    stuur_email(plain_message, html_content, ontvanger_email, subject)
 
 
 def stuur_email(plain_message: str, 
                 html_content: SafeString, 
-                ontvanger_email: str):
+                ontvanger_email: str,
+                subject: str):
 
     # Hier verzender e-mailadres handmatig aanpassen
     msg = EmailMultiAlternatives(
-        subject='HWF - Festival Botteling Factuur',
+        subject= subject,
         body=plain_message,
         from_email='hwf.djangotest@gmail.com', # !Hier!
         to=[ontvanger_email]

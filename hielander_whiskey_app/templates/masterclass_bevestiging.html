@@ -15,10 +15,24 @@
     <h2>Bedankt voor uw reservering!</h2>
     <p>
         U hebt een bevestigingsmail ontvangen op het e-mailadres dat u zojuist heeft ingevuld.
-        Deze mail is ook gelijk de factuur voor uw reservering. Het zou kunnen dat deze e-mail in de spam 
+        Die mail bevat ook gelijk de factuur voor uw reservering. Het zou kunnen dat deze e-mail in de spam 
         terecht is gekomen, controleer daarom ook uw spambox als u geen e-mail heeft ontvangen.
     </p>
-    <button type="button"><a href="http://www.hielanderwhiskyfestival.nl/masterclass">Ga terug</a></button>
+
+        <h2>Besteloverzicht</h2><br>
+    <p>
+        Naam:               {{naam}}<br>
+        E-mail:             {{mail}}<br>
+        Masterclass:        {{masterclass}}<br>
+        Prijs per ticket:   €{{prijs}}<br>
+        Aantal kaarten:     {{aantal_kaarten}}<br>
+        Totaalprijs:        €{{totaalprijs}}<br>
+    </p>
+
+    
+    <a href="http://www.hielanderwhiskyfestival.nl/masterclass">
+        <button type="button">Ga terug</button>
+    </a>
 
 </section>
 

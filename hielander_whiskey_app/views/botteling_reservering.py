@@ -22,17 +22,18 @@ def botteling_reservering_page(request: WSGIRequest)\
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
                 totaal_flessen=Sum('aantal_flessen'))['totaal_flessen']
+    beschikbaar = FestivalData.objects.get(type='botteling').aantal_beschikbaar
 
     context = {}
 
     # Het maximaal aantal te reserveren flessen wordt hier bepaald.
     # Als er geen flessen meer over zijn, kan de gebruiker op de
     # reservelijst maximaal 10 flessen selecteren.
-    if totaal_flessen and 150 - totaal_flessen > 0: # Flessen over
-        context['flessen_over'] = 150 - totaal_flessen
+    if totaal_flessen and beschikbaar - totaal_flessen > 0: # Flessen over
+        context['flessen_over'] = beschikbaar - totaal_flessen
     elif totaal_flessen is None:    # Nog geen reserveringen
-        context['flessen_over'] = 150
-    elif 150 - totaal_flessen <= 0: # Geen flessen meer beschikbaar
+        context['flessen_over'] = beschikbaar
+    elif beschikbaar - totaal_flessen <= 0: # Geen flessen meer beschikbaar
         context['flessen_over'] = None
 
     context['fles'] = FestivalData.objects.get(type='botteling')
@@ -43,35 +44,56 @@ def botteling_reservering_page(request: WSGIRequest)\
 
         if form.is_valid():
             reservering = form.save(commit=False)
+            print(reservering.opmerking)
 
-            fles_prijs = FestivalData.objects.get(type='botteling').prijs
-
-            # Berekening totaalprijs: aantal flessen * prijs per fles 
-            totaalprijs = reservering.aantal_flessen * fles_prijs
-            reservering.totaalprijs = f'{totaalprijs:.2f}'.replace('.', ',')
+            # Check of het e-mailadres al 2 flessen heeft gereserveerd
+            bestaande_reserveringen = BottelingReserveringen.objects.filter(
+                e_mailadres=reservering.e_mailadres)
             
-            if totaal_flessen:
-                # Aantal flessen over na de reservering
-                na_reserv = 150 - totaal_flessen - reservering.aantal_flessen
+            totaal_flessen_op_email = sum(
+                res.aantal_flessen for res in bestaande_reserveringen)
 
-                if na_reserv < 0:
-                    reservering.reserve = True
-
-            tussenvoegsel = reservering.tussenvoegsel if\
-                  reservering.tussenvoegsel else ''
+            if totaal_flessen_op_email + reservering.aantal_flessen > 2:
+                messages.error(request, 'Kan niet meer dan\
+                                2 flessen per persoon reserveren')
+                
+                return HttpResponseRedirect(reverse('botteling_reservering'))
             
-            setup_botteling_email(f'{reservering.voornaam} \
-                                  {tussenvoegsel} \
-                                  {reservering.achternaam}', 
-                                  reservering.e_mailadres, 
-                                  date.today(), 
-                                  reservering.aantal_flessen, 
-                                  reservering.totaalprijs,)
+            else:
 
-            #reservering.save()
-            print(f'Reservering "{reservering}" opgeslagen')
+                fles_prijs = FestivalData.objects.get(type='botteling').prijs
 
-            return HttpResponseRedirect(reverse('botteling_bevestiging'))
+                # Berekening totaalprijs: aantal flessen * prijs per fles 
+                reservering.totaalprijs = reservering.aantal_flessen * fles_prijs
+                email_totaalprijs = f'{reservering.totaalprijs:.2f}'.replace('.', ',')
+                
+                if totaal_flessen:
+                    # Aantal flessen over na de reservering
+                    na_reserv = beschikbaar - \
+                                totaal_flessen - \
+                                reservering.aantal_flessen
+
+                    if na_reserv < 0:
+                        reservering.reserve = True
+
+                tussenvoegsel = reservering.tussenvoegsel if\
+                    reservering.tussenvoegsel else ''
+                
+                reservering.save()
+
+                setup_botteling_email(f'{reservering.voornaam} \
+                                    {tussenvoegsel} \
+                                    {reservering.achternaam}', 
+                                    reservering.e_mailadres, 
+                                    date.today(), 
+                                    reservering.aantal_flessen, 
+                                    email_totaalprijs,)
+
+                print(f'Reservering "{reservering}" opgeslagen')
+                context['reservering'] = reservering
+                context['email_totaalprijs'] = email_totaalprijs
+
+                return render(request, 'botteling_bevestiging.html', context)
             
         else:
             print('Reservering niet correct/form ongeldig')

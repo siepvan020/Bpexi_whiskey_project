@@ -3,12 +3,15 @@
 
 {% block title %}Admin dashboard{% endblock %}
 
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
 
 {% block content %}
 
 
 
-<section class="body">
+<section class="bodydash">
     <section class="links">
         <section class="aantallen">
             <table class="text1" id="dataTable">
@@ -34,8 +37,11 @@
         </section>
         <section class="grafieken">
             {% load static %}
-            <button id="grafiek-botteling">Botteling</button>
-            <button id="grafiek-masterclass">Masterclasses</button>
+            <section class="buttons">
+              <button id="grafiek-botteling" class="norm_buttons">Botteling</button>
+              <button id="grafiek-masterclass" class="norm_buttons">Masterclasses</button>
+            </section>
+
             <section id="grafiek_botteling" style="display: block;">
                 {% include "plots/bottel_piechart.html" %}
             </section>
@@ -46,10 +52,13 @@
     </section>
     <section class="rechts">
         <section class="tabel">
-            <button id="tabel-botteling">Botteling</button>
-            <button id="tabel-masterclass">Masterclasses</button>
-            <button id="tabel-export">Export naar CSV</button>
-            <button id="deleteSelectedRowIds">Verwijder geselecteerd</button>
+          <section class="buttons">
+            <button id="tabel-botteling" class="norm_buttons">Botteling</button>
+            <button id="tabel-masterclass" class="norm_buttons">Masterclasses</button>
+            <button id="tabel-export" class="norm_buttons">Export naar CSV</button>
+            <button id="deleteSelectedRowIds" class="norm_buttons">Verwijder geselecteerd</button>
+          </section>
+
             <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
                 <thead>
                 <tr>
@@ -60,8 +69,7 @@
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th data-tablesaw-sortable-col>Datum</th>
-                    <th>Tijd</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
                     <th>Opmerking</th>
                 </tr>
                 </thead>
@@ -75,9 +83,16 @@
                     <td>{{ row.aantal_flessen }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum|date:'d-m-Y' }}</td>
-                    <td>{{ row.tijd|date:'H:i' }}</td>
-                    <td>{{ row.opmerking }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
+                    <td>
+                        {% if row.opmerking %}
+                            <div class="tooltip">&#x1F6C8;
+                                <span class="tooltiptext">
+                                    {{ row.opmerking }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -94,8 +109,7 @@
                     <th>Aantal</th>
                     <th>Totaal prijs</th>
                     <th>Reserve</th>
-                    <th data-tablesaw-sortable-col>Datum</th>
-                    <th>Tijd</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
                     <th>Opmerking</th>
                 </tr>
                 </thead>
@@ -111,9 +125,16 @@
                     <td>{{ row.aantal_kaarten }}</td>
                     <td>{{ row.totaalprijs }}</td>
                     <td>{{ row.reserve }}</td>
-                    <td>{{ row.datum|date:'d-m-Y' }}</td>
-                    <td>{{ row.tijd|date:'H:i' }}</td>
-                    <td>{{ row.opmerking }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
+                    <td>
+                        {% if row.opmerking %}
+                            <div class="tooltip">&#x1F6C8;
+                                <span class="tooltiptext">
+                                    {{ row.opmerking }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -162,7 +183,7 @@
                     {% endfor %}
                 {% endif %}
 
-                <button type="submit">Update</button>
+                <button type="submit" class="norm_buttons">Update</button>
             </form>
 
         </section>
