@@ -11,6 +11,16 @@ from hielander_whiskey_app.models import BottelingReserveringen, FestivalData
 class TestBottelingReserveringPage(TestCase):
     """
     Testklasse voor de BottelingReserveringPage.
+    Erft over van TestCase.
+
+    Overzicht van de testcases in deze klasse:
+    1. test_get_request: Test het uitvoeren van een GET-request naar de reserveringspagina.
+    2. test_post_valid_form: Test het submitten van valid data via een POST request naar de reserveringspagina.
+    3. test_post_lege_voornaam: Test het submitten van invalid data met een lege voornaam via een POST request naar de reserveringspagina.
+    4. test_post_lege_achternaam: Test het submitten van data met een lege achternaam via een POST request naar de reserveringspagina.
+    5. test_post_foute_email: Test het submitten van een formulier met een ongeldig e-mailadres via een POST request naar de reserveringspagina.
+    6. test_post_teveel_flessen: Test het submitten van een formulier met teveel flessen via een POST request naar de reserveringspagina.
+    7. test_post_reservelijst: Test het submitten van een formulier terwijl er al een reservering bestaat met hetzelfde e-mailadres.
     """
 
     def setUp(self):
