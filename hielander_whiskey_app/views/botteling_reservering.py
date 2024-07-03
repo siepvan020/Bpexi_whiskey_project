@@ -18,6 +18,22 @@ from hielander_whiskey_app.utils.send_emails import setup_botteling_email
 
 def botteling_reservering_page(request: WSGIRequest)\
                             -> Union[HttpResponse, HttpResponseRedirect]:
+    """ Botteling reservering view
+
+    Deze view rendert de botteling reserveringspagina. Hier kan de gebruiker een reservering maken voor de festival
+    botteling. De gebruiker kan maximaal 2 flessen reserveren. Als er geen flessen meer beschikbaar zijn, wordt de
+    gebruiker op de reservelijst geplaatst.
+    Deze view triggert de setup_botteling_email functie om een bevestigingsmail te sturen naar de gebruiker. Vervolgens
+    wordt de gebruiker doorgestuurd naar de bevestigingspagina.
+
+    - Op regel 71 is het maximaal aantal te bestellen flessen per e-mailadres aan te passen.
+      Indien dit nodig is, pas dan ook gelijk de error melding aan op regel 73.
+
+    :param request: Het HTTP request object.
+    :type request: WSGIRequest
+    :return: Het HTTP response object dat de pagina rendert.
+    :rtype: Union[HttpResponse, HttpResponseRedirect]
+    """
 
 
     totaal_flessen = BottelingReserveringen.objects.aggregate(
@@ -53,6 +69,7 @@ def botteling_reservering_page(request: WSGIRequest)\
             totaal_flessen_op_email = sum(
                 res.aantal_flessen for res in bestaande_reserveringen)
  
+            # Pas hier het maximaal aantal flessen per e-mailadres aan (indien nodig)
             if totaal_flessen_op_email + reservering.aantal_flessen > 2:
                 messages.error(request, 
                                'Kan niet meer dan 2 flessen per persoon reserveren')

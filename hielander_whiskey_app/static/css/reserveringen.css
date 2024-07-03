@@ -10,6 +10,7 @@ section {
     margin-top: 20px;
 }
 
+/* Pagina titels */
 h1 {
     text-align: center;
     font-size: 2em;
@@ -17,6 +18,7 @@ h1 {
     margin-bottom: 10px;
 }
 
+/* Welkoms/waarschuwings teksten bovenin de pagina */
 h2 {
     text-align: center;
     font-size: 1.5em;
@@ -29,6 +31,7 @@ p, label, span {
     font-size: 1em;
 }
 
+/* Alle input field styling */
 input[type="text"], input[type="number"], textarea, select {
     width: calc(100% - 20px);
     padding: 10px;
@@ -41,10 +44,12 @@ input[type="text"], input[type="number"], textarea, select {
     font-family:Tahoma, Geneva, sans-serif;
 }
 
+/* Cursor -> bij hover overbuttons */
 .radio-container *:hover, #sessie_nummer:hover {
     cursor: pointer;
 }
 
+/* Submit button styling */
 button {
     width: 100%;
     background-color: #005EB8;
@@ -59,88 +64,90 @@ button {
     box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
 }
 
+/* Submit button hover effecten */
 button:hover {
     background-color: #004A99;
     transform: translateY(-5px);
     box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
 }
 
-/* Specifieke styling voor Masterclass Reservering */
-.masterclass-info {
-    text-align: center;
-}
-
-.masterclass_form {
-    padding: 20px;
-    margin-bottom: 30px;
-}
-
-.masterclass_form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.radio-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.radio-container input[type="radio"] {
-    margin-right: 10px;
-}
-
-.masterclass_form select {
-    width: calc(100% - 22px);
-}
-
-#totaalprijs {
-    font-weight: bold;
-    color: #333;
-}
-
-/* Specifieke styling voor Botteling Reservering */
-.botteling-info {
-    text-align: center;
-}
-
-.botteling-form {
-    padding: 20px;
-    margin-bottom: 30px;
-}
-
-.botteling-form label {
-    display: block;
-    margin-bottom: 5px;
-}
-
-#flessen-aantal {
-    margin-top: 20px;
-}
-
-#flessen-aantal #naam-fles {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 10px;
-}
-
-#fles-bijna {
-    color: orange;
-}
-
-#fles-op {
-    color: red;
-}
-
-#fles-info {
-    margin: 0 auto;
-    width: 70%;
-    text-align: left;
-}
-
+/* Error message styling */
 .error-message {
     color: red;
     font-size: 0.9em;
     text-align: center;
     margin-top: 10px;
 }
+
+/* Specifieke styling voor Masterclass Reservering */
+    .masterclass-info {
+        text-align: center;
+    }
+
+    .masterclass_form {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .masterclass_form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .radio-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .radio-container input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    .masterclass_form select {
+        width: calc(100% - 22px);
+    }
+
+    #totaalprijs {
+        font-weight: bold;
+        color: #333;
+    }
+
+/* Specifieke styling voor Botteling Reservering */
+    .botteling-info {
+        text-align: center;
+    }
+
+    .botteling-form {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .botteling-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    #flessen-aantal {
+        margin-top: 20px;
+    }
+
+    #flessen-aantal #naam-fles {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+    }
+
+    #fles-bijna {
+        color: orange;
+    }
+
+    #fles-op {
+        color: red;
+    }
+
+    #fles-info {
+        margin: 0 auto;
+        width: 70%;
+        text-align: left;
+    }

@@ -7,12 +7,14 @@ body, html {
     font-family:Tahoma, Geneva, sans-serif;
 }
 
+/* Standaard font voor h1 en h2 elementen */
 h1, h2 {
     font-family: 'Terminal Dosis',Tahoma, Geneva, sans-serif;
 	font-weight: 700;
 	text-decoration: none;
 }
 
+/* Header en footer achtergrondbalk */
 .header-background, .footer-background {
     background-image: url('../img/bg_pattern.jpg'); 
     background-repeat: repeat;
@@ -21,11 +23,13 @@ h1, h2 {
     height: 100px;
 }
 
+/* De onderste footerbalk */
 .footer-background {
     position: static;
     bottom: 0;
 }
 
+/* Het HWF logo bovenaan de pagina */
 .hwf_logo {
     position: relative;
     transform: translateY(-50%);

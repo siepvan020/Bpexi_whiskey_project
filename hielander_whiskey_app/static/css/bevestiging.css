@@ -1,3 +1,4 @@
+/* De algemene section waar alle informatie ovr de bevestiging staat */
 .bevestiging-info {
     width: 670px;
     height: auto;
@@ -8,27 +9,28 @@
     transform: translate(-50%, -50%);
 }
 
+/* Bevestiging titel */
 .bevestiging-info h1 {
     font-size: 3em;
     color: #005EB8;
-    /* margin-bottom: 5%; */
     letter-spacing: 1px;
 }
 
+/* Bevestiging subtitel */
 .bevestiging-info h2 {
     font-size: 2em;
     color: #333;
-    /* margin-bottom: 5%; */
     font-weight: 300;
 }
 
+/* Bevestigingstekst */
 .bevestiging-info p {
     font-size: 1.1em;
     color: #555;
     line-height: 1.6;
-    /* margin-bottom: 7%; */
 }
 
+/* Terug naar de originele HWF website */
 .bevestiging-info button {
     background-color: #005EB8;
     color: #fff;
@@ -46,6 +48,7 @@
     text-decoration: none;
 }
 
+/* Hover effects voor de return button */
 .bevestiging-info button:hover {
     background-color: #004A99;
     transform: translateY(-5px);
