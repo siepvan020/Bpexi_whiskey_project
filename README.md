@@ -47,6 +47,58 @@ De laatste 3 functies op regel 121 t/m 221: https://github.com/siepvan020/Bpexi_
 werken samen met de functie van regel 165 t/m 191 van de dashboard.py: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L165-L191 
 om rijen uit de bestellingen tabel te kunnen selecteren en vervolgens te verwijderen.
 
+## Masterclass reserveringen
+In het volgende gedeelte worden de onderdelen besproken die horen bij de masterclass reserveringen.
+
+#### Masterclasses veranderen
+De informatie die bij de masterclasses horen veranderen dynamisch wanneer er een sessie wordt geselecteerd of wanneer de gebruiker een masterclass selecteerd. 
+Om ervoor te zorgen dat de masterclass naam, tijd, prijs en het aantal beschikbare tickets dynamisch worden overgebracht naar [masterclass_reservering.html](hielander_whiskey_app/templates/masterclass_reservering.html) wordt onderstaande code gebruikt.
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L52-L68<br>
+Vanuit database tabel 'FestivalData' worden de benodigde variabelen gehaald en in de dictionary 'context' geplaatst. Indien het in de toekomst nodig is om meer variabelen uit de tabel 'FestivalData' te halen, kan dit op een zelfde manier gedaan worden als in de code hierboven.
+
+Wanneer de gebruiker van sessie veranderd, zullen de bijbehorende masterclasses als opties verschijnen bij de radio buttons die aanwezig zijn op de pagina. In de onderstaande code is terug te lezen hoe dit is vorm gegeven in [masterclass_reservering.js](hielander_whiskey_app/static/js/masterclass_reservering.js):
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/10c9f420fe23b87bd7d4bd4c4146303f004b356b/hielander_whiskey_app/static/js/masterclass_reservering.js#L9-L71
+
+#### Masterclass geselecteerd
+Wanneer de gebruiker een masterclass selecteerd worden een aantal functies geactiveerd. De onderstaande code wordt aangeroepen wanneer de gebruiker een masterclass selecteerd:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/10c9f420fe23b87bd7d4bd4c4146303f004b356b/hielander_whiskey_app/static/js/masterclass_reservering.js#L89-L94
+
+Vervolgens wordt eerst de functie 'update_prijs' aangeroepen. Deze functie zorgt ervoor dat onder het kopje 'totaalprijs' de prijs per ticket van de desbetreffende masterclass wordt getoond. Dit is te lezen in de onderstaande code:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/10c9f420fe23b87bd7d4bd4c4146303f004b356b/hielander_whiskey_app/static/js/masterclass_reservering.js#L100-L113
+
+Als laatst wordt de functie 'update_aantal_kaarten' aangeroepen. Deze functie zorgt ervoor dat het maximaal aantal kaarten dat besteld kan worden, wordt aangepast naar het aantal kaarten dat er nog beschikbaar zijn voor de desbetreffende masterclass. Dit is te lezen in de onderstaande code:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/10c9f420fe23b87bd7d4bd4c4146303f004b356b/hielander_whiskey_app/static/js/masterclass_reservering.js#L122-L139
+
+#### Totaalprijs updaten
+De totaalprijs van de reservering wordt automatisch geupdate wanneer de gebruiker het aantal tickets aanpast naar het gewenste aantal kaarten. Onderstaande code geeft de code weer die wordt aangeroepen wanneer de gebruiker het aantal kaarten aanpast:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/10c9f420fe23b87bd7d4bd4c4146303f004b356b/hielander_whiskey_app/static/js/masterclass_reservering.js#L78-L80
+Vervolgens wordt de functie 'update_prijs' aangeroepen. Deze heeft dezelfde functionaliteit zoals te zien is bij 'Masterclass geselecteerd'.
+
+#### Reservering geplaatst
+Wanneer er een reservering geplaatst wordt, dan wordt de volgende code aangeroepen:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L70-L71<br>
+
+Deze code zorgt ervoor dat de ingevulde informatie gecontroleerd wordt aan de hand van de volgende form:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/forms/MasterclassForm.py#L4-L16<br>
+
+Wanneer de ingevulde gegevens niet goedgekeurd worden, dan zal de gebruiker een error message ontvangen. Hiervoor wordt de volgende code aangeroepen:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L113-L118<br>
+
+Wanneer de ingevulde gegevens wel goedgekeurd worden, dan zal de reservering met behulp van de volgende code opgeslagen worden in de database tabel 'MasterclassReserveringen':
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L72-L84<br>
+
+Nadat de reservering is opgeslagen zal er een mail worden gestuurd naar het opgegeven mailadres. Deze mail bevat een factuur met daarin de gegevens die ingevuld zijn tijdens de reservering. De code hiervoor ziet er als volgt uit:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L87-L103<br>
+
+
+### Masterclass bevestiging
+Op de masterclass bevestings pagina staan de volgende onderdelen:<br>
+- Een dank voor de reservering
+- Een besteloverzicht
+
+De informatie voor het bestel overzicht is afkomstig uit [masterclass_reservering.py](hielander_whiskey_app/views/masterclas_reservering.py). In de onderstaande code is te zien hoe dit wordt gedaan en welke gegevens mee worden gegeven:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L105-L112<br>
+
 ## Unit testing
 
 
