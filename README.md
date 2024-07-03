@@ -1,4 +1,41 @@
-## Voorwoord
+# Developer's guide - Hielander Whisky Festival Ticketsysteem
+
+## Navigatie
+- [Inleiding](#inleiding)
+    - [Functie](#functie)
+    - [Publiek](#publiek)
+    - [Installatie en opstart instructies](#installatie-en-opstart-instructies)
+- [Bestanden](#bestanden)
+    - [Basisstructuur](#basisstructuur)
+    - [Bestanden vinden](#bestanden-vinden)
+        - [Static bestanden](#static-bestanden)
+        - [Views](#views)
+        - [Utils](#utils)
+    - [Database modellen](#database-modellen)
+- [Schermenoverzicht](#schermenoverzicht)
+    - [Algemeen](#algemeen)
+    - [Inlogscherm](#inlogscherm)
+    - [Admin dashboard](#admin-dashboard)
+    - [Masterclass reserveringen](#masterclass-reserveringen)
+        - [Masterclass veranderen](#masterclasses-veranderen)
+        - [Masterclass geselecteerd](#masterclass-geselecteerd)
+        - [Totaalprijs updaten](#totaalprijs-updaten)
+        - [Reservering geplaatst](#reservering-geplaatst)
+    - [Masterclass bevestiging](#masterclass-bevestiging)
+    - [Botteling reserveringen](#botteling-reserveringen)
+    - [Botteling bevestiging](#botteling-bevestiging)
+    - [Landingspagina](#landingspagina)
+    - [E-mail templates](#e-mail-templates)
+- [Unit testing](#unit-testing)
+    - [Testing platform](#testing-platform)
+    - [Unit tests runnen](#unit-tests-runnen)
+    - [Toegang krijgen tot de unit tests](#toegang-krijgen-tot-de-unit-tests)
+- [Development status](#development-status)
+    - [Bugs](#bugs)
+    - [Features in development](#features-in-development)
+
+
+## Inleiding
 
 ### Functie
 Momenteel worden de reserveringen voor de botteling en masterclasses handmatig afgehandeld via e-mail. De Hielander Whisky app is ontwikkeld om dit proces te vervangen. Op de reserveringspagina's kunnen klanten hun reserveringen plaatsen, waarna er automatisch e-mails worden verzonden met de details en de factuur. De applicatie biedt daarnaast de mogelijkheid om via de admin-dashboardpagina bestellingen en producten te beheren en te overzien. 
@@ -124,7 +161,7 @@ De laatste 3 functies op regel 121 t/m 221: https://github.com/siepvan020/Bpexi_
 werken samen met de functie van regel 165 t/m 191 van de dashboard.py: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L165-L191 
 om rijen uit de bestellingen tabel te kunnen selecteren en vervolgens te verwijderen.
 
-## Masterclass reserveringen
+### Masterclass reserveringen
 In het volgende gedeelte worden de onderdelen besproken die horen bij de masterclass reserveringen.
 
 #### Masterclasses veranderen
@@ -177,7 +214,7 @@ De informatie voor het bestel overzicht is afkomstig uit [masterclass_reserverin
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L105-L112<br>
 
 
-### Botteling reserveringspagina
+### Botteling reserveringen
 De [botteling reserveringspagina](./hielander_whiskey_app/templates/botteling_reservering.html) bevat informatie en het reserveringssysteem omtrent de jaarlijkse festival botteling.<br>
 - **Functies:**
     - Form voor het reserveren van flessen
@@ -205,7 +242,7 @@ https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/templates/botteling_reservering.html#L19-L22
 
 
-### Botteling bevestigingspagina
+### Botteling bevestiging
 De [botteling bevestigingspagina](./hielander_whiskey_app/templates/botteling_bevestiging.html) toont de bevestiging van de botteling reservering.
 - **Functies**:
   - Bevestiging van de reservering met details over de bestelling.
@@ -245,7 +282,7 @@ https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7
 
 ## Unit testing
 
-### Testing Platform
+### Testing platform
 Het testing platform dat wordt gebruikt voor deze applicatie is Django's standaard `unittest.TestCase` testing framework. Dit is een uitgebreide testmodule die goed integreert met het framework, waardoor het eenvoudig is om zowel model- als view tests te schrijven en uit te voeren.<br>
 Django's TestCase is een uitbreiding van de standaard unittest.TestCase van Python. Het geeft extra functionaliteiten die specifiek zijn ontworpen voor het testen van Django-applicaties. Een aantal van deze functies zijn:
 
@@ -261,7 +298,7 @@ Django's TestCase is een uitbreiding van de standaard unittest.TestCase van Pyth
 
 Met de combinatie van Django's TestCase en Python's unittest kun je goede en betrouwbare unittests schrijven die ervoor zorgen dat je applicatie op de goede manier werkt.
 
-### De unit tests runnen
+### Unit tests runnen
 Om de tests uit te voeren, moet je de volgende stappen volgen:
 
 1. Navigeer naar de hoofdmap van het project: "whisky_project". Dit is de map waar `manage.py` zich bevindt.
