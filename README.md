@@ -7,7 +7,37 @@ Momenteel worden de reserveringen voor de botteling en masterclasses handmatig a
 De botteling en masterclass pagina's zijn bedoeld voor klanten. Hier kunnen de klanten reserveringen maken. Vervolgens krijgen de klanten automatisch de mail waarin informatie over de bestelling en de factuur te vinden is. De admin-dashboardpagina is bedoeld voor de eigenaren. Hierin is informatie over alle gemaakt bestellingen te vinden. Ook kunnen hier gegevens van de huidige verkochte bottels en masterclasses aangepast worden. 
 
 ### Installatie en opstart instructies
+Voor het gebruiken van de applicatie is python vereist. Als u nog geen python 3.11 geïnstalleerd heeft, volgt u de volgende stappen om python 3.11 te installeren: 
 
+- Ga naar https://www.python.org/downloads/release/python-3119/  
+- Scroll vervolgens naar beneden tot aan ‘Files’ 
+- Druk vervolgens op ‘Windows installer(64-bit)’ 
+- Open de gedownloade installer 
+- Vink de optie ‘Add python.exe to PATH’ aan 
+- Druk op de optie ‘Install Now’ 
+- Wanneer de installatie compleet is kunt u dit venster sluiten 
+
+Wanneer python geïnstalleerd is, kunt u de map waarin de applicatie staat openen. 
+
+Type in de adresbalk van de map (de balk waarin staat waar in uw documenten u zich bevindt) het volgende commando:<br> 
+`cmd` 
+
+Vervolgens zullen we een virtuele omgeving aan moeten maken. Indien dit al is gedaan kunt u deze stap overslaan.  
+Om een virtuele omgeving aan te maken, typt u het volgende commando:<br> 
+
+`py -3.11 -m venv venv`  
+
+Vervolgens moeten we de virtuele omgeving activeren. Afhankelijk van uw besturingssysteem moet dit met een ander commando gedaan worden. U kunt één van de volgende commando’s kiezen, passend bij uw besturingssysteem:<br> 
+- Windows: `venv\scripts\activate` 
+- Unix/Mac: `source venv/bin/activate` 
+
+Wanneer de omgeving geactiveerd is, kunt u het laatste commando intypen om de vereiste bestanden te installeren. Dit doet u met het volgende commando:<br> 
+`pip install -r requirements.txt` 
+
+Als het installeren van de bestanden voltooid is kunt u de applicatie gebruiken met het volgende commando:<br> 
+`python manage.py runserver` 
+
+Dit commando zal ervoor zorgen dat de applicatie start. In uw browser kunt u vervolgens ‘http://127.0.0.1:8000/’ in de adresbalk invoeren om de applicatie te gebruiken. 
 
 
 ## Schermenoverzicht
