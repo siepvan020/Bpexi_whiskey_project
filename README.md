@@ -40,7 +40,54 @@ Als het installeren van de bestanden voltooid is kunt u de applicatie gebruiken 
 Dit commando zal ervoor zorgen dat de applicatie start. In uw browser kunt u vervolgens ‘http://127.0.0.1:8000/’ in de adresbalk invoeren om de applicatie te gebruiken. 
 
 
+## Bestanden
+### Basisstructuur
+De HTML bestanden voor alle schermen kun je vinden in de map [`hielander_whiskey_app/templates/`](./hielander_whiskey_app/templates/). Tussen deze bestanden staat ook [`base.html`](./hielander_whiskey_app/templates/base.html). Hierin staat de basis HTML structuur, met onder andere een aantal installaties (font, jQuery, Tablesaw), de headerbalk en footerbalk. Ook  De [`base.html` wordt gebruikt om elementen te laden die op alle pagina's worden gebruikt, zoals de header. Deze maakt gebruik van Django template inheritance met blokken zoals `{% block content %}` en `{% block extrascripts %}`.
+
+### Bestanden vinden
+#### Static bestanden
+De map [`hielander_whiskey_app/static/`](./hielander_whiskey_app/static/) bevat alle CSS, JavaScript en afbeeldingen die nodig zijn voor het gebruik van de applicatie. Deze static bestanden kunnen in templates worden gerefereerd met `{% static 'path/to/file' %}`.
+
+#### Views
+De bestanden die nodig zijn om de pagina's te laden (de views), bevinden zich in de map [`hielander_whiskey_app/views/`](./hielander_whiskey_app/views/), waarbij elk bestand de naam van de desbetreffende pagina heeft. Views verwerken HTTP-requests en returnen HTTP-responses, in combinatie met templates.<br>
+
+#### Utils
+Het systeem om bevestigings e-mails te sturen is te vinden in het bestand [`hielander_whiskey_app/utils/send_emails.py`](./hielander_whiskey_app/utils/send_emails.py). Dit systeem wordt verder toegelicht in het [schermenoverzicht](#e-mail-templates).
+
+### Database modellen
+De database modellen zijn te vinden in de map [`hielander_whiskey_app/models/`](./hielander_whiskey_app/models/), waarbij elk model zijn eigen bestand heeft. Er zijn drie modellen:
+- **MasterclassReserveringen**
+    - Deze tabel slaat masterclass reserveringen op. 
+    - Fields: "voornaam", "tussenvoegsel", "achternaam", "e_mailadres", "opmerking", "aantal_kaarten", "totaalprijs", "reserve", "datum", "tijd", "masterclass", "sessie_nummer".
+
+- **BottelingReserveringen**
+    - Deze tabel slaat botteling reserveringen op.
+    - Fields: "voornaam", "tussenvoegsel", "achternaam", "e_mailadres", "opmerking", "aantal_flessen", "totaalprijs", "reserve", "datum", "tijd".
+    
+*Overeenkomende eigenschappen MasterclassReserveringen en BottelingReserveringen*:<br>
+-- De instance ID's, datum en tijd worden automatisch aangemaakt wanneer de reservering wordt opgeslagen.<br>
+-- Wordt standaard geordend op een combinatie van datum en tijd. De meest recente reserveringen komen dus bovenaan te staan.<br>
+-- De string functie in dit model print de volledige naam van de klant + de gekozen masterclass.
+
+- **FestivalData**
+    - Deze tabel slaat de algemene festival informatie op, zoals de namen en prijzen.
+    - Fields: "type", "naam", "tijd", "sessie", "datum", "aantal_beschikbaar", "prijs".
+    - Deze data kan worden aangepast op het admin dashboard. Het is niet mogelijk, en niet de bedoeling, dat hier instanties worden toegevoegd of verwijderd.
+    - De data die in deze tabel staat wordt overal op de app gebruikt. De app werkt dan ook niet goed als deze tabel leeg is. 
+
+
 ## Schermenoverzicht
+
+### Algemeen
+
+Na het starten van de applicatie belandt de gebruiker automatisch op de [landingspagina](#landingspagina). Als de applicatie gedeployed zou worden, zou deze pagina niet relevant zijn. De gebruiker krijgt deze niet te zien. De landingspagina maakt het makkelijk voor de developer om de applicatie te testen zonder telkens een "404 - Page not found" te krijgen bij het bezoeken van de base url.
+
+Verder staan de verschillende schermen redelijk los van elkaar. Dit is zo omdat de reserveringspagina's in het eerste geval benaderd konden worden vanaf de originele HWF website op de [botteling](http://www.hielanderwhiskyfestival.nl/festivalbotteling2024) en [masterclass](http://www.hielanderwhiskyfestival.nl/masterclass) pagina's. Om deze reden is er dus ook geen mogelijkheid om door het ticketsysteem te navigeren met een navbar of navigatie knoppen.
+
+De "flow" is als volgt:
+- Masterclass reserveringspagina &rarr; Masterclass bevestigingspagina
+- Botteling reserveringspagina &rarr; Botteling bevestigingspagina
+- Login pagina &rarr; Admin dashboard
 
 ### Inlogscherm
 Er is een [login template](hielander_whiskey_app/templates/login.html) die voor de login pagina wordt gebruikt. De [login view](hielander_whiskey_app/views/login.py) bevat de code die de pagina gebruikt om de gebruiker succesvol in te loggen. De login_page functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/0b30ea263a413fb1d324e864f59ea0f13b035b5e/hielander_whiskey_app/views/login.py#L35-L54
@@ -48,7 +95,7 @@ wordt aangeroepen als de login pagina aangeroept wordt. Als een gebruiker probee
 Deze functie authenticeert de gebuiker en probeert deze in te loggen. Als de gebruiker en het wachtwoord juist zijn, dan wordt de admin dashboard pagina aangeroepen.
 
 
-### admin dashboard
+### Admin dashboard
 Er is een [dashboard template](hielander_whiskey_app/templates/dashboard.html) die voor het admin dashboard wordt gebruikt. De [dashboard view](hielander_whiskey_app/views/dashboard.py) bevat de code die de pagina gebruikt om alle tabellen en grafieken te creëren. 
 
 De login_page functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L27-L114
@@ -129,7 +176,122 @@ Op de masterclass bevestings pagina staan de volgende onderdelen:<br>
 De informatie voor het bestel overzicht is afkomstig uit [masterclass_reservering.py](hielander_whiskey_app/views/masterclas_reservering.py). In de onderstaande code is te zien hoe dit wordt gedaan en welke gegevens mee worden gegeven:
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599ed2217d497cf27dc7a/hielander_whiskey_app/views/masterclass_reservering.py#L105-L112<br>
 
+
+### Botteling reserveringspagina
+De [botteling reserveringspagina](./hielander_whiskey_app/templates/botteling_reservering.html) bevat informatie en het reserveringssysteem omtrent de jaarlijkse festival botteling.<br>
+- **Functies:**
+    - Form voor het reserveren van flessen
+    - Validatie van het form, maximaal 2 flessen per e-mailadres
+    - Berekening van de totaalprijs van de reservering
+    - Dynamische weergave van het aantal beschikbare flessen.
+    - Versturen van een bevestigingsmail na een succesvolle reservering.
+
+Er is naar gestreefd om de pagina zo veel mogelijk zelf te laten updaten a.d.h.v. de [Festivaldata](#database-modellen) tabel. Dit kan echter niet overal. In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
+
+- [Titel van de pagina](./hielander_whiskey_app/templates/botteling_reservering.html#L14). Deze kun je aanpassen op regelnummer 14 van de template (`botteling_reservering.html`). Plaats de titel tussen de >< haken.
+
+- [Informatie over de botteling](./hielander_whiskey_app/templates/botteling_reservering.html#L17). Deze kun je aanpassen op regel 17 van de template (`botteling_reservering.html`). Plaats de info tussen de >< haken. De tekst wordt automatisch op de goede manier in het kader geplaatst.
+
+In het onderstaande codeblok wordt een voorbeeld weergegeven van de regels van toepassing:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/c6ff8bc71eeaf4d6d3460a3233ee61cf08153e4c/hielander_whiskey_app/templates/botteling_reservering.html#L12-L17
+
+- Maximaal aantal te bestellen flessen per e-mailadres. Deze moet worden aangepast op twee plekken, in de [template](./hielander_whiskey_app/templates/botteling_reservering.html#L42) (`botteling_reservering.html`) op regel 42 en in de [view](./hielander_whiskey_app/views/botteling_reservering.py#L72) (`botteling_reservering.py`) op regel 72. Dit maximum staat standaard op 2. Let wel op dat je ook de tekst van de [errormessage](./hielander_whiskey_app/views/botteling_reservering.py#L75) op regel 75 in de view aanpast, zodat deze overeenkomt met het maximaal aantal te reserveren flessen per e-mailadres.<br>
+
+
+- Grenswaarde van het tonen van het aantal flessen over. Dit kan worden aangepast in [`botteling_reservering.js`](https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/static/js/botteling_reservering.js#L15-L27) op regels 15 en 19. Deze waarde staat standaard op 50. Als er minder dan 50 flessen over zijn volgens de database, wordt het aantal getoond op de [`botteling_reservering.py`](./hielander_whiskey_app/templates/botteling_reservering.html#L20) op regel 20 t/m 22.<br>
+Voorbeelden van de twee codeblokken zijn hieronder te zien:<br>
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/static/js/botteling_reservering.js#L15-L27
+<br>
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/templates/botteling_reservering.html#L19-L22
+
+
+### Botteling bevestigingspagina
+De [botteling bevestigingspagina](./hielander_whiskey_app/templates/botteling_bevestiging.html) toont de bevestiging van de botteling reservering.
+- **Functies**:
+  - Bevestiging van de reservering met details over de bestelling.
+  - Instructies over het vinden van de bevestigingsmail en factuur.
+  - Terugkeren naar de originele [HWF Botteling website](http://www.hielanderwhiskyfestival.nl/festivalbotteling2024).
+
+In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
+- [Titel van de pagina](./hielander_whiskey_app/templates/botteling_bevestiging.html#L14). Deze kun je aanpassen op regel 14 van de template (`botteling_bevestiging.html`). Plaats de titel tussen de >< haken.
+
+- [Bedanktbericht](./hielander_whiskey_app/templates/botteling_bevestiging.html#L15). Deze kun je aanpassen op regel 15 van de template (`botteling_bevestiging.html`). Plaats de gewenste (korte) zin tussen de >< haken.
+
+- [Factuur en e-mail informatie](./hielander_whiskey_app/templates/botteling_bevestiging.html#L16). Deze kun je aanpassen vanaf regel 16 van de template (`botteling_bevestiging.html`). Er hoeven niet per se Enters in de tekst te staan.
+- ["Ga terug" knop link](./hielander_whiskey_app/templates/botteling_bevestiging.html#L33). Deze gaat nu terug naar de originele HWF botteling website. Mocht deze link veranderen, kan dit aangepast worden op regel 33 van de template (`botteling_bevestiging.html`). Zorg ervoor dat de volledige link achter de `href=` wordt geplaatst, binnen de aanhalingstekens.
+
+Voorbeelden van de stukken code die aangepast moeten worden zijn hieronder te zien:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/templates/botteling_bevestiging.html#L12-L37
+
+
+### Landingspagina
+De [landingspagina](./hielander_whiskey_app/templates/landingspagina.html) wordt voornamelijk gebruikt voor testdoeleinden en is niet belangrijk voor de gebruiker, zoals al is uitgelegd in het kopje ["Algemeen"](#algemeen) .
+- **Functies**:
+  - Testen van de applicatie zonder 404 error bij het opstarten van de applicatie.
+  - Snelle toegang tot de verschillende pagina's.
+
+
+### E-mail templates
+De [e-mail templates](./hielander_whiskey_app/templates/email_templates/) worden gebruikt om de bevestigingsmail te vullen en stylen. Deze templates worden gemaakt in [`send_mails.py`](./hielander_whiskey_app/utils/send_emails.py).
+
+In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
+- [Verzender e-mailadres](./hielander_whiskey_app/utils/send_emails.py#L148). Het e-mailadres waarvan de bevestigingsmails worden verstuurd kan worden aangepast op regel 148 van `send_emails.py` en op regel 130 van `settings.py`. Let op dat ook het wachtwoord aangepast moet worden.
+- [E-mail account wachtwoord](./whiskey_project/settings.py#L131). Als het e-mailadres veranderd moet ook het app wachtwoord worden veranderd, op regel 131 in `settings.py`. Let op dat dit niet het echte wachtwoord van het account moet zijn, maar het "app specific password", zie [hier](https://support.google.com/accounts/answer/185833?hl=nl) instructies via Google.
+- [Uiterste betaaldatum masterclass](./hielander_whiskey_app/templates/email_templates/masterclass_email.html#L77). De uiterste betaaldatum van de masterclasses kan worden aangepast op regel 77 van `masterclass_email.html`
+
+Voorbeelden van de stukken code in settings.py zijn hieronder weergegeven:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/whiskey_project/settings.py#L127-L132
+
+
 ## Unit testing
+
+### Testing Platform
+Het testing platform dat wordt gebruikt voor deze applicatie is Django's standaard `unittest.TestCase` testing framework. Dit is een uitgebreide testmodule die goed integreert met het framework, waardoor het eenvoudig is om zowel model- als view tests te schrijven en uit te voeren.<br>
+Django's TestCase is een uitbreiding van de standaard unittest.TestCase van Python. Het geeft extra functionaliteiten die specifiek zijn ontworpen voor het testen van Django-applicaties. Een aantal van deze functies zijn:
+
+- **Database Rollback**: TestCase maakt gebruik van een tijdelijke database voor elke test, deze wordt aangemaakt voor de test en vernietigd gelijk na de test. Dit betekent dat elke test start met een lege database, wat zorgt voor een consistente testomgeving.<br>
+
+- **Client**: Django's test framework bevat een test client die wordt gebruikt om requests naar de views te sturen en de responses op te halen. Dit maakt het mogelijk om volledige tests uit te voeren op de applicatie.<br>
+
+- **Fixtures**: Met Django's TestCase kun je fixtures laden die vooraf gedefinieerde datasets bevatten. Dit maakt het eenvoudig om een bekende staat van de database te creëren voordat de tests worden uitgevoerd.<br>
+
+- **Assertions**: unittest heeft veel verschillende soort assertions die je kunt doen om verschillende aspecten van je code te testen, zoals assertEqual, assertTrue, assertIn, enz.<br>
+
+- **Mocking**: unittest.mock is een krachtig hulpmiddel voor het mocken van objecten en functies. De patch decorator is vooral handig voor het tijdelijk vervangen van objecten door mock-objecten tijdens een test. Dit is nuttig voor het isoleren van de code die je wilt testen en het vermijden van dependencies of validaties van externe systemen of complexe objecten.<br>
+
+Met de combinatie van Django's TestCase en Python's unittest kun je goede en betrouwbare unittests schrijven die ervoor zorgen dat je applicatie op de goede manier werkt.
+
+### De unit tests runnen
+Om de tests uit te voeren, moet je de volgende stappen volgen:
+
+1. Navigeer naar de hoofdmap van het project: "whisky_project". Dit is de map waar `manage.py` zich bevindt.
+2. Gebruik het Django test commando: Voer het volgende command uit in de command line terminal om alle tests te runnen:
+   ```bash
+   python manage.py test
+   ```
+Je kunt er ook voor kiezen om losse testscripts te runnen.
+- Voor het testen van de database modellen, voer het volgende command uit:
+    ```bash
+   python manage.py test hielander_whisky_app.testing.test_models
+   ```
+- Voor het testen van de views, voer het volgende command uit:
+    ```bash
+   python manage.py test hielander_whisky_app.testing.test_views
+   ```
+
+### Toegang krijgen tot de unit tests
+
+De unit tests zijn te vinden in de map `hielander_whiskey_app/testing`. Deze map bevat twee submappen, `/test_models` en `/test_views`.
+- In `/test_models` zijn alle unit tests te vinden die de database modellen testen. Dit zijn de volgende bestanden:
+    - `test_bottelingreserveringen.py`
+    - `test_festivaldata.py`
+    - `test_masterclassreserveringen`
+- In `/test_views` zijn alle unit tests te vinden die de pagina views testen. Dit zijn de volgende bestanden:
+    - `test_botteling.py`
+    - `test_dashboard.py`
+    - `test_masterclass.py`
+
+Uitleg over wat elke unit test doet is te vinden in de docstring documentatie van elke testfunctie.
 
 
 ## Development status
