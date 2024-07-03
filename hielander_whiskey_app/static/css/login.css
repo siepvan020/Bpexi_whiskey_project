@@ -1,3 +1,5 @@
+
+/* De styling van het volledige scherm tussen de header en de footer. */
 .scherm {
     height: 74.5vh;
     width: 100%;
@@ -7,6 +9,7 @@
     flex-direction: row;
 }
 
+/* De styling van het scherm waarin de invoervelden en knoppen van het login scherm zich bevinden. */
 .login-form {
     height: 40%;
     width: 40%;
@@ -25,7 +28,7 @@
     overflow: auto;
 }
 
-
+/* De styling voor de login knop. */
 .norm_buttons {
     width: 100%;
     background-color: #005EB8;
@@ -40,6 +43,7 @@
     box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
 }
 
+/* De styling voor het hoveren over de login knop. */
 .norm_buttons:hover {
     background-color: #004A99;
     transform: translateY(-5px);
