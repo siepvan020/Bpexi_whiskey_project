@@ -23,7 +23,7 @@ from hielander_whiskey_app.models import MasterclassReserveringen
 from hielander_whiskey_app.models import FestivalData
 
 
-@login_required
+@login_required(login_url='/login/')
 def dashboard_page(request: WSGIRequest) -> HttpResponse:
     """Deze functie haalt alle benodigde variabelen en data op en roept bottel_piechart en masterclass_barchart
     aan. Vervolgens rendert deze functie de dashboard pagina.
@@ -57,6 +57,7 @@ def dashboard_page(request: WSGIRequest) -> HttpResponse:
                 item.prijs = prijs_value if prijs_value else item.prijs
                 
                 item.save()
+                
             except ValueError as e:
                 messages.error(request, 
                                f"Value error voor {item.type}: {e}")
