@@ -36,7 +36,9 @@ en verwisselen de zichtbaarheid van de grafieken zodat de één zichtbaar wordt 
 
 De twee functies van regel 34 t/m 64: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L34-L64
 luisteren naar de knoppen op regel 56 en 57 van het dashboard template: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L56-L57
-en verwisselen de zichtbaarheid van de bestellingen tabellen zodat de één zichtbaar wordt en dan andere verborgen wordt. De functie van regel 66 t/m 82: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L66-L82
+en verwisselen de zichtbaarheid van de bestellingen tabellen zodat de één zichtbaar wordt en dan andere verborgen wordt. 
+
+De functie van regel 66 t/m 82: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L66-L82
 achterhaald welke van de twee tabellen momenteel zichtbaar is, dit wordt gebruikt in een aantal van de volgende functies. 
 Bijvoorbeeld, de functie van regel 84 t/m 119: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L84-L119
 Deze functie achterhaald met behulp van de vorige functie welke tabel zichtbaar is en exporteert deze als CSV-bestand. 
