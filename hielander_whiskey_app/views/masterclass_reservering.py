@@ -29,25 +29,10 @@ def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
     Indien de gegevens niet valide worden bevonden, dan wordt er een
     situatie gerelateerde foutmelding getoond aan de gebruiker.
 
-    Args:
-        request: Een HttpRequest-object.
-
-    Return:
-        Wanneer er niet op de reserveerknop is gedrukt, dan wordt de
-        pagina 'masterclass_reservering.html' geladen waaraan de context
-        dictionary wordt meegegeven.
-
-        Indien er wel op de reserveerknop is gedrukt, dan wordt de
-        gebruiker doorgestuurd naar 'masterclass_bevestiging.html'
-        pagina, waaraan de volgende argumenten worden meegegeven:
-
-        Naam: De door de gebruiker ingevoerde naam.
-        Mail: De door de gebruiker ingevoerde mailadres.
-        Masterclass: De door de gebruiker gekozen masterclass.
-        Prijs: De prijs per kaartje voor de gekozen masterclass.
-        Aantal kaarten: Het door de gebruiker gekozen aantal kaartjes.
-        Totaalprijs: De totaalprijs van de gehele bestelling.
-
+    :param request: Het HTTP request object.
+    :type request: WSGIRequest
+    :return: Het HTTPResponse object dat de pagina rendert.
+    :rtype: HttpResponse
     """
     context = {}
     templijst = dict(FestivalData.objects.values_list('type', 'prijs')[1:])
