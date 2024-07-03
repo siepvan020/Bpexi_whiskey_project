@@ -13,6 +13,42 @@ from hielander_whiskey_app.models import FestivalData
 from hielander_whiskey_app.utils.send_emails import setup_masterclass_email
 
 def masterclass_reservering_page(request: WSGIRequest) -> HttpResponse:
+    """
+    In deze functie worden eerst 4 dictionary's gemaakt met informatie
+    van de masterclasses. De prijs, het aantal beschikbare kaarten, de
+    naam en de tijd van de masterclass worden opgeslagen in de
+    dictionary 'context'.
+    Wanneer de gebruiker op de reserveerknop drukt, wordt er een POST
+    request verzonden. Wanneer dit gebeurd, worden als eerst de
+    ingevulde gegevens gecontroleerd aan de hand van
+    'MasterclassReserveringenForm'. Wanneer dit valide wordt bevonden,
+    dan wordt de reservering met de juiste informatie opgeslagen in
+    de 'Masterclass Reserveringen' database. Tevens wordt er ook een
+    mail met hierin een factuur verstuurd naar het mailadres wat is
+    ingevuld door de gebruiker.
+    Indien de gegevens niet valide worden bevonden, dan wordt er een
+    situatie gerelateerde foutmelding getoond aan de gebruiker.
+
+    Args:
+        request: Een HttpRequest-object.
+
+    Return:
+        Wanneer er niet op de reserveerknop is gedrukt, dan wordt de
+        pagina 'masterclass_reservering.html' geladen waaraan de context
+        dictionary wordt meegegeven.
+
+        Indien er wel op de reserveerknop is gedrukt, dan wordt de
+        gebruiker doorgestuurd naar 'masterclass_bevestiging.html'
+        pagina, waaraan de volgende argumenten worden meegegeven:
+
+        Naam: De door de gebruiker ingevoerde naam.
+        Mail: De door de gebruiker ingevoerde mailadres.
+        Masterclass: De door de gebruiker gekozen masterclass.
+        Prijs: De prijs per kaartje voor de gekozen masterclass.
+        Aantal kaarten: Het door de gebruiker gekozen aantal kaartjes.
+        Totaalprijs: De totaalprijs van de gehele bestelling.
+
+    """
     context = {}
     templijst = dict(FestivalData.objects.values_list('type', 'prijs')[1:])
     context['masterclass_prijzen'] = templijst
