@@ -20,21 +20,27 @@ Deze functie authenticeert de gebuiker en probeert deze in te loggen. Als de geb
 
 ### admin dashboard
 Er is een [dashboard template](hielander_whiskey_app/templates/dashboard.html) die voor het admin dashboard wordt gebruikt. De [dashboard view](hielander_whiskey_app/views/dashboard.py) bevat de code die de pagina gebruikt om alle tabellen en grafieken te creëren. 
+
 De login_page functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L27-L114
 wordt aangeroepen als een gebruiker succesvol ingelogd is en de dashboard pagina opent. De login_page haalt de bestellingen uit de [Botteling model](hielander_whiskey_app/models/BottelingReserveringen.py) en de [Masterclass model](hielander_whiskey_app/models/MasterclassReserveringen.py) en haalt vervolgens de bijbehorende maximale waardes uit de [FestivalData model](hielander_whiskey_app/models/FestivalData.py). 
+
 Nadat de tabellen met deze data gemaakt zijn, worden twee functies aangeroepen: de bottel_piechart functie en de masteclass_barplot functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L117-L137 
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L140-L162
 Deze functies maken de twee grafieken die op het admin dashboard te zien zijn aan en slaan deze op in de plots folder bij de templates. 
+
 De dashboard pagina bevat ook een [javascript bestand](hielander_whiskey_app/static/js/dashboard.js). Dit bestand regelt de back-end van veel van de knoppen op de dashboard pagina. 
+
 De twee functies van regel 3 t/m 32: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L2-L32
 luisteren naar de knoppen op regel 41 en 42  van het dashboard template: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L41-L42
 en verwisselen de zichtbaarheid van de grafieken zodat de één zichtbaar wordt en dan andere verborgen wordt. 
+
 De twee functies van regel 34 t/m 64: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L34-L64
 luisteren naar de knoppen op regel 56 en 57 van het dashboard template: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L56-L57
 en verwisselen de zichtbaarheid van de bestellingen tabellen zodat de één zichtbaar wordt en dan andere verborgen wordt. De functie van regel 66 t/m 82: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L66-L82
 achterhaald welke van de twee tabellen momenteel zichtbaar is, dit wordt gebruikt in een aantal van de volgende functies. 
 Bijvoorbeeld, de functie van regel 84 t/m 119: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L84-L119
 Deze functie achterhaald met behulp van de vorige functie welke tabel zichtbaar is en exporteert deze als CSV-bestand. 
+
 De laatste 3 functies op regel 121 t/m 221: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L121-L221
 werken samen met de functie van regel 165 t/m 191 van de dashboard.py: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L165-L191 
 om rijen uit de bestellingen tabel te kunnen selecteren en vervolgens te verwijderen.
