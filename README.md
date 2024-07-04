@@ -16,6 +16,11 @@
     - [Algemeen](#algemeen)
     - [Inlogscherm](#inlogscherm)
     - [Admin dashboard](#admin-dashboard)
+        - [Grafieken maken](#grafieken-maken)
+        - [Zichtbaarheid grafieken](#zichtbaarheid-grafieken)
+        - [Zichtbaarheid bestelling tabellen](#zichtbaarheid-bestelling-tabellen)
+        - [Exporteren naar CSV](#exporteren-naar-csv)
+        - [Rijen verwijderen](#rijen-verwijderen)
     - [Masterclass reserveringen](#masterclass-reserveringen)
         - [Masterclass veranderen](#masterclasses-veranderen)
         - [Masterclass geselecteerd](#masterclass-geselecteerd)
@@ -23,7 +28,11 @@
         - [Reservering geplaatst](#reservering-geplaatst)
     - [Masterclass bevestiging](#masterclass-bevestiging)
     - [Botteling reserveringen](#botteling-reserveringen)
+        - [Functies](#functies)
+        - [Handmatige aanpassingen](#handmatige-aanpassingen)
     - [Botteling bevestiging](#botteling-bevestiging)
+        - [Functies](#functies-1)
+        - [Handmatige aanpassingen](#handmatige-aanpassingen-1)
     - [Landingspagina](#landingspagina)
     - [E-mail templates](#e-mail-templates)
 - [Unit testing](#unit-testing)
@@ -225,13 +234,14 @@ https://github.com/siepvan020/Bpexi_whiskey_project/blob/0d04607dab7257b4d2a599e
 
 ### Botteling reserveringen
 De [botteling reserveringspagina](./hielander_whiskey_app/templates/botteling_reservering.html) bevat informatie en het reserveringssysteem omtrent de jaarlijkse festival botteling.<br>
-- **Functies:**
+#### Functies
     - Form voor het reserveren van flessen
     - Validatie van het form, maximaal 2 flessen per e-mailadres
     - Berekening van de totaalprijs van de reservering
     - Dynamische weergave van het aantal beschikbare flessen.
     - Versturen van een bevestigingsmail na een succesvolle reservering.
 
+#### Handmatige aanpassingen
 Er is naar gestreefd om de pagina zo veel mogelijk zelf te laten updaten a.d.h.v. de [Festivaldata](#database-modellen) tabel. Dit kan echter niet overal. In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
 
 - [Titel van de pagina](./hielander_whiskey_app/templates/botteling_reservering.html#L14). Deze kun je aanpassen op regelnummer 14 van de template (`botteling_reservering.html`). Plaats de gewenste titel tussen de >< haken.
@@ -255,11 +265,12 @@ https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7
 
 ### Botteling bevestiging
 De [botteling bevestigingspagina](./hielander_whiskey_app/templates/botteling_bevestiging.html) toont de bevestiging van de botteling reservering.
-- **Functies**:
+#### Functies
   - Bevestiging van de reservering met details over de bestelling.
   - Instructies over het vinden van de bevestigingsmail en factuur.
   - Terugkeren naar de originele [HWF Botteling website](http://www.hielanderwhiskyfestival.nl/festivalbotteling2024).
 
+#### Handmatige aanpassingen
 In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
 - [Titel van de pagina](./hielander_whiskey_app/templates/botteling_bevestiging.html#L14). Deze kun je aanpassen op regel 14 van de template (`botteling_bevestiging.html`). Plaats de titel tussen de >< haken.
 
@@ -329,7 +340,7 @@ Je kunt er ook voor kiezen om losse testscripts te runnen.
 
 ### Toegang krijgen tot de unit tests
 
-De unit tests zijn te vinden in de map `hielander_whiskey_app/testing`. Deze map bevat twee submappen, `/test_models` en `/test_views`.
+De unit tests zijn te vinden in de map [`hielander_whiskey_app/testing`](https://github.com/siepvan020/Bpexi_whiskey_project/tree/7ec84198d7819c36b4e24efe5ddeb86169144132/hielander_whiskey_app/testing). Deze map bevat twee submappen, `/test_models` en `/test_views`.
 - In `/test_models` zijn alle unit tests te vinden die de database modellen testen. Dit zijn de volgende bestanden:
     - `test_bottelingreserveringen.py`
     - `test_festivaldata.py`
