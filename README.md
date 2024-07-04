@@ -135,31 +135,40 @@ Deze functie authenticeert de gebuiker en probeert deze in te loggen. Als de geb
 ### Admin dashboard
 Er is een [dashboard template](hielander_whiskey_app/templates/dashboard.html) die voor het admin dashboard wordt gebruikt. De [dashboard view](hielander_whiskey_app/views/dashboard.py) bevat de code die de pagina gebruikt om alle tabellen en grafieken te creëren. 
 
-De login_page functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L27-L114
-wordt aangeroepen als een gebruiker succesvol ingelogd is en de dashboard pagina opent. De login_page haalt de bestellingen uit de [Botteling model](hielander_whiskey_app/models/BottelingReserveringen.py) en de [Masterclass model](hielander_whiskey_app/models/MasterclassReserveringen.py) en haalt vervolgens de bijbehorende maximale waardes uit de [FestivalData model](hielander_whiskey_app/models/FestivalData.py). 
+De dashboard_page functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L27-L114
+Deze functie wordt aangeroepen als een gebruiker succesvol ingelogd is en de dashboard pagina opent. Deze view haalt de bestellingen uit het [Botteling model](hielander_whiskey_app/models/BottelingReserveringen.py) en [Masterclass model](hielander_whiskey_app/models/MasterclassReserveringen.py) en haalt vervolgens de bijbehorende maximale waardes uit de [FestivalData model](hielander_whiskey_app/models/FestivalData.py). 
 
-Nadat de tabellen met deze data gemaakt zijn, worden twee functies aangeroepen: de bottel_piechart functie en de masteclass_barplot functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L117-L137 
+#### Grafieken maken
+Nadat de tabellen met deze data gemaakt zijn, worden twee functies aangeroepen: de bottel_piechart functie en de masterclass_barplot functie: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L117-L137 
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L140-L162
-Deze functies maken de twee grafieken die op het admin dashboard te zien zijn aan en slaan deze op in de plots folder bij de templates. 
+Deze functies maken de twee grafieken die op het admin dashboard te zien zijn aan en slaan deze op in de plots folder bij de templates. Deze grafieken worden gemaakt met [Plotly](https://plotly.com/python/).
 
-De dashboard pagina bevat ook een [javascript bestand](hielander_whiskey_app/static/js/dashboard.js). Dit bestand regelt de back-end van veel van de knoppen op de dashboard pagina. 
+De dashboard pagina bevat ook een [JavaScript script](hielander_whiskey_app/static/js/dashboard.js). Dit bestand regelt de back-end van veel van de knoppen op de dashboard pagina.
 
-De twee functies van regel 3 t/m 32: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L2-L32
-luisteren naar de knoppen op regel 41 en 42  van het dashboard template: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L41-L42
-en verwisselen de zichtbaarheid van de grafieken zodat de één zichtbaar wordt en dan andere verborgen wordt. 
+#### Zichtbaarheid grafieken
+De twee functies van regel 3 t/m 32 hebben een "click" eventlistener, en worden getriggerd op het moment dat er op één van de knoppen op regel 41 en 42 van het dashboard template wordt geklikt. Dit verwisselt de zichtbaarheid van de grafieken zodat de één zichtbaar wordt en dan andere verborgen wordt, afhankelijk van op welke knop wordt geklikt. Hieronder zie je de JavaScript functies en de knoppen in de template:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L2-L32
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L41-L42
 
-De twee functies van regel 34 t/m 64: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L34-L64
-luisteren naar de knoppen op regel 56 en 57 van het dashboard template: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L56-L57
-en verwisselen de zichtbaarheid van de bestellingen tabellen zodat de één zichtbaar wordt en dan andere verborgen wordt. 
+#### Zichtbaarheid bestelling tabellen
+De twee functies van regel 34 t/m 64 hebben een "click" eventlister en worden getriggerd op het moment dat er op één van de knoppen op regel 56 en 57 van het dashboard template wordt geklikt. Deze knoppen verwisselen de zichtbaarheid van de bestellingen tabellen zodat de één zichtbaar wordt en dan andere verborgen wordt. 
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L34-L64
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/templates/dashboard.html#L56-L57
 
-De functie van regel 66 t/m 82: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L66-L82
-achterhaald welke van de twee tabellen momenteel zichtbaar is, dit wordt gebruikt in een aantal van de volgende functies. 
-Bijvoorbeeld, de functie van regel 84 t/m 119: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L84-L119
-Deze functie achterhaald met behulp van de vorige functie welke tabel zichtbaar is en exporteert deze als CSV-bestand. 
+#### Exporteren naar CSV
+De functie op regel 66 t/m 82 achterhaalt welke van de twee tabellen momenteel zichtbaar is, dit wordt gebruikt in een aantal van de volgende functies. Deze functie zie je hier:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L66-L82
+<br>
+Bovenstaande functie wordt bijvoorbeeld gebruikt in een andere functie op regel 84 t/m 119. Deze functie achterhaalt met behulp van de vorige functie welke tabel zichtbaar is en exporteert deze als CSV-bestand. 
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L84-L119
 
-De laatste 3 functies op regel 121 t/m 221: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L121-L221
-werken samen met de functie van regel 165 t/m 191 van de dashboard.py: https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L165-L191 
-om rijen uit de bestellingen tabel te kunnen selecteren en vervolgens te verwijderen.
+#### Rijen verwijderen
+De laatste 3 functies op regel 121 t/m 221 werken samen met de functie "delete_rij" op regel 165 t/m 191 van `dashboard.py` om rijen uit de bestellingen tabel te kunnen selecteren en vervolgens te verwijderen.
+JavaScript functies:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/static/js/dashboard.js#L121-L221
+De delete_rij functie uit dashboard.py:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/92df571f798c48eecff68669228dfbca3c409c60/hielander_whiskey_app/views/dashboard.py#L165-L191 
+<br>
 
 ### Masterclass reserveringen
 In het volgende gedeelte worden de onderdelen besproken die horen bij de masterclass reserveringen.
@@ -225,20 +234,22 @@ De [botteling reserveringspagina](./hielander_whiskey_app/templates/botteling_re
 
 Er is naar gestreefd om de pagina zo veel mogelijk zelf te laten updaten a.d.h.v. de [Festivaldata](#database-modellen) tabel. Dit kan echter niet overal. In de volgende lijst staan elementen die handmatig aangepast moeten worden als dit nodig is:
 
-- [Titel van de pagina](./hielander_whiskey_app/templates/botteling_reservering.html#L14). Deze kun je aanpassen op regelnummer 14 van de template (`botteling_reservering.html`). Plaats de titel tussen de >< haken.
+- [Titel van de pagina](./hielander_whiskey_app/templates/botteling_reservering.html#L14). Deze kun je aanpassen op regelnummer 14 van de template (`botteling_reservering.html`). Plaats de gewenste titel tussen de >< haken.
 
 - [Informatie over de botteling](./hielander_whiskey_app/templates/botteling_reservering.html#L17). Deze kun je aanpassen op regel 17 van de template (`botteling_reservering.html`). Plaats de info tussen de >< haken. De tekst wordt automatisch op de goede manier in het kader geplaatst.
 
 In het onderstaande codeblok wordt een voorbeeld weergegeven van de regels van toepassing:
-https://github.com/siepvan020/Bpexi_whiskey_project/blob/c6ff8bc71eeaf4d6d3460a3233ee61cf08153e4c/hielander_whiskey_app/templates/botteling_reservering.html#L12-L17
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/c6ff8bc71eeaf4d6d3460a3233ee61cf08153e4c/hielander_whiskey_app/templates/botteling_reservering.html#L12-L18
 
-- Maximaal aantal te bestellen flessen per e-mailadres. Deze moet worden aangepast op twee plekken, in de [template](./hielander_whiskey_app/templates/botteling_reservering.html#L42) (`botteling_reservering.html`) op regel 42 en in de [view](./hielander_whiskey_app/views/botteling_reservering.py#L72) (`botteling_reservering.py`) op regel 72. Dit maximum staat standaard op 2. Let wel op dat je ook de tekst van de [errormessage](./hielander_whiskey_app/views/botteling_reservering.py#L75) op regel 75 in de view aanpast, zodat deze overeenkomt met het maximaal aantal te reserveren flessen per e-mailadres.<br>
-
+- Maximaal aantal te bestellen flessen per e-mailadres. Deze moet worden aangepast op twee plekken, in de [template](./hielander_whiskey_app/templates/botteling_reservering.html#L42) (`botteling_reservering.html`) op regel 42. Let op dat je het nieuwe gewenste aantal achter `max=` tussen de aanhalingstekens plaatst. In de [view](./hielander_whiskey_app/views/botteling_reservering.py#L72) (`botteling_reservering.py`) moet dit worden aangepast op regel 72. Dit maximum staat standaard op 2. Let wel op dat je ook de tekst van de [errormessage](./hielander_whiskey_app/views/botteling_reservering.py#L75) op regel 75 in de view aanpast, zodat deze overeenkomt met het maximaal aantal te reserveren flessen per e-mailadres.Zie voorbeelden van de stukken code hieronder.<br>
+Code deel template:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/a7d01008d9aeb3947c0401c05c81127f497bc8c6/hielander_whiskey_app/templates/botteling_reservering.html#L40-L43
+Code deel view:
+https://github.com/siepvan020/Bpexi_whiskey_project/blob/a7d01008d9aeb3947c0401c05c81127f497bc8c6/hielander_whiskey_app/views/botteling_reservering.py#L72-L75
 
 - Grenswaarde van het tonen van het aantal flessen over. Dit kan worden aangepast in [`botteling_reservering.js`](https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/static/js/botteling_reservering.js#L15-L27) op regels 15 en 19. Deze waarde staat standaard op 50. Als er minder dan 50 flessen over zijn volgens de database, wordt het aantal getoond op de [`botteling_reservering.py`](./hielander_whiskey_app/templates/botteling_reservering.html#L20) op regel 20 t/m 22.<br>
-Voorbeelden van de twee codeblokken zijn hieronder te zien:<br>
+Voorbeelden van de twee codeblokken zijn hieronder te zien:
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/static/js/botteling_reservering.js#L15-L27
-<br>
 https://github.com/siepvan020/Bpexi_whiskey_project/blob/bf106a2fc1caf1bb0a8dfc7d21c2b4678b7f6f62/hielander_whiskey_app/templates/botteling_reservering.html#L19-L22
 
 
