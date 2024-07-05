@@ -1,0 +1,194 @@
+
+/* De styling van het volledige scherm tussen de header en de footer. */
+.bodydash {
+    background-color: white;
+    height: 75vw;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    flex-direction: row;
+}
+
+/* De styling van de linker helft van het scherm. */
+.links {
+    background-color: white;
+    width: 50%;
+    gap: 50px;
+    padding-top: 1.5rem;
+    padding-left: 1.5rem;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: start;
+    flex-direction: column;
+}
+
+/* De styling van de rechter helft van het scherm. */
+.rechts {
+    background-color: white;
+    width: 50%;
+    padding-top: 1rem;
+    gap: 50px;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+}
+
+/* De styling van het scherm waarin de "aantallen" tabel zich bevindt. */
+.aantallen{
+    height: 42.5%;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* De styling van het scherm waarin de grafieken zich bevinden. */
+.grafieken{
+    height: 42.5%;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    gap: 10px;
+}
+
+/* De styling van het scherm waarin de tabellen zich bevinden. */
+.tabel{
+    height: 40%;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-height: 600px;
+    gap: 10px;
+    overflow: auto;
+}
+
+/* De styling van het scherm waarin de "data aanpassen" tabel zich bevindt. */
+.data-aanpassen{
+    height: 40%;
+    width: 85%;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: column;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+    max-height: 600px;
+    gap: 10px;
+    overflow: auto;
+}
+
+/* De styling van de tabellen op de pagina. */
+table, th, td {
+    width: 85%;
+    background-color: white;
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 8px;
+}
+
+/* De styling van het stuk html waarin de knoppen zich bevinden. */
+.buttons {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    flex-direction: row;
+    gap: 10px;
+}
+
+/* De styling van de knoppen op de pagina. */
+.norm_buttons {
+    width: 100%;
+    background-color: #005EB8;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
+}
+
+/* De styling voor het hoveren over de knoppen. */
+.norm_buttons:hover {
+    background-color: #004A99;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
+}
+
+/* De styling van de sorteerbare kolom knoppen in de bestellingen tabellen. */
+.tablesaw-sortable-btn {
+    background-color: white;
+    border: 2px solid black;
+}
+
+/* De styling van het hoveren over de sorteerbare kolom knoppen in de bestellingen tabellen. */
+.tablesaw-sortable-btn:hover {
+    background-color: #d9dcde;
+    border: 2px solid black;
+}
+
+/* De styling van de opmerkingen in de bestellingen tabellen. deel 1 */
+.tooltip {
+    position: relative;
+    display: inline-block;
+  }
+
+/* De styling van de opmerkingen in de bestellingen tabellen. deel 2 */
+  .tooltip .tooltiptext {
+    visibility: hidden;
+    width: 300px;
+    height: auto;
+    background-color: #ffffff;
+    color: #000000;
+    text-align: center;
+    border-radius: 6px;
+    padding: 20px 0;
+    
+    position: absolute;
+    z-index: 1;
+    top: -5px;
+    right: 105%;
+  }
+
+/* Als over de i gehoverd wordt in de bestellingen tabel dan wordt de opmerking's visibility op zichtbaar gezet. */
+  .tooltip:hover .tooltiptext {
+    visibility: visible;
+    border: 3px solid #005EB8;
+  }
+
+/* positionering van de footer */
+.footer-background {
+    position: static;
+    margin-bottom: 0;
+}

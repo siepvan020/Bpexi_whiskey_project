@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Landingspagina{% endblock %}
+
+{% block headerCSS %}
+    <style>
+
+        .footer-background {
+            position: fixed;
+            bottom: 0;
+        }
+
+        .landings-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 60vh;
+        }
+        button {
+            width: 30%;
+            height: 15%;
+            background-color: #005EB8;
+            color: #fff;
+            border: none;
+            padding: 15px 30px;
+            margin-top: 20px;
+            font-size: 1em;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
+        }
+
+        button:hover {
+            background-color: #004A99;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
+        }
+
+        button a {
+            text-decoration: none;
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
+
+
+{% block content %}
+
+<section class="landings-buttons">
+
+    <button class="landings-button" onclick="location.href = 'botteling_reservering'">
+        Botteling reservering
+    </button>
+    <button class="landings-button" onclick="location.href = 'masterclass_reservering'">
+        Masterclass reservering
+    </button>
+    <button class="landings-button" onclick="location.href = 'login'">
+        Login pagina
+    </button>
+</section>
+
+{% endblock %}

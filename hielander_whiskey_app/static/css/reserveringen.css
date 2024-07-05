@@ -1,0 +1,153 @@
+/* Gecombineerde CSS voor masterclass_reservering.html en botteling_reservering.html */
+
+section {
+    width: 60%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+/* Pagina titels */
+h1 {
+    text-align: center;
+    font-size: 2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Welkoms/waarschuwings teksten bovenin de pagina */
+h2 {
+    text-align: center;
+    font-size: 1.5em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+p, label, span {
+    color: #666;
+    font-size: 1em;
+}
+
+/* Alle input field styling */
+input[type="text"], input[type="number"], textarea, select {
+    width: calc(100% - 20px);
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    resize: none;
+    font-family:Tahoma, Geneva, sans-serif;
+}
+
+/* Cursor -> bij hover overbuttons */
+.radio-container *:hover, #sessie_nummer:hover {
+    cursor: pointer;
+}
+
+/* Submit button styling */
+button {
+    width: 100%;
+    background-color: #005EB8;
+    color: #fff;
+    border: none;
+    padding: 15px 30px;
+    margin-top: 20px;
+    font-size: 1em;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 94, 184, 0.3);
+}
+
+/* Submit button hover effecten */
+button:hover {
+    background-color: #004A99;
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 94, 184, 0.4);
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* Specifieke styling voor Masterclass Reservering */
+    .masterclass-info {
+        text-align: center;
+    }
+
+    .masterclass_form {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .masterclass_form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .radio-container {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+
+    .radio-container input[type="radio"] {
+        margin-right: 10px;
+    }
+
+    .masterclass_form select {
+        width: calc(100% - 22px);
+    }
+
+    #totaalprijs {
+        font-weight: bold;
+        color: #333;
+    }
+
+/* Specifieke styling voor Botteling Reservering */
+    .botteling-info {
+        text-align: center;
+    }
+
+    .botteling-form {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+
+    .botteling-form label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    #flessen-aantal {
+        margin-top: 20px;
+    }
+
+    #flessen-aantal #naam-fles {
+        display: flex;
+        justify-content: space-around;
+        margin-bottom: 10px;
+    }
+
+    #fles-bijna {
+        color: orange;
+    }
+
+    #fles-op {
+        color: red;
+    }
+
+    #fles-info {
+        margin: 0 auto;
+        width: 70%;
+        text-align: left;
+    }

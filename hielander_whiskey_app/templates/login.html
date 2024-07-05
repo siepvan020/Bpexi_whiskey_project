@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin login{% endblock %}
+
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/login.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<section class="scherm">
+    <section class="login-form">
+        {% if messages %}
+            {% for message in messages %}
+                <p class="error-message">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+        <form method="post">
+            {% csrf_token %}
+            <label for="gebruikersnaam">Gebruikersnaam:</label>
+            <input type="text" id="gebruikersnaam" name="gebruikersnaam" required>
+            <br>
+            <br>
+            <label for="wachtwoord">Wachtwoord: </label>
+            <input id="wachtwoord" name="wachtwoord" type="password">
+            <br>
+            <button type="submit" class="norm_buttons">Log in</button>
+        </form>
+    </section>
+</section>
+
+{% endblock %}

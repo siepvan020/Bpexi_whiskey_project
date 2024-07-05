@@ -1,0 +1,208 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Admin dashboard{% endblock %}
+
+{% block headerCSS %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/dashboard.css' %}">
+{% endblock %}
+
+{% block content %}
+
+
+
+<section class="bodydash">
+    <section class="links">
+        <section class="aantallen">
+            <table class="text1" id="dataTable">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Sessie</th>
+                    <th>Gereserveerd</th>
+                    <th>Totaal beschikbaar</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for i in aantallen %}
+                        <tr>
+                            <td>{{ i.0 }}</td>
+                            <td>{{ i.1 }}</td>
+                            <td>{{ i.2 }}</td>
+                            <td>{{ i.3 }}</td>
+                         </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </section>
+        <section class="grafieken">
+            {% load static %}
+            <section class="buttons">
+              <button id="grafiek-botteling" class="norm_buttons">Botteling</button>
+              <button id="grafiek-masterclass" class="norm_buttons">Masterclasses</button>
+            </section>
+
+            <section id="grafiek_botteling" style="display: block;">
+                {% include "plots/bottel_piechart.html" %}
+            </section>
+            <section id="grafiek_masterclass" style="display: none;">
+                {% include "plots/masterclass_barchart.html" %}
+            </section>
+        </section>
+    </section>
+    <section class="rechts">
+        <section class="tabel">
+          <section class="buttons">
+            <button id="tabel-botteling" class="norm_buttons">Botteling</button>
+            <button id="tabel-masterclass" class="norm_buttons">Masterclasses</button>
+            <button id="tabel-export" class="norm_buttons">Export naar CSV</button>
+            <button id="deleteSelectedRowIds" class="norm_buttons">Verwijder geselecteerd</button>
+          </section>
+
+            <table id="tabel_botteling" class="tablesaw" data-tablesaw-sortable style="display: block;">
+                <thead>
+                <tr>
+                    <th>Selecteer</th>
+                    <th data-tablesaw-sortable-col>Voornaam</th>
+                    <th data-tablesaw-sortable-col>Achternaam</th>
+                    <th>E-mailadres</th>
+                    <th>Aantal</th>
+                    <th>Totaal prijs</th>
+                    <th>Reserve</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
+                    <th>Opmerking</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in botteling %}
+                <tr data-id="{{ row.id }}">
+                    <td><input type="checkbox" class="row-checkbox" data-id="{{ row.id }}"></td>
+                    <td>{{ row.voornaam }}</td>
+                    <td>{{ row.achternaam }}</td>
+                    <td>{{ row.e_mailadres }}</td>
+                    <td>{{ row.aantal_flessen }}</td>
+                    <td>{{ row.totaalprijs }}</td>
+                    <td>{{ row.reserve }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
+                    <td>
+                        {% if row.opmerking %}
+                            <div class="tooltip">&#x1F6C8;
+                                <span class="tooltiptext">
+                                    {{ row.opmerking }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <table id="tabel_masterclass" class="tablesaw" data-tablesaw-sortable style="display: none;">
+                <thead>
+                <tr>
+                    <th>Selecteer</th>
+                    <th data-tablesaw-sortable-col>Voornaam</th>
+                    <th data-tablesaw-sortable-col>Achternaam</th>
+                    <th>E-mailadres</th>
+                    <th>Sessie</th>
+                    <th>Masterclass</th>
+                    <th>Aantal</th>
+                    <th>Totaal prijs</th>
+                    <th>Reserve</th>
+                    <th data-tablesaw-sortable-col>Datum - tijd</th>
+                    <th>Opmerking</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for row in masterclass %}
+                <tr data-id="{{ row.id }}">
+                    <td><input type="checkbox" class="row-checkbox" data-id="{{ row.id }}"></td>
+                    <td>{{ row.voornaam }}</td>
+                    <td>{{ row.achternaam }}</td>
+                    <td>{{ row.e_mailadres }}</td>
+                    <td>{{ row.sessie_nummer }}</td>
+                    <td>{{ row.masterclass }}</td>
+                    <td>{{ row.aantal_kaarten }}</td>
+                    <td>{{ row.totaalprijs }}</td>
+                    <td>{{ row.reserve }}</td>
+                    <td>{{ row.datum|date:'d-m-Y' }} - {{ row.tijd|date:'H:i' }}</td>
+                    <td>
+                        {% if row.opmerking %}
+                            <div class="tooltip">&#x1F6C8;
+                                <span class="tooltiptext">
+                                    {{ row.opmerking }}
+                                </span>
+                            </div>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </section>
+
+        <section class="data-aanpassen">
+            <form method="post">
+                {% csrf_token %}
+                <table class="input-table">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Naam</th>
+                            <th>Tijd</th>
+                            <th>Sessie</th>
+                            <th>Datum</th>
+                            <th>Aantal beschikbaar</th>
+                            <th>Prijs</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in festivaldata %}
+                            <tr>
+                                <td>{{ item.type }}</td>
+                                <td><input type="text" name="naam_{{item.id}}" placeholder="{{ item.naam }}"></td>
+                                {% if item.type == 'Botteling' %}
+                                <td>-</td>
+                                <td>-</td>
+                                <td>-</td>
+                                {% else %}
+                                <td><input type="time" name="tijd_{{item.id}}" value="{{ item.tijd|date:'H:i' }}"></td>
+                                <td>{{ item.sessie }}</td>
+                                <td><input type="text" name="datum_{{item.id}}" onfocus="(this.type='date')" onblur="(this.type='text')" placeholder="{{ item.datum|date:'d-m-Y' }}"></td>
+                                {% endif %}
+                                <td><input type="number" name="aantal_beschikbaar_{{item.id}}" placeholder="{{ item.aantal_beschikbaar }}" min="0"></td>
+                                <td><input type="number" name="prijs_{{item.id}}" placeholder="{{ item.prijs }}" min="0" step=".01"></td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <p class="update-message">{{ message }}</p>
+                    {% endfor %}
+                {% endif %}
+
+                <button type="submit" class="norm_buttons">Update</button>
+            </form>
+
+        </section>
+
+    </section>
+</section>
+
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'js/dashboard.js' %}"></script>
+
+<script>
+    $(document).ready(function(){
+        $(document).trigger("enhance.tablesaw");
+    });
+</script>
+{% endblock %}
+
+
+
+
