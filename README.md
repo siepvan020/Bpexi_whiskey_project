@@ -53,42 +53,81 @@ Momenteel worden de reserveringen voor de botteling en masterclasses handmatig a
 De botteling en masterclass pagina's zijn bedoeld voor klanten. Hier kunnen de klanten reserveringen maken. Vervolgens krijgen de klanten automatisch de mail waarin informatie over de bestelling en de factuur te vinden is. De admin-dashboardpagina is bedoeld voor de eigenaren. Hierin is informatie over alle gemaakt bestellingen te vinden. Ook kunnen hier gegevens van de huidige verkochte bottels en masterclasses aangepast worden. 
 
 ### Installatie en opstart instructies
-Voor het gebruiken van de applicatie is python vereist. Als u nog geen python 3.11 geïnstalleerd heeft, volgt u de volgende stappen om python 3.11 te installeren: 
+**Voor het gebruiken van de applicatie is python vereist. Als u nog geen python 3.11 geïnstalleerd heeft, volgt u de volgende stappen om python 3.11 te installeren:** 
 
 - Ga naar https://www.python.org/downloads/release/python-3119/  
-- Scroll vervolgens naar beneden tot aan ‘Files’ 
-- Druk vervolgens op ‘Windows installer(64-bit)’ 
-- Open de gedownloade installer 
-- Vink de optie ‘Add python.exe to PATH’ aan 
-- Druk op de optie ‘Install Now’ 
-- Wanneer de installatie compleet is kunt u dit venster sluiten 
+- Scroll vervolgens naar beneden tot aan "Files".
+- Heeft u Windows:
+    - Druk op "Windows installer(64-bit)".
+- Heeft u Unix/Mac:
+    - Druk op "macOS 64-bit universal2 installer".
 
-Wanneer python geïnstalleerd is, kunt u de map waarin de applicatie staat openen. 
+<img src="./hielander_whiskey_app/static/img/img_readme/python_versies.png" alt="python versies" width="600px;"/>
 
-Type in de adresbalk van de map (de balk waarin staat waar in uw documenten u zich bevindt) het volgende commando:<br> 
-`cmd` 
+<br>
 
-Vervolgens zullen we een virtuele omgeving aan moeten maken. Indien dit al is gedaan kunt u deze stap overslaan.  
+- Open de gedownloade installer/setup in uw downloads map.
+- Vink de optie "Add python.exe to PATH" aan.
+- Druk op de optie "Install Now".
+- Wanneer de installatie compleet is kunt u dit venster sluiten.
+
+<img src="./hielander_whiskey_app/static/img/img_readme/python_install.png" alt="python installer" width="500px;"/>
+
+<br>
+
+**Wanneer Python 3.11 geïnstalleerd is, kunt u de applicatie installeren. Dit zijn de stappen om dit te doen:**
+
+Ga naar https://github.com/siepvan020/Bpexi_whiskey_project/tree/main.<br>
+Druk hier op de groene "Code" knop en vervolgens op "Download ZIP"
+
+<img src="./hielander_whiskey_app/static/img/img_readme/github.png" alt="github download" width="600px;"/>
+
+- Open uw downloads map en pak de ZIP-map uit/unzip de map.
+- Open de map na het unzippen. Zorg ervoor dat u zich in de omgeving bevindt waarin de twee mappen "hielander_whiskey_app" en "whiskey_project" staan. Dit wordt de projectmap genoemd.
+
+<img src="./hielander_whiskey_app/static/img/img_readme/projectmap.png" alt="projectmap" width="600px;"/>
+
+<br>
+
+Typ in de adresbalk van de map (de balk waarin staat waar in uw documenten u zich bevindt) het volgende commando:
+```cmd
+cmd
+``` 
+
+<img src="./hielander_whiskey_app/static/img/img_readme/cmd_command.png" alt="cmd commando" width="600px;"/>
+
+De opdracht terminal zal nu openen. Vervolgens zullen we een virtuele omgeving aan moeten maken. Indien dit al is gedaan kunt u deze stap overslaan.  
 Om een virtuele omgeving aan te maken, typt u het volgende commando:<br> 
+```cmd
+py -3.11 -m venv venv
+```
 
-`py -3.11 -m venv venv`  
+Het kan even duren voor deze virtuele omgeving is aangemaakt. Als dit is gelukt moeten we de virtuele omgeving activeren. Afhankelijk van uw besturingssysteem moet dit met een ander commando gedaan worden. U kunt één van de volgende commando’s kiezen, passend bij uw besturingssysteem:
+- Windows (! Let op, dit zijn backslashes !): 
+```cmd 
+venv\scripts\activate
+``` 
+- Unix/Mac (! Dit zijn forward slashes !): 
+```cmd
+source venv/bin/activate
+```
 
-Vervolgens moeten we de virtuele omgeving activeren. Afhankelijk van uw besturingssysteem moet dit met een ander commando gedaan worden. U kunt één van de volgende commando’s kiezen, passend bij uw besturingssysteem:<br> 
-- Windows: `venv\scripts\activate` 
-- Unix/Mac: `source venv/bin/activate` 
+Wanneer de omgeving geactiveerd is, staat er `(venv)` aan het begin van de command line. Vervolgens kunt u het laatste commando intypen om de vereiste bestanden te installeren. Dit doet u met het volgende commando:
+```cmd
+pip install -r requirements.txt
+``` 
 
-Wanneer de omgeving geactiveerd is, kunt u het laatste commando intypen om de vereiste bestanden te installeren. Dit doet u met het volgende commando:<br> 
-`pip install -r requirements.txt` 
-
-Als het installeren van de bestanden voltooid is kunt u de applicatie gebruiken met het volgende commando:<br> 
-`python manage.py runserver` 
+Ook dit proces kan even duren. Heb hier even geduld voor. Als het installeren van de bestanden voltooid is kunt u de applicatie runnen en opstarten met het volgende commando:<br>
+```cmd
+python manage.py runserver
+```
 
 Dit commando zal ervoor zorgen dat de applicatie start. In uw browser kunt u vervolgens ‘http://127.0.0.1:8000/’ in de adresbalk invoeren om de applicatie te gebruiken. 
 
 
 ## Bestanden
 ### Basisstructuur
-De HTML bestanden voor alle schermen kun je vinden in de map [`hielander_whiskey_app/templates/`](./hielander_whiskey_app/templates/). Tussen deze bestanden staat ook [`base.html`](./hielander_whiskey_app/templates/base.html). Hierin staat de basis HTML structuur, met onder andere een aantal installaties (font, jQuery, Tablesaw), de headerbalk en footerbalk. Ook  De [`base.html` wordt gebruikt om elementen te laden die op alle pagina's worden gebruikt, zoals de header. Deze maakt gebruik van Django template inheritance met blokken zoals `{% block content %}` en `{% block extrascripts %}`.
+De HTML bestanden voor alle schermen kun je vinden in de map [`hielander_whiskey_app/templates/`](./hielander_whiskey_app/templates/). Tussen deze bestanden staat ook [`base.html`](./hielander_whiskey_app/templates/base.html). Hierin staat de basis HTML structuur, met onder andere een aantal installaties (font, jQuery, Tablesaw), de headerbalk en footerbalk. Ook  De `base.html` wordt gebruikt om elementen te laden die op alle pagina's worden gebruikt, zoals de header. Deze maakt gebruik van Django template inheritance met blokken zoals `{% block content %}` en `{% block extrascripts %}`.
 
 ### Bestanden vinden
 #### Static bestanden
@@ -325,16 +364,16 @@ Om de tests uit te voeren, moet je de volgende stappen volgen:
 
 1. Navigeer naar de hoofdmap van het project: "whisky_project". Dit is de map waar `manage.py` zich bevindt.
 2. Gebruik het Django test commando: Voer het volgende command uit in de command line terminal om alle tests te runnen:
-   ```bash
+   ```cmd
    python manage.py test
    ```
 Je kunt er ook voor kiezen om losse testscripts te runnen.
 - Voor het testen van de database modellen, voer het volgende command uit:
-    ```bash
+    ```cmd
    python manage.py test hielander_whisky_app.testing.test_models
    ```
 - Voor het testen van de views, voer het volgende command uit:
-    ```bash
+    ```cmd
    python manage.py test hielander_whisky_app.testing.test_views
    ```
 
@@ -350,7 +389,7 @@ De unit tests zijn te vinden in de map [`hielander_whiskey_app/testing`](https:/
     - `test_dashboard.py`
     - `test_masterclass.py`
 
-Uitleg over wat elke unit test doet is te vinden in de docstring documentatie van elke testfunctie.
+Uitleg over wat elke unit test doet is te vinden in de docstring documentatie van elke testfunctie. In de overkoepelende test klasses zijn overzichten te vinden van welke testcases de klasse bevat.
 
 
 ## Development status
