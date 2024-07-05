@@ -3,9 +3,12 @@ from unittest.mock import patch
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
+from django_pony_express.services.tests import EmailTestService
+from datetime import datetime, timedelta
 
 # Local imports
 from hielander_whiskey_app.models import BottelingReserveringen, FestivalData
+
 
 
 class TestBottelingReserveringPage(TestCase):
@@ -21,6 +24,8 @@ class TestBottelingReserveringPage(TestCase):
     5. test_post_foute_email: Test het submitten van een formulier met een ongeldig e-mailadres via een POST request naar de reserveringspagina.
     6. test_post_teveel_flessen: Test het submitten van een formulier met teveel flessen via een POST request naar de reserveringspagina.
     7. test_post_reservelijst: Test het submitten van een formulier terwijl er al een reservering bestaat met hetzelfde e-mailadres.
+    8. test_email_gestuurd: Test het sturen/ontvangen van een e-mail na het invullen van een valid form.
+    9. test_flessen_status: Test het updaten van de flessenstatus op de botteling reserveringspagina.
     """
 
     def setUp(self):
@@ -31,6 +36,8 @@ class TestBottelingReserveringPage(TestCase):
         """
         self.client = Client()
         self.url = reverse('botteling_reservering')
+        self.email_test_service = EmailTestService()
+
         # Instantie waarmee wordt getest
         self.festival_data = FestivalData.objects.create(
             type='botteling',
@@ -189,3 +196,52 @@ class TestBottelingReserveringPage(TestCase):
         reservering = BottelingReserveringen.objects.get(e_mailadres=
                                                          'foo.bar@example.com')
         self.assertTrue(reservering.reserve)
+    
+
+    def test_email_gestuurd(self):
+        """
+        Testcase voor het sturen/ontvangen van een e-mail na het invullen van een valid form.
+        Controleert of de email:
+        - Naar het juiste e-mailadres is gestuurd.
+        - Één keer is verstuurd.
+        - Het juiste onderwerp heeft.
+        - De juiste factuurdatum bevat.
+        """
+        factuurdatum = datetime.now().date() + timedelta(days=14)
+
+        response = self.client.post(self.url, self.data)
+        self.email_test_service.filter(to='foo.bar@example.com'
+                                       ).assert_quantity(1)
+        self.email_test_service.filter(to='foo.bar@example.com'
+                                       )[0].assert_subject(
+                                           'HWF - Festival Botteling Factuur')
+        self.email_test_service.filter(to='foo.bar@example.com'
+                                       )[0].assert_body_contains(
+                                           factuurdatum.strftime('%d-%m-%Y'))
+        
+
+    def test_flessen_status(self):
+        """
+        Testcase voor het updaten van de flessenstatus op de botteling reserveringspagina.
+        Controleert of de flessen status:
+        - Correct update als er (minder dan) 50 flessen beschikbaar zijn.
+        - Correct update als er geen flessen meer beschikbaar zijn.
+        """
+        for i in range(50):
+            BottelingReserveringen.objects.create(
+                **self.data,
+                totaalprijs=self.data['aantal_flessen'] * self.festival_data.prijs
+            )
+        
+        response = self.client.get(self.url)
+        self.assertInHTML('Nog 50 flessen beschikbaar!', response.content.decode('utf-8'))
+        
+        for i in range(25):
+            BottelingReserveringen.objects.create(
+                **self.data,
+                totaalprijs=self.data['aantal_flessen'] * self.festival_data.prijs
+            )
+        
+        response = self.client.get(self.url)
+        self.assertInHTML('Geen flessen meer beschikbaar! U wordt op de reservelijst geplaatst.',
+                           response.content.decode('utf-8'))

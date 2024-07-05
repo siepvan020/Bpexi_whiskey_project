@@ -1,9 +1,10 @@
 # Third party imports
-import datetime
+from datetime import datetime, timedelta
 from unittest.mock import patch
 from django.test import Client, TestCase
 from django.urls import reverse
 from django.contrib.messages import get_messages
+from django_pony_express.services.tests import EmailTestService
 
 # Local imports
 from hielander_whiskey_app.models import FestivalData, MasterclassReserveringen
@@ -20,6 +21,7 @@ class TestMasterclassReserveringPage(TestCase):
     3. test_post_lege_voornaam: Test het submitten van invalid data met een lege voornaam via een POST request naar de reserveringspagina.
     4. test_post_lege_achternaam: Test het submitten van data met een lege achternaam via een POST request naar de reserveringspagina.
     5. test_post_foute_email: Test het submitten van data met een ongeldig e-mailadres via een POST request naar de reserveringspagina.
+    6. test_email_gestuurd: Test het sturen/ontvangen van een e-mail na het invullen van een valid form.
 
     """
 
@@ -33,6 +35,8 @@ class TestMasterclassReserveringPage(TestCase):
         """
         self.client = Client()
         self.url = reverse('masterclass_reservering')
+        self.email_test_service = EmailTestService()
+
         # Dummy, de view skipt namelijk de eerste instance
         FestivalData.objects.create(    
             type='botteling',
@@ -43,9 +47,9 @@ class TestMasterclassReserveringPage(TestCase):
         self.festival_data = FestivalData.objects.create(
             type='masterclass 1',
             naam='Kenny MacDonald - Dram Mhor Group LTD',
-            tijd=datetime.datetime.now().time(),
+            tijd=datetime.now().time(),
             sessie=1,
-            datum=datetime.datetime.now().date(),
+            datum=datetime.now().date(),
             aantal_beschikbaar=30,
             prijs=15.0
         )
@@ -149,3 +153,20 @@ class TestMasterclassReserveringPage(TestCase):
         self.assertTemplateUsed(response, 'masterclass_reservering.html')
         messages = list(get_messages(response.wsgi_request))
         self.assertTrue(any(message.message == 'E-mailadres is niet correct' for message in messages))
+
+    def test_email_gestuurd(self):
+        """
+        Testcase voor het sturen/ontvangen van een e-mail na het invullen van een valid form.
+        Controleert of de email:
+        - Naar het juiste e-mailadres is gestuurd.
+        - Één keer is verstuurd.
+        - Het juiste onderwerp heeft.
+        """
+        factuurdatum = datetime.now().date() + timedelta(days=14)
+
+        response = self.client.post(self.url, self.data)
+        self.email_test_service.filter(to='foo.bar@example.com'
+                                       ).assert_quantity(1)
+        self.email_test_service.filter(to='foo.bar@example.com'
+                                       )[0].assert_subject(
+                                           'HWF - Festival Masterclass Factuur')
