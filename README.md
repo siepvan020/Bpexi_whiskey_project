@@ -366,7 +366,7 @@ De applicatie is ontworpen voor standaard laptopschermen. Bij gebruik op scherme
 Voor de masterclasskaarten was, net zoals voor de botteling, een reservelijstsysteem opgezet. Op de masterclassreserveringspagina kunnen echter niet meer dan het maximaal beschikbare aantal kaarten besteld worden. Hierdoor is het momenteel niet mogelijk om op de reservelijst te komen. 
 
 #### Bevestiging pagina’s 
-De bevestigingspagina's voor zowel de masterclass als de botteling zijn toegankelijk voordat een bestelling is voltooid. Dit komt doordat de URL van de bevestigingspagina's handmatig kan worden ingevoerd. Deze bevestigingspagina's zullen dan grotendeels leeg zijn, omdat er geen details van bestellingen zijn ingevuld. 
+De bevestigingspagina's horen bereikbaar te zijn nadat de gebruiker een bestelling heeft gedaan op de bestellingen pagina. Voor zowel de masterclass als de botteling zijn de bevestigingspagina's overigens toegankelijk voordat een bestelling is voltooid. Dit komt doordat de URL van de bevestigingspagina's handmatig kan worden ingevoerd. Deze bevestigingspagina's zullen dan grotendeels leeg zijn, omdat er geen details van bestellingen zijn ingevuld. 
 
 ### Features in development 
 
@@ -380,4 +380,4 @@ Op de reserveringspagina voor de masterclass wordt momenteel niet duidelijk aang
 Momenteel is het gebruik van try/except in de applicatie redelijk gelimiteerd. Op veel plekken zou dit geïmplementeerd kunnen worden om de robuustheid van de applicatie te verbeteren. 
 
 #### Festival data controle 
-Als de festivaldata op de admin-dashboardpagina wordt aangepast, wordt deze momenteel niet gevalideerd. Een vorm van controle kan worden ingevoerd om misbruik of fouten te voorkomen. 
+Als de festivaldata op de admin-dashboardpagina wordt aangepast, wordt deze momenteel niet gevalideerd. De datum van een masterclass kan momenteel op een reeds verstreken datum worden ingesteld. De namen van de botteling en masterclasses worden niet gecontroleerd op vreemde tekens. Een vorm van controle kan worden ingevoerd om misbruik of fouten te voorkomen. 
